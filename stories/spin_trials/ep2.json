@@ -1,0 +1,1306 @@
+{
+ "title": "Spin Trials 2: The Vault Door",
+ "brand": "SPIN TRIALS",
+ "narrator_voice": "af_jessica",
+ "speed": 1.3,
+ "captions": {
+  "style": "word"
+ },
+ "characters": {
+  "ava": {
+   "skin": "#f1c79f",
+   "hair": "ponytail",
+   "hair_color": "#2b1a12",
+   "shirt_style": "hoodie",
+   "shirt": "#7c4dd8",
+   "pants_style": "jeans",
+   "pants": "#2f3f66",
+   "shoes": "#f5f5f5",
+   "eyes": "round",
+   "voice": "af_bella",
+   "pitch": 2,
+   "scale": 0.92
+  },
+  "leo": {
+   "skin": "#d79e72",
+   "hair": "spiky",
+   "hair_color": "#e3bb62",
+   "shirt_style": "jersey",
+   "shirt": "#d94b3d",
+   "number": 1,
+   "pants_style": "sweats",
+   "pants": "#1f2937",
+   "voice": "am_echo",
+   "pitch": 2,
+   "scale": 1.08
+  },
+  "milo": {
+   "skin": "#e9b98f",
+   "hair": "messy",
+   "hair_color": "#4a2c1a",
+   "shirt_style": "tee",
+   "shirt": "#2fa36b",
+   "pants_style": "shorts",
+   "pants": "#3a4f73",
+   "voice": "am_puck",
+   "pitch": 3,
+   "glasses": true
+  },
+  "host": {
+   "skin": "#f3d2b3",
+   "hair": "tophat",
+   "hat_color": "#1b1b1b",
+   "hair_color": "#e8e2d0",
+   "shirt_style": "suit",
+   "shirt": "#2a1f4a",
+   "tie": "#ffd46b",
+   "pants_style": "pants",
+   "pants": "#1f2937",
+   "shoes": "#1b1b1b",
+   "voice": "am_onyx",
+   "scale": 1.1,
+   "glasses": true
+  }
+ },
+ "shots": [
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5
+    }
+   ],
+   "cast": [],
+   "cam": {
+    "pos": [
+     44,
+     34,
+     58
+    ],
+    "to_pos": [
+     12,
+     9,
+     24
+    ],
+    "look": [
+     0,
+     2,
+     2
+    ],
+    "to_look": [
+     0,
+     4,
+     2
+    ]
+   },
+   "sfx": [
+    {
+     "type": "crowd",
+     "at": 0.2,
+     "db": -12
+    }
+   ],
+   "lines": [
+    {
+     "text": "In this world, everyone can see physics. And after the Great Wheel, everyone was watching Ava."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5
+    },
+    {
+     "type": "label",
+     "text": "τ needed: 1500 N·m",
+     "at3": [
+      0,
+      10.6,
+      2.6
+     ],
+     "w": 5,
+     "h": 1.0,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "show": [
+      1.2
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "host",
+     "pos": [
+      1.5,
+      6.5
+     ],
+     "act": "talk",
+     "face": 10
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "host",
+    "scale": 1.4,
+    "angle": 15,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "who": "host",
+     "text": "Trial two: the Vault Door! It takes fifteen hundred newton meters of torque to swing it open.",
+     "caption": "Trial two: the Vault Door! It takes 1500 N·m of torque to swing it open."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      -4,
+      9.5
+     ],
+     "face": 160,
+     "expr": "smug"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "on": "leo",
+    "move": "push",
+    "angle": 10
+   },
+   "lines": [
+    {
+     "who": "leo",
+     "text": "Torque? I'll just push really hard."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5,
+     "swing": [
+      [
+       0,
+       0
+      ]
+     ],
+     "wobble": 0.35
+    },
+    {
+     "type": "arrow",
+     "on": "door",
+     "from": [
+      0.6,
+      4.4,
+      2.8
+     ],
+     "to": [
+      0.6,
+      4.4,
+      0.5
+     ],
+     "color": "#ff4d4d",
+     "label": "F = 900 N",
+     "lw": 2.4,
+     "show": [
+      0.8
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      -2.4,
+      3.65
+     ],
+     "face": 180,
+     "act": "strain",
+     "expr": "angry"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "creak",
+     "at": 0.3,
+     "db": -14
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "leo",
+    "angle": 135,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "text": "Leo pushed with nine hundred newtons. But he pushed right next to the hinge."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5,
+     "swing": [
+      [
+       0,
+       0
+      ]
+     ],
+     "wobble": 0.35
+    },
+    {
+     "type": "arrow",
+     "on": "door",
+     "from": [
+      0,
+      2.3,
+      0.45
+     ],
+     "to": [
+      0.6,
+      2.3,
+      0.45
+     ],
+     "color": "#4da3ff",
+     "label": "r = 0.5 m",
+     "lw": 2.2,
+     "show": [
+      0.4
+     ]
+    },
+    {
+     "type": "arrow",
+     "on": "door",
+     "from": [
+      0.6,
+      4.4,
+      2.8
+     ],
+     "to": [
+      0.6,
+      4.4,
+      0.5
+     ],
+     "color": "#ff4d4d",
+     "label": "F = 900 N",
+     "lw": 2.4,
+     "show": [
+      0.8
+     ]
+    },
+    {
+     "type": "label",
+     "text": "τ = rF = 0.5 × 900 = 450 N·m",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.6,
+     "h": 0.4,
+     "color": "#ffffff",
+     "minh": 0.045,
+     "show": [
+      1.0
+     ],
+     "hud": [
+      0,
+      0.62
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      -2.4,
+      3.65
+     ],
+     "face": 180,
+     "act": "strain",
+     "expr": "angry"
+    }
+   ],
+   "cam": {
+    "pos": [
+     -1.5,
+     21,
+     11
+    ],
+    "look": [
+     -1.5,
+     0.5,
+     2.8
+    ],
+    "to_pos": [
+     -1.5,
+     19,
+     10
+    ]
+   },
+   "lines": [
+    {
+     "text": "Torque is the force times how far from the pivot you push. Half a meter out, his torque was only four hundred fifty.",
+     "caption": "Torque is the force × how far from the pivot you push. Half a meter out: only 450 N·m."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      -1.6,
+      4.4
+     ],
+     "face": 30,
+     "expr": "angry"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "on": "leo",
+    "angle": -15,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "who": "leo",
+     "text": "Fine! I'll push it from the side!"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5,
+     "swing": [
+      [
+       0,
+       0
+      ]
+     ],
+     "wobble": 0.3
+    },
+    {
+     "type": "arrow",
+     "on": "door",
+     "from": [
+      0,
+      2.3,
+      0.45
+     ],
+     "to": [
+      5.4,
+      2.3,
+      0.45
+     ],
+     "color": "#4da3ff",
+     "label": "r = 6 m",
+     "lw": 2.0,
+     "show": [
+      0.4
+     ]
+    },
+    {
+     "type": "arrow",
+     "on": "door",
+     "from": [
+      10.0,
+      4.3,
+      0.0
+     ],
+     "to": [
+      6.4,
+      4.3,
+      0.0
+     ],
+     "color": "#ff4d4d",
+     "label": "F",
+     "show": [
+      0.6
+     ]
+    },
+    {
+     "type": "label",
+     "text": "θ = 0°",
+     "at3": [
+      7.5,
+      4.3,
+      2
+     ],
+     "w": 2.4,
+     "h": 0.9,
+     "color": "#ff4d4d",
+     "border": "#ff4d4d",
+     "show": [
+      1.2
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      4.6,
+      2.0
+     ],
+     "face": -90,
+     "act": "strain",
+     "expr": "angry"
+    }
+   ],
+   "cam": {
+    "pos": [
+     10.5,
+     6.5,
+     13
+    ],
+    "look": [
+     3.5,
+     2.6,
+     2
+    ],
+    "to_pos": [
+     9.6,
+     6,
+     11.8
+    ]
+   },
+   "lines": [
+    {
+     "text": "So he shoved along the door, straight toward the hinge."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5,
+     "swing": [
+      [
+       0,
+       0
+      ]
+     ],
+     "wobble": 0.3
+    },
+    {
+     "type": "arrow",
+     "on": "door",
+     "from": [
+      0,
+      2.3,
+      0.45
+     ],
+     "to": [
+      5.4,
+      2.3,
+      0.45
+     ],
+     "color": "#4da3ff",
+     "label": "r = 6 m",
+     "lw": 2.0,
+     "show": [
+      0.4
+     ]
+    },
+    {
+     "type": "arrow",
+     "on": "door",
+     "from": [
+      10.0,
+      4.3,
+      0.0
+     ],
+     "to": [
+      6.4,
+      4.3,
+      0.0
+     ],
+     "color": "#ff4d4d",
+     "label": "F",
+     "show": [
+      0.6
+     ]
+    },
+    {
+     "type": "label",
+     "text": "τ = rF sin θ",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.0,
+     "h": 0.5,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.06,
+     "show": [
+      0.3
+     ],
+     "hud": [
+      0,
+      0.64
+     ]
+    },
+    {
+     "type": "label",
+     "text": "sin 0° = 0  →  τ = 0",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.4,
+     "h": 0.42,
+     "color": "#ff4d4d",
+     "border": "#ff4d4d",
+     "minh": 0.045,
+     "show": [
+      3.6
+     ],
+     "hud": [
+      0,
+      0.46
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      4.6,
+      2.0
+     ],
+     "face": -90,
+     "act": "strain",
+     "expr": "angry"
+    }
+   ],
+   "cam": {
+    "pos": [
+     1,
+     24,
+     12
+    ],
+    "look": [
+     1,
+     0.5,
+     2.6
+    ],
+    "to_pos": [
+     1,
+     22,
+     11
+    ]
+   },
+   "lines": [
+    {
+     "text": "But only the part of the force that's perpendicular to the door can turn it.",
+     "caption": "Only the part of the force perpendicular to the door can turn it."
+    },
+    {
+     "text": "Push straight at the hinge, and the angle is zero. Sine of zero is zero. Zero torque.",
+     "caption": "Push straight at the hinge: θ = 0. sin 0 = 0. Zero torque."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "path": [
+      [
+       5.5,
+       0,
+       9.5
+      ],
+      [
+       3.6,
+       0,
+       6.2
+      ],
+      [
+       2.4,
+       0,
+       3.75
+      ]
+     ],
+     "act": "walk",
+     "move": [
+      0.05,
+      0.8
+     ]
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "ava",
+    "angle": 100,
+    "relative": false,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "text": "Then Ava walked to the very edge of the door. Six meters from the hinge."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5,
+     "swing": [
+      [
+       0,
+       0
+      ],
+      [
+       5.2,
+       0
+      ],
+      [
+       6.5,
+       6
+      ]
+     ]
+    },
+    {
+     "type": "arrow",
+     "on": "door",
+     "from": [
+      0,
+      2.3,
+      0.45
+     ],
+     "to": [
+      5.4,
+      2.3,
+      0.45
+     ],
+     "color": "#4da3ff",
+     "label": "r = 6 m",
+     "lw": 2.0,
+     "show": [
+      0.4
+     ]
+    },
+    {
+     "type": "arrow",
+     "on": "door",
+     "from": [
+      5.4,
+      4.4,
+      2.8
+     ],
+     "to": [
+      5.4,
+      4.4,
+      0.5
+     ],
+     "color": "#ff4d4d",
+     "label": "F = 300 N",
+     "lw": 2.4,
+     "show": [
+      0.8
+     ]
+    },
+    {
+     "type": "label",
+     "text": "τ = 6 × 300 = 1800 N·m",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.6,
+     "h": 0.42,
+     "color": "#5ef2c2",
+     "border": "#5ef2c2",
+     "minh": 0.05,
+     "show": [
+      2.6
+     ],
+     "hud": [
+      0,
+      0.62
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "ride": {
+      "on": "door",
+      "at": [
+       5.4,
+       1.65
+      ]
+     },
+     "face": 180,
+     "act": "push",
+     "expr": "determined"
+    }
+   ],
+   "sfx": [
+    {
+     "type": "creak",
+     "at": 0.85,
+     "db": -10
+    }
+   ],
+   "cam": {
+    "pos": [
+     0.5,
+     24,
+     12
+    ],
+    "look": [
+     0.5,
+     0.5,
+     2.6
+    ],
+    "to_pos": [
+     0.5,
+     22,
+     11
+    ]
+   },
+   "lines": [
+    {
+     "text": "She pushed with just three hundred newtons, straight into the door.",
+     "caption": "She pushed with just 300 N, straight into the door."
+    },
+    {
+     "text": "Six times three hundred. Eighteen hundred newton meters.",
+     "caption": "6 × 300 = 1800 N·m."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.5,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5,
+     "swing": [
+      [
+       0,
+       6
+      ],
+      [
+       3.2,
+       82
+      ]
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "ride": {
+      "on": "door",
+      "at": [
+       5.4,
+       1.65
+      ]
+     },
+     "face": 180,
+     "act": "push"
+    }
+   ],
+   "cam": {
+    "type": "wide",
+    "on": "door",
+    "angle": -20,
+    "scale": 0.9,
+    "move": "pull"
+   },
+   "dur": 3.6,
+   "sfx": [
+    {
+     "type": "creak",
+     "at": 0.0,
+     "db": -6
+    },
+    {
+     "type": "crowd",
+     "at": 0.55,
+     "db": -6
+    }
+   ],
+   "lines": [
+    {
+     "text": "The vault door swung wide open."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5,
+     "swing": [
+      [
+       0,
+       82
+      ]
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "milo",
+     "pos": [
+      3.5,
+      10.6
+     ],
+     "face": 200,
+     "act": "cheer"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "milo",
+    "move": "push",
+    "angle": 10
+   },
+   "lines": [
+    {
+     "who": "milo",
+     "text": "That's why door handles are never next to the hinge!"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5,
+     "swing": [
+      [
+       0,
+       82
+      ]
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      -4,
+      9.5
+     ],
+     "face": 170,
+     "act": "shock"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "on": "leo",
+    "move": "push",
+    "angle": 15
+   },
+   "lines": [
+    {
+     "who": "leo",
+     "text": "Two in a row?!"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5,
+     "swing": [
+      [
+       0,
+       82
+      ]
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "host",
+     "pos": [
+      1.5,
+      6.5
+     ],
+     "act": "point",
+     "face": 20
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "host",
+    "angle": -65,
+    "punch": [
+     0.5,
+     1.25
+    ]
+   },
+   "flash": true,
+   "lines": [
+    {
+     "who": "host",
+     "text": "Trial three... the Spin Staff!"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    2,
+    8.5,
+    25,
+    0,
+    150
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "door",
+     "id": "door",
+     "pos": [
+      -3,
+      2
+     ],
+     "w": 6,
+     "h": 7.5,
+     "swing": [
+      [
+       0,
+       82
+      ]
+     ]
+    },
+    {
+     "type": "label",
+     "text": "PART 3 ▸ THE SPIN STAFF",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.4,
+     "h": 0.42,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.05,
+     "show": [
+      1.8
+     ],
+     "hud": [
+      0,
+      0.55
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      -4,
+      9.5
+     ],
+     "face": 160,
+     "expr": "smug"
+    }
+   ],
+   "dur": 3.6,
+   "sfx": [
+    {
+     "type": "riser",
+     "at": 0.2,
+     "db": -10
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "on": "leo",
+    "move": "pull",
+    "angle": -10
+   },
+   "lines": [
+    {
+     "text": "Leo smiled. This time, he'd grab it by the long end. Bigger is better. Right?"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,382 @@
+{
+ "title": "The Station Pick",
+ "brand": "HUNTBLOX",
+ "speed": 1.05,
+ "narrator_voice": "af_jessica",
+ "captions": {
+  "style": "word"
+ },
+ "characters": {
+  "milo": {
+   "skin": "#e9b98f",
+   "hair": "messy",
+   "hair_color": "#4a2c1a",
+   "shirt_style": "hoodie",
+   "shirt": "#2f6fb3",
+   "pants_style": "jeans",
+   "pants": "#3a4f73",
+   "voice": "am_puck",
+   "pitch": 3
+  },
+  "leo": {
+   "skin": "#d79e72",
+   "hair": "spiky",
+   "hair_color": "#d9b26a",
+   "shirt_style": "jersey",
+   "shirt": "#d94b3d",
+   "number": 1,
+   "pants_style": "sweats",
+   "pants": "#1f2937",
+   "voice": "am_echo",
+   "pitch": 3
+  },
+  "mayor": {
+   "skin": "#f3d2b3",
+   "hair": "tophat",
+   "hat_color": "#1b1b1b",
+   "hair_color": "#e8e2d0",
+   "shirt_style": "suit",
+   "shirt": "#1f2937",
+   "tie": "#b3262e",
+   "pants_style": "pants",
+   "pants": "#1f2937",
+   "shoes": "#1b1b1b",
+   "voice": "am_onyx",
+   "scale": 1.12,
+   "glasses": true
+  }
+ },
+ "shots": [
+  {
+   "set": "space",
+   "cast": [],
+   "cam": {
+    "pos": [
+     80,
+     35,
+     340
+    ],
+    "to_pos": [
+     45,
+     18,
+     215
+    ],
+    "look": [
+     0,
+     -35,
+     -150
+    ],
+    "to_look": [
+     12,
+     -12,
+     -130
+    ]
+   },
+   "post": {
+    "bloom": 0.6
+   },
+   "lines": [
+    {
+     "text": "Every year, one kid from Maple Town gets picked to live on the station."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "cast": [
+    {
+     "id": "milo",
+     "pos": [
+      -3,
+      5.5
+     ],
+     "to": [
+      3,
+      5.5
+     ],
+     "act": "walk"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "milo",
+    "move": "descend",
+    "angle": 20,
+    "reveal_dist": 55,
+    "reveal_height": 42
+   },
+   "lines": [
+    {
+     "text": "Milo never even signed up."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      0,
+      6
+     ],
+     "act": "cheer"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "leo",
+    "move": "reveal",
+    "reveal_dist": 50,
+    "reveal_height": 34
+   },
+   "lines": [
+    {
+     "text": "Everyone was sure it would be Leo. The whole town packed the square."
+    }
+   ],
+   "crowd": 130,
+   "gather": [
+    0,
+    -5,
+    5,
+    24,
+    0,
+    150
+   ]
+  },
+  {
+   "set": "plaza",
+   "cast": [
+    {
+     "id": "mayor",
+     "pos": [
+      0,
+      -5
+     ],
+     "face": 0,
+     "act": "talk"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "mayor",
+    "move": "push",
+    "angle": -12
+   },
+   "lines": [
+    {
+     "who": "mayor",
+     "text": "And this year's pick is..."
+    }
+   ],
+   "crowd": 130,
+   "gather": [
+    0,
+    -5,
+    5,
+    24,
+    0,
+    150
+   ]
+  },
+  {
+   "set": "plaza",
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      0,
+      6
+     ],
+     "face": 180,
+     "expr": "grin"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "on": "leo",
+    "move": "push",
+    "angle": 15
+   },
+   "dur": 1.6,
+   "crowd": 130,
+   "gather": [
+    0,
+    -5,
+    5,
+    24,
+    0,
+    150
+   ]
+  },
+  {
+   "set": "plaza",
+   "cast": [
+    {
+     "id": "mayor",
+     "pos": [
+      0,
+      -5
+     ],
+     "face": 0,
+     "act": "point"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "mayor",
+    "move": "static",
+    "angle": -30,
+    "punch": [
+     0.45,
+     1.3
+    ]
+   },
+   "flash": true,
+   "lines": [
+    {
+     "who": "mayor",
+     "text": "Milo!"
+    }
+   ],
+   "pause": 0.3,
+   "crowd": 130,
+   "gather": [
+    0,
+    -5,
+    5,
+    24,
+    0,
+    150
+   ]
+  },
+  {
+   "set": "plaza",
+   "cast": [
+    {
+     "id": "milo",
+     "pos": [
+      6,
+      10
+     ],
+     "act": "shock"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "on": "milo",
+    "move": "push",
+    "angle": -15
+   },
+   "lines": [
+    {
+     "who": "milo",
+     "text": "Wait. Me?"
+    }
+   ],
+   "crowd": 130,
+   "gather": [
+    0,
+    -5,
+    5,
+    24,
+    0,
+    150
+   ]
+  },
+  {
+   "set": "plaza",
+   "cast": [
+    {
+     "id": "milo",
+     "pos": [
+      6,
+      10
+     ],
+     "face": 200
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "milo",
+    "move": "reveal",
+    "reveal_dist": 45,
+    "reveal_height": 30,
+    "spin": -30
+   },
+   "lines": [
+    {
+     "text": "Half the town didn't even know his name."
+    }
+   ],
+   "crowd": 130,
+   "gather": [
+    0,
+    -5,
+    5,
+    24,
+    0,
+    150
+   ]
+  },
+  {
+   "set": "street",
+   "time": "night",
+   "cast": [
+    {
+     "id": "milo",
+     "pos": [
+      0,
+      5.5
+     ],
+     "face": 160
+    }
+   ],
+   "cam": {
+    "type": "low",
+    "on": "milo",
+    "move": "crane"
+   },
+   "post": {
+    "grade": "night"
+   },
+   "lines": [
+    {
+     "text": "But every night for six years, Milo had been watching the station."
+    }
+   ]
+  },
+  {
+   "set": "space",
+   "cast": [
+    {
+     "id": "milo",
+     "pos": [
+      0,
+      4
+     ],
+     "face": 195,
+     "expr": "happy"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "milo",
+    "move": "reveal",
+    "angle": 165,
+    "reveal_dist": 60,
+    "reveal_height": 22,
+    "spin": 30
+   },
+   "post": {
+    "bloom": 0.6
+   },
+   "lines": [
+    {
+     "text": "And now, he finally got to see home from up here."
+    }
+   ]
+  }
+ ]
+}

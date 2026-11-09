@@ -1,0 +1,1351 @@
+{
+ "title": "Spin Trials 4: The Flywheel",
+ "brand": "SPIN TRIALS",
+ "narrator_voice": "af_jessica",
+ "speed": 1.3,
+ "captions": {
+  "style": "word"
+ },
+ "characters": {
+  "ava": {
+   "skin": "#f1c79f",
+   "hair": "ponytail",
+   "hair_color": "#2b1a12",
+   "shirt_style": "hoodie",
+   "shirt": "#7c4dd8",
+   "pants_style": "jeans",
+   "pants": "#2f3f66",
+   "shoes": "#f5f5f5",
+   "eyes": "round",
+   "voice": "af_bella",
+   "pitch": 2,
+   "scale": 0.92
+  },
+  "leo": {
+   "skin": "#d79e72",
+   "hair": "spiky",
+   "hair_color": "#e3bb62",
+   "shirt_style": "jersey",
+   "shirt": "#d94b3d",
+   "number": 1,
+   "pants_style": "sweats",
+   "pants": "#1f2937",
+   "voice": "am_echo",
+   "pitch": 2,
+   "scale": 1.08
+  },
+  "milo": {
+   "skin": "#e9b98f",
+   "hair": "messy",
+   "hair_color": "#4a2c1a",
+   "shirt_style": "tee",
+   "shirt": "#2fa36b",
+   "pants_style": "shorts",
+   "pants": "#3a4f73",
+   "voice": "am_puck",
+   "pitch": 3,
+   "glasses": true
+  },
+  "host": {
+   "skin": "#f3d2b3",
+   "hair": "tophat",
+   "hat_color": "#1b1b1b",
+   "hair_color": "#e8e2d0",
+   "shirt_style": "suit",
+   "shirt": "#2a1f4a",
+   "tie": "#ffd46b",
+   "pants_style": "pants",
+   "pants": "#1f2937",
+   "shoes": "#1b1b1b",
+   "voice": "am_onyx",
+   "scale": 1.1,
+   "glasses": true
+  }
+ },
+ "shots": [
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    3,
+    9,
+    25,
+    0,
+    160
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "flywheel",
+     "id": "fa",
+     "pos": [
+      -3.5,
+      3
+     ],
+     "kind": "disk",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    },
+    {
+     "type": "flywheel",
+     "id": "fl",
+     "pos": [
+      3.5,
+      3
+     ],
+     "kind": "hoop",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    }
+   ],
+   "cast": [],
+   "cam": {
+    "pos": [
+     -40,
+     30,
+     52
+    ],
+    "to_pos": [
+     -9,
+     8,
+     21
+    ],
+    "look": [
+     0,
+     2,
+     3
+    ],
+    "to_look": [
+     0,
+     3,
+     3
+    ]
+   },
+   "sfx": [
+    {
+     "type": "crowd",
+     "at": 0.2,
+     "db": -12
+    }
+   ],
+   "lines": [
+    {
+     "text": "In this world, everyone can see physics. Trial four: the Flywheel."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    3,
+    9,
+    25,
+    0,
+    160
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "flywheel",
+     "id": "fa",
+     "pos": [
+      -3.5,
+      3
+     ],
+     "kind": "disk",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    },
+    {
+     "type": "flywheel",
+     "id": "fl",
+     "pos": [
+      3.5,
+      3
+     ],
+     "kind": "hoop",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "host",
+     "pos": [
+      0,
+      6.5
+     ],
+     "act": "talk"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "host",
+    "scale": 1.3,
+    "angle": 10,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "who": "host",
+     "text": "Two wheels. Same mass, same size. A falling weight gives each one the same torque: eighty newton meters.",
+     "caption": "Two wheels. Same mass, same size. A falling weight gives each the same torque: τ = 80 N·m."
+    },
+    {
+     "who": "host",
+     "text": "First to ten radians per second wins!",
+     "caption": "First to ω = 10 rad/s wins!"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    3,
+    9,
+    25,
+    0,
+    160
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "flywheel",
+     "id": "fa",
+     "pos": [
+      -3.5,
+      3
+     ],
+     "kind": "disk",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    },
+    {
+     "type": "flywheel",
+     "id": "fl",
+     "pos": [
+      3.5,
+      3
+     ],
+     "kind": "hoop",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "path": [
+      [
+       7,
+       0,
+       10
+      ],
+      [
+       5.6,
+       0,
+       5.6
+      ]
+     ],
+     "act": "walk",
+     "move": [
+      0,
+      0.5
+     ],
+     "face": -30
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "leo",
+    "angle": 20,
+    "relative": false,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "who": "leo",
+     "text": "I'll take the gold one."
+    },
+    {
+     "text": "Leo picked the golden hoop. Almost all of its mass sits out on the rim."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    3,
+    9,
+    25,
+    0,
+    160
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "flywheel",
+     "id": "fa",
+     "pos": [
+      -3.5,
+      3
+     ],
+     "kind": "disk",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    },
+    {
+     "type": "flywheel",
+     "id": "fl",
+     "pos": [
+      3.5,
+      3
+     ],
+     "kind": "hoop",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "path": [
+      [
+       -7,
+       0,
+       10
+      ],
+      [
+       -5.6,
+       0,
+       5.6
+      ]
+     ],
+     "act": "walk",
+     "move": [
+      0,
+      0.6
+     ],
+     "face": 30
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "ava",
+    "angle": -100,
+    "relative": false,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "text": "Ava picked the plain solid disk."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    3,
+    9,
+    25,
+    0,
+    160
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "flywheel",
+     "id": "fa",
+     "pos": [
+      -3.5,
+      3
+     ],
+     "kind": "disk",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    },
+    {
+     "type": "flywheel",
+     "id": "fl",
+     "pos": [
+      3.5,
+      3
+     ],
+     "kind": "hoop",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    },
+    {
+     "type": "label",
+     "text": "Hoop:  I = MR² = 40 kg·m²",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.6,
+     "h": 0.5,
+     "color": "#ff6b6b",
+     "border": "#ff6b6b",
+     "minh": 0.05,
+     "show": [
+      0.4
+     ],
+     "hud": [
+      0,
+      0.64
+     ]
+    },
+    {
+     "type": "label",
+     "text": "Disk:  I = [1|2]MR² = 20 kg·m²",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.6,
+     "h": 0.5,
+     "color": "#5ef2c2",
+     "border": "#5ef2c2",
+     "minh": 0.05,
+     "show": [
+      2.2
+     ],
+     "hud": [
+      0,
+      0.47
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      -5.6,
+      5.6
+     ],
+     "face": 30
+    },
+    {
+     "id": "leo",
+     "pos": [
+      5.6,
+      5.6
+     ],
+     "face": -30
+    }
+   ],
+   "clear_fg": true,
+   "cam": {
+    "type": "wide",
+    "on": [
+     "fa",
+     "fl"
+    ],
+    "scale": 0.62,
+    "angle": 0,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "text": "Same mass. But the hoop keeps all of it far from the axle. Its moment of inertia is forty. The disk's is only twenty.",
+     "caption": "Same mass. But the hoop keeps it all far from the axle. Hoop: I = 40 kg·m². Disk: only 20."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    3,
+    9,
+    25,
+    0,
+    160
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "flywheel",
+     "id": "fa",
+     "pos": [
+      -3.5,
+      3
+     ],
+     "kind": "disk",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    },
+    {
+     "type": "flywheel",
+     "id": "fl",
+     "pos": [
+      3.5,
+      3
+     ],
+     "kind": "hoop",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    },
+    {
+     "type": "label",
+     "text": "τ = Iα",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 1.6,
+     "h": 0.5,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.065,
+     "show": [
+      0.4
+     ],
+     "hud": [
+      0,
+      0.62
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      -5.6,
+      5.6
+     ],
+     "face": 30
+    },
+    {
+     "id": "leo",
+     "pos": [
+      5.6,
+      5.6
+     ],
+     "face": -30
+    }
+   ],
+   "clear_fg": true,
+   "cam": {
+    "type": "wide",
+    "on": [
+     "fa",
+     "fl"
+    ],
+    "scale": 0.7,
+    "angle": -18,
+    "move": "orbit"
+   },
+   "lines": [
+    {
+     "text": "Torque equals moment of inertia times angular acceleration. It's Newton's second law, for spinning.",
+     "caption": "Torque = moment of inertia × angular acceleration. τ = Iα. Newton's second law, for spinning."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    3,
+    9,
+    25,
+    0,
+    160
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "flywheel",
+     "id": "fa",
+     "pos": [
+      -3.5,
+      3
+     ],
+     "kind": "disk",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    },
+    {
+     "type": "flywheel",
+     "id": "fl",
+     "pos": [
+      3.5,
+      3
+     ],
+     "kind": "hoop",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    },
+    {
+     "type": "label",
+     "text": "Disk:  α = [80|20] = 4 rad/s²",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.6,
+     "h": 0.5,
+     "color": "#5ef2c2",
+     "border": "#5ef2c2",
+     "minh": 0.05,
+     "show": [
+      0.4
+     ],
+     "hud": [
+      0,
+      0.64
+     ]
+    },
+    {
+     "type": "label",
+     "text": "Hoop:  α = [80|40] = 2 rad/s²",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.6,
+     "h": 0.5,
+     "color": "#ff6b6b",
+     "border": "#ff6b6b",
+     "minh": 0.05,
+     "show": [
+      1.6
+     ],
+     "hud": [
+      0,
+      0.47
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      -5.6,
+      5.6
+     ],
+     "face": 30
+    },
+    {
+     "id": "leo",
+     "pos": [
+      5.6,
+      5.6
+     ],
+     "face": -30
+    }
+   ],
+   "clear_fg": true,
+   "cam": {
+    "type": "wide",
+    "on": [
+     "fa",
+     "fl"
+    ],
+    "scale": 0.62,
+    "angle": 12,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "text": "Same torque, half the inertia: twice the angular acceleration. Ava's disk should gain four radians per second, every second. Leo's, only two.",
+     "caption": "Same torque, half the inertia: twice the α. Disk: +4 rad/s every second. Hoop: only +2."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    3,
+    9,
+    25,
+    0,
+    160
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "flywheel",
+     "id": "fa",
+     "pos": [
+      -3.5,
+      3
+     ],
+     "kind": "disk",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    },
+    {
+     "type": "flywheel",
+     "id": "fl",
+     "pos": [
+      3.5,
+      3
+     ],
+     "kind": "hoop",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    },
+    {
+     "type": "label",
+     "text": "ω = ω₀ + αt",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.0,
+     "h": 0.5,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.065,
+     "show": [
+      0.3
+     ],
+     "hud": [
+      0,
+      0.62
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      -5.6,
+      5.6
+     ],
+     "face": 30
+    },
+    {
+     "id": "leo",
+     "pos": [
+      5.6,
+      5.6
+     ],
+     "face": -30
+    }
+   ],
+   "clear_fg": true,
+   "cam": {
+    "type": "wide",
+    "on": [
+     "fa",
+     "fl"
+    ],
+    "scale": 0.7,
+    "angle": 20,
+    "move": "orbit",
+    "dir": -1
+   },
+   "lines": [
+    {
+     "text": "Starting from zero, omega equals alpha times t. Ava should hit ten in two and a half seconds. Leo would need five.",
+     "caption": "Starting from 0: ω = αt. Disk hits 10 in 2.5 s. Hoop needs 5 s."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    3,
+    9,
+    25,
+    0,
+    160
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "flywheel",
+     "id": "fa",
+     "pos": [
+      -3.5,
+      3
+     ],
+     "kind": "disk",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    },
+    {
+     "type": "flywheel",
+     "id": "fl",
+     "pos": [
+      3.5,
+      3
+     ],
+     "kind": "hoop",
+     "r": 2.0,
+     "weight": true,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "host",
+     "pos": [
+      0,
+      6.5
+     ],
+     "act": "point",
+     "face": 0
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "host",
+    "angle": 60,
+    "punch": [
+     0.4,
+     1.25
+    ]
+   },
+   "flash": true,
+   "lines": [
+    {
+     "who": "host",
+     "text": "Drop the weights!"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    3,
+    9,
+    25,
+    0,
+    160
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "flywheel",
+     "id": "fa",
+     "pos": [
+      -3.5,
+      3
+     ],
+     "kind": "disk",
+     "r": 2.0,
+     "weight": true,
+     "spin": {
+      "w": 0,
+      "alpha": 4,
+      "at": 0.3
+     }
+    },
+    {
+     "type": "flywheel",
+     "id": "fl",
+     "pos": [
+      3.5,
+      3
+     ],
+     "kind": "hoop",
+     "r": 2.0,
+     "weight": true,
+     "spin": {
+      "w": 0,
+      "alpha": 2,
+      "at": 0.3
+     }
+    },
+    {
+     "type": "label",
+     "text": "Disk  ω = {} rad/s",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.4,
+     "h": 0.42,
+     "bind": {
+      "prop": "fa",
+      "q": "w"
+     },
+     "color": "#5ef2c2",
+     "border": "#5ef2c2",
+     "minh": 0.045,
+     "show": null,
+     "hud": [
+      0,
+      0.64
+     ]
+    },
+    {
+     "type": "label",
+     "text": "Hoop  ω = {} rad/s",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.4,
+     "h": 0.42,
+     "bind": {
+      "prop": "fl",
+      "q": "w"
+     },
+     "color": "#ff6b6b",
+     "border": "#ff6b6b",
+     "minh": 0.045,
+     "show": null,
+     "hud": [
+      0,
+      0.5
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      -5.6,
+      5.6
+     ],
+     "face": 30,
+     "act": "cheer"
+    },
+    {
+     "id": "leo",
+     "pos": [
+      5.6,
+      5.6
+     ],
+     "face": -30,
+     "act": "strain"
+    }
+   ],
+   "clear_fg": true,
+   "cam": {
+    "type": "wide",
+    "on": [
+     "fa",
+     "fl"
+    ],
+    "scale": 0.62,
+    "angle": 0,
+    "move": "push"
+   },
+   "dur": 3.0,
+   "sfx": [
+    {
+     "type": "hum",
+     "at": 0.25,
+     "db": -9
+    }
+   ],
+   "lines": []
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    3,
+    9,
+    25,
+    0,
+    160
+   ],
+   "cheer": 0.5,
+   "props": [
+    {
+     "type": "flywheel",
+     "id": "fa",
+     "pos": [
+      -3.5,
+      3
+     ],
+     "kind": "disk",
+     "r": 2.0,
+     "weight": true,
+     "spin": 10.5
+    },
+    {
+     "type": "flywheel",
+     "id": "fl",
+     "pos": [
+      3.5,
+      3
+     ],
+     "kind": "hoop",
+     "r": 2.0,
+     "weight": true,
+     "spin": 5.6
+    }
+   ],
+   "cast": [
+    {
+     "id": "host",
+     "pos": [
+      0,
+      6.5
+     ],
+     "act": "point",
+     "face": -40
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "host",
+    "angle": -15,
+    "punch": [
+     0.35,
+     1.2
+    ]
+   },
+   "flash": true,
+   "sfx": [
+    {
+     "type": "ding",
+     "at": 0.1,
+     "db": -6
+    },
+    {
+     "type": "crowd",
+     "at": 0.2,
+     "db": -8
+    }
+   ],
+   "lines": [
+    {
+     "who": "host",
+     "text": "Ten! Ava wins!"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    3,
+    9,
+    25,
+    0,
+    160
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "flywheel",
+     "id": "fa",
+     "pos": [
+      -3.5,
+      3
+     ],
+     "kind": "disk",
+     "r": 2.0,
+     "weight": true,
+     "spin": 13
+    },
+    {
+     "type": "flywheel",
+     "id": "fl",
+     "pos": [
+      3.5,
+      3
+     ],
+     "kind": "hoop",
+     "r": 2.0,
+     "weight": true,
+     "spin": {
+      "w": 6,
+      "alpha": 2
+     }
+    },
+    {
+     "type": "label",
+     "text": "Hoop  ω = {} rad/s",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.4,
+     "h": 0.42,
+     "bind": {
+      "prop": "fl",
+      "q": "w"
+     },
+     "color": "#ff6b6b",
+     "border": "#ff6b6b",
+     "minh": 0.045,
+     "show": null,
+     "hud": [
+      0,
+      0.62
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      5.8,
+      6.4
+     ],
+     "face": -20,
+     "expr": "shock"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "leo",
+    "angle": 30,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "who": "leo",
+     "text": "No way..."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    3,
+    9,
+    25,
+    0,
+    160
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "flywheel",
+     "id": "fa",
+     "pos": [
+      -3.5,
+      3
+     ],
+     "kind": "disk",
+     "r": 2.0,
+     "weight": true,
+     "spin": {
+      "w": 12,
+      "alpha": 6
+     }
+    },
+    {
+     "type": "label",
+     "text": "Disk  ω = {} rad/s",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.4,
+     "h": 0.42,
+     "bind": {
+      "prop": "fa",
+      "q": "w"
+     },
+     "color": "#5ef2c2",
+     "border": "#5ef2c2",
+     "minh": 0.045,
+     "show": null,
+     "hud": [
+      0,
+      0.62
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      -5.6,
+      5.6
+     ],
+     "face": 30,
+     "expr": "worried"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "fa",
+    "angle": -15,
+    "move": "push"
+   },
+   "sfx": [
+    {
+     "type": "hum",
+     "at": 0.0,
+     "db": -8
+    },
+    {
+     "type": "riser",
+     "at": 0.3,
+     "db": -8
+    }
+   ],
+   "lines": [
+    {
+     "text": "But nobody stopped Ava's wheel. The weight kept falling, and the disk kept speeding up. Twenty. Thirty..."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    3,
+    9,
+    25,
+    0,
+    160
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      -3.5,
+      3
+     ],
+     "dir": 180,
+     "r": 2.0,
+     "v": 8,
+     "at": 0.15,
+     "idle": true
+    }
+   ],
+   "cast": [],
+   "cam": {
+    "type": "full",
+    "on": "w",
+    "angle": 200,
+    "relative": false,
+    "scale": 0.9
+   },
+   "flash": true,
+   "dur": 2.6,
+   "sfx": [
+    {
+     "type": "crack",
+     "at": 0.05,
+     "db": -2
+    },
+    {
+     "type": "ooh",
+     "at": 0.3,
+     "db": -6
+    }
+   ],
+   "lines": [
+    {
+     "text": "Then the axle snapped."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "traffic": 0,
+   "crowd": 14,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      -26,
+      1.8
+     ],
+     "dir": 0,
+     "r": 2.0,
+     "v": 10
+    },
+    {
+     "type": "label",
+     "text": "PART 5 ▸ THE RUNAWAY WHEEL",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.6,
+     "h": 0.42,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.05,
+     "show": [
+      1.6
+     ],
+     "hud": [
+      0,
+      0.55
+     ]
+    }
+   ],
+   "cast": [],
+   "cam": {
+    "type": "full",
+    "on": "w",
+    "angle": 40,
+    "relative": false,
+    "scale": 1.0
+   },
+   "dur": 3.6,
+   "sfx": [
+    {
+     "type": "riser",
+     "at": 0.2,
+     "db": -10
+    }
+   ],
+   "lines": [
+    {
+     "text": "And it went rolling straight toward town."
+    }
+   ]
+  }
+ ]
+}

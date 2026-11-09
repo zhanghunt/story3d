@@ -5,7 +5,8 @@
   python3 -I story3d.py STORY.json WORKDIR OUT.mp4 --gpu            # write WORKDIR/job.html to render on a real GPU in Chrome
   python3 -I story3d.py STORY.json WORKDIR OUT.mp4 --finish FRAMES  # add captions + voice + sfx to the GPU-rendered video
 
---stills   render the middle frame of every shot to WORKDIR/stills.jpg (contact sheet) and stop
+--stills   render start/middle/end frames of every shot: WORKDIR/stills.jpg (middles), stills_ends_N.jpg (rows of a|b|c),
+           and flag frames that are soft all over in stills_report.txt; then stop
 --draft    540x960, no AA cost; for checking timing and cameras fast
 --only a-b render just those shots (others reuse cached files); final mux still runs if all exist
 Needs engine.js + node_modules/three next to this script (or ENGINE_DIR), plus kokoro-onnx, soundfile, playwright.
@@ -15,7 +16,7 @@ from pathlib import Path
 import numpy as np
 
 FPS, SR = 30, 24000
-GAP = 0.1
+GAP = 0.08  # pause between lines (shortened 1.25x with the narration)
 ENGINE = Path(os.environ.get("ENGINE_DIR", Path(__file__).resolve().parent))
 CACHE = Path.home() / ".cache" / "rbx_story"
 MODEL_URL = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/"
@@ -46,27 +47,37 @@ def trim(a, thr=0.01):
 def synth(story, work):
     import soundfile as sf
     kok, chars = None, story.get("characters", {})
-    speed = float(story.get("speed", 1.1))
+    speed = float(story.get("speed", 1.375))  # 1.25x the old 1.1 default: faster narration + captions for high-energy shorts
     (work / "lines").mkdir(parents=True, exist_ok=True)
     t, timeline, chunks = 0.0, [], []
     for si, sh in enumerate(story["shots"]):
         start = t
         for li, ln in enumerate(sh.get("lines", [])):
             who = ln.get("who", "")
-            v = ln.get("voice") or chars.get(who, {}).get("voice") or story.get("voices", {}).get(who) or story.get("narrator_voice", "am_adam")
+            cdef = chars.get(who, {})
+            v = ln.get("voice") or cdef.get("voice") or story.get("voices", {}).get(who) or story.get("narrator_voice", "af_jessica")
+            pitch = float(ln.get("pitch", cdef.get("pitch", story.get("narrator_pitch", 0) if who not in chars else 0)))
             sp = float(ln.get("speed", speed))
-            key = hashlib.md5(f"{ln['text']}|{v}|{sp}".encode()).hexdigest()[:10]
+            key = hashlib.md5(f"{ln['text']}|{v}|{sp}|{pitch}".encode()).hexdigest()[:10]
             p = work / "lines" / f"{key}.wav"
             if not p.exists():
                 if kok is None:
                     from kokoro_onnx import Kokoro
                     kok = Kokoro(*models())
                 a, sr = kok.create(ln["text"], voice=v, speed=sp, lang=story.get("lang", "en-us"))
-                sf.write(p, a, sr)
+                if pitch:  # natural-sounding pitch shift (formants preserved), e.g. +3 makes a boy voice younger
+                    raw = p.with_suffix(".raw.wav"); sf.write(raw, a, sr)
+                    run(["ffmpeg", "-y", "-i", str(raw), "-af", f"rubberband=pitch={2 ** (pitch / 12):.4f}:formant=preserved", "-ar", str(sr), str(p)]); raw.unlink()
+                else:
+                    sf.write(p, a, sr)
             a = trim(sf.read(p, dtype="float32")[0])
             d = len(a) / SR
             env = [float(np.sqrt(np.mean(a[i:i + SR // FPS] ** 2))) for i in range(0, len(a), SR // FPS)]
             pk = np.percentile(env, 95) if env else 1
+            sm_, out_ = 0.0, []  # smooth the mouth: fast-ish attack, slower release -> no flicker
+            for e in env:
+                e = e / (pk + 1e-6); k = 1 - (0.35 if e > sm_ else 0.18) ** (30 / FPS); sm_ += (e - sm_) * k; out_.append(sm_)
+            env = [x * (pk + 1e-6) for x in out_]
             timeline.append({"shot": si, "who": who, "text": ln.get("caption", ln["text"]), "start": t, "end": t + d,
                              "env": [round(min(e / (pk + 1e-6), 1.0), 3) for e in env], "anim": who in chars})
             chunks += [a, np.zeros(int(GAP * SR), np.float32)]; t += d + GAP
@@ -181,6 +192,11 @@ def sfx_lib(work):
         "riser": "aevalsrc='0.35*sin(2*PI*(200*t+300*t*t))*t/1.5':s=48000:d=1.5",
         "thud": "aevalsrc='0.9*sin(2*PI*(80-30*t)*t)*exp(-9*t)':s=48000:d=0.5",
         "sad": "aevalsrc='0.22*(sin(2*PI*440*t)+sin(2*PI*349*(t))*0.8)*exp(-1.2*t)':s=48000:d=2.2",
+        "crowd": "anoisesrc=c=pink:d=2.8:a=0.7,bandpass=f=1100:w=1.6,tremolo=f=6.5:d=0.45,afade=t=in:d=0.35,afade=t=out:st=1.7:d=1.1",
+        "ooh": "anoisesrc=c=pink:d=1.8:a=0.5,bandpass=f=520:w=1.0,tremolo=f=4:d=0.3,afade=t=in:d=0.4,afade=t=out:st=0.9:d=0.9",
+        "creak": "aevalsrc='0.28*sin(2*PI*(150+70*sin(2*PI*2.6*t))*t)*(0.6+0.4*sin(2*PI*31*t))*min(t*4,1)*exp(-0.8*t)':s=48000:d=1.8",
+        "crack": "aevalsrc='0.9*(random(0)-0.5)*exp(-35*t)+0.6*sin(2*PI*(95-40*t)*t)*exp(-10*t)':s=48000:d=0.7",
+        "hum": "aevalsrc='0.22*sin(2*PI*(70*t+45*t*t))*min(t*2,1)+0.08*sin(2*PI*(140*t+90*t*t))':s=48000:d=2.6",
     }
     for k, f in defs.items():
         p = d / f"{k}.wav"
@@ -243,6 +259,45 @@ def amps_for(timeline, sh, f, chars):
     return out
 
 
+def blur_report(paths):
+    """Flag frames that are soft all over (focus missed / too much DOF). A frame passes if any region has crisp edges."""
+    import numpy as np
+    from PIL import Image
+    bad = []
+    for pth in paths:
+        a = np.asarray(Image.open(pth).convert("L").resize((540, 960)), dtype=np.float32)
+        L = np.abs(a[1:-1, 1:-1] * 4 - a[:-2, 1:-1] - a[2:, 1:-1] - a[1:-1, :-2] - a[1:-1, 2:]); h, w = L.shape
+        best = max(L[y * h // 6:(y + 1) * h // 6, x * w // 4:(x + 1) * w // 4].var() for y in range(6) for x in range(4))
+        if best < 55 and a.mean() < 215:  # very bright = a flash frame, not a focus problem
+            bad.append(f"{pth.name} sharpness {best:.0f} (< 55)")
+    return bad
+
+
+def contact_sheets(sheet, work, fontfile):
+    """stills.jpg = middle frame of every shot (4 across); stills_ends_N.jpg = 4 shots per page, each row start|middle|end."""
+    from PIL import Image, ImageDraw, ImageFont
+    try:
+        font = ImageFont.truetype(fontfile, 30)
+    except Exception:
+        font = ImageFont.load_default()
+    def tile(path, label, w, h):
+        im = Image.open(path).convert("RGB").resize((w, h)); d = ImageDraw.Draw(im)
+        d.text((10, 8), label, font=font, fill="white", stroke_width=3, stroke_fill="black"); return im
+    n = len(sheet); cols = 4; rows = (n + cols - 1) // cols
+    out = Image.new("RGB", (cols * 270, rows * 480))
+    for k, trio in enumerate(sheet):
+        out.paste(tile(trio[1], str(k), 270, 480), ((k % cols) * 270, (k // cols) * 480))
+    out.save(work / "stills.jpg", quality=88)
+    for old in work.glob("stills_ends_*.jpg"):
+        old.unlink()
+    for p0 in range(0, n, 4):
+        rows_ = sheet[p0:p0 + 4]; pg = Image.new("RGB", (3 * 240, len(rows_) * 427))
+        for r, trio in enumerate(rows_):
+            for c, pth in enumerate(trio):
+                pg.paste(tile(pth, f"{p0 + r}{'abc'[c]}", 240, 427), (c * 240, r * 427))
+        pg.save(work / f"stills_ends_{p0 // 4}.jpg", quality=88)
+
+
 def render(story, timeline, total, work, W, H, only, stills):
     from playwright.sync_api import sync_playwright
     chars, shots = story.get("characters", {}), story["shots"]
@@ -267,12 +322,15 @@ def render(story, timeline, total, work, W, H, only, stills):
             dur = (sh["_end"] - sh["_start"]) + (0.5 if i == len(shots) - 1 else 0)
             n = max(int(round(dur * FPS)), 1)
             spec = {k: v for k, v in sh.items() if not k.startswith("_") and k not in ("lines", "sfx")}
-            if stills:
+            if stills:  # start / middle / end of every shot, so camera moves and reveals are checked at both ends
                 pg.evaluate("([s,c,seed])=>ENGINE.setup(s,c,seed)", [spec, chars, i + 1])
-                f = int(sh.get("still_at", 0.5) * (n - 1))
-                data = pg.evaluate("([t,d,a])=>ENGINE.frame(t,d,a)", [f / FPS, dur, amps_for(timeline, sh, f, chars)])
-                pth = work / "stills" / f"shot_{i:02d}.jpg"; pth.parent.mkdir(exist_ok=True)
-                pth.write_bytes(base64.b64decode(data.split(",", 1)[1])); sheet.append(pth); continue
+                trio = []
+                for tag, at in (("a", 0.06), ("b", sh.get("still_at", 0.5)), ("c", 0.94)):
+                    f = int(at * (n - 1))
+                    data = pg.evaluate("([t,d,a])=>ENGINE.frame(t,d,a)", [f / FPS, dur, amps_for(timeline, sh, f, chars)])
+                    pth = work / "stills" / f"shot_{i:02d}{tag}.jpg"; pth.parent.mkdir(exist_ok=True)
+                    pth.write_bytes(base64.b64decode(data.split(",", 1)[1])); trio.append(pth)
+                sheet.append(trio); continue
             cap = ass_slice(work, sh["_start"], sh["_start"] + dur, i)
             key = hashlib.md5(json.dumps([spec, {c["id"]: chars.get(c["id"]) for c in sh.get("cast", [])}, round(dur, 3), W, H,
                                           story.get("post"), eng_hash, cap.read_text()], sort_keys=True).encode()).hexdigest()[:10]
@@ -295,12 +353,12 @@ def render(story, timeline, total, work, W, H, only, stills):
             os.replace(tmp, out); print(f"shot {i + 1}/{len(shots)} rendered ({dur:.1f}s)", flush=True)
         b.close()
     if stills:
-        cols, FONTFILE = 4, subprocess.run(["fc-match", "-f", "%{file}", "sans:bold"], capture_output=True, text=True).stdout
-        run(["ffmpeg", "-y", *sum([["-i", str(s)] for s in sheet], []), "-filter_complex",
-             "".join(f"[{k}:v]scale=270:480,drawtext=fontfile='{FONTFILE}':text='{k}':x=12:y=10:fontsize=36:fontcolor=white:borderw=3[s{k}];" for k in range(len(sheet)))
-             + "".join(f"[s{k}]" for k in range(len(sheet))) + f"xstack=inputs={len(sheet)}:layout="
-             + "|".join(f"{(k % cols) * 270}_{(k // cols) * 480}" for k in range(len(sheet))) + ":fill=black" if len(sheet) > 1 else "[0:v]scale=270:480",
-             "-frames:v", "1", str(work / "stills.jpg")])
+        FONTFILE = subprocess.run(["fc-match", "-f", "%{file}", "sans:bold"], capture_output=True, text=True).stdout
+        soft = blur_report([p for trio in sheet for p in trio])
+        (work / "stills_report.txt").write_text("\n".join(soft) or "all frames sharp")
+        for line in soft:
+            print("SOFT FRAME:", line)
+        contact_sheets(sheet, work, FONTFILE)
         print("stills:", work / "stills.jpg"); return None
     return files
 
@@ -339,7 +397,7 @@ def finish_gpu(story, work, frames, total, out):
     fl += f"{mixn}amix=inputs={mixn.count('[')}:duration=first:normalize=0,atrim=0:{total + 0.5:.2f},alimiter=limit=0.8,volume=-0.5dB[a]"
     tmp = str(out) + ".tmp.mp4"
     run(["ffmpeg", "-y", *ins, "-filter_complex", fl, "-map", "[vo]", "-map", "[a]", "-c:v", "libx264", "-preset", "veryfast", "-crf", "19",
-         "-r", str(FPS), "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", tmp])
+         "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", tmp])
     os.replace(tmp, out); print("wrote", out)
 
 
@@ -367,6 +425,8 @@ def main():
     if len(a) < 4:
         sys.exit(__doc__)
     story = json.loads(Path(a[1]).read_text(encoding="utf-8"))
+    global FPS
+    FPS = int(story.get("fps", 60 if ("--gpu" in a or "--finish" in a) else 30))  # GPU renders at 60 fps for smooth motion
     story.setdefault("shots", story.pop("scenes", []))
     work, out = Path(a[2]), Path(a[3]); work.mkdir(parents=True, exist_ok=True)
     draft = "--draft" in a
