@@ -1,0 +1,1117 @@
+{
+ "title": "Spin Trials 3: The Spin Staff",
+ "brand": "SPIN TRIALS",
+ "narrator_voice": "af_jessica",
+ "speed": 1.3,
+ "captions": {
+  "style": "word"
+ },
+ "characters": {
+  "ava": {
+   "skin": "#f1c79f",
+   "hair": "ponytail",
+   "hair_color": "#2b1a12",
+   "shirt_style": "hoodie",
+   "shirt": "#7c4dd8",
+   "pants_style": "jeans",
+   "pants": "#2f3f66",
+   "shoes": "#f5f5f5",
+   "eyes": "round",
+   "voice": "af_bella",
+   "pitch": 2,
+   "scale": 0.92
+  },
+  "leo": {
+   "skin": "#d79e72",
+   "hair": "spiky",
+   "hair_color": "#e3bb62",
+   "shirt_style": "jersey",
+   "shirt": "#d94b3d",
+   "number": 1,
+   "pants_style": "sweats",
+   "pants": "#1f2937",
+   "voice": "am_echo",
+   "pitch": 2,
+   "scale": 1.08
+  },
+  "milo": {
+   "skin": "#e9b98f",
+   "hair": "messy",
+   "hair_color": "#4a2c1a",
+   "shirt_style": "tee",
+   "shirt": "#2fa36b",
+   "pants_style": "shorts",
+   "pants": "#3a4f73",
+   "voice": "am_puck",
+   "pitch": 3,
+   "glasses": true
+  },
+  "host": {
+   "skin": "#f3d2b3",
+   "hair": "tophat",
+   "hat_color": "#1b1b1b",
+   "hair_color": "#e8e2d0",
+   "shirt_style": "suit",
+   "shirt": "#2a1f4a",
+   "tie": "#ffd46b",
+   "pants_style": "pants",
+   "pants": "#1f2937",
+   "shoes": "#1b1b1b",
+   "voice": "am_onyx",
+   "scale": 1.1,
+   "glasses": true
+  }
+ },
+ "shots": [
+  {
+   "set": "stage",
+   "set_text": "SPIN TRIALS",
+   "crowd": 100,
+   "gather": [
+    0,
+    0,
+    8.5,
+    23,
+    0,
+    130
+   ],
+   "cheer": 0.2,
+   "props": [],
+   "cast": [
+    {
+     "id": "host",
+     "pos": [
+      0,
+      -1
+     ],
+     "y": 0.6,
+     "act": "wave"
+    }
+   ],
+   "cam": {
+    "pos": [
+     3,
+     7,
+     34
+    ],
+    "to_pos": [
+     1,
+     4.2,
+     15
+    ],
+    "look": [
+     0,
+     3.2,
+     0
+    ],
+    "to_look": [
+     0,
+     3,
+     -1
+    ]
+   },
+   "sfx": [
+    {
+     "type": "crowd",
+     "at": 0.2,
+     "db": -12
+    }
+   ],
+   "lines": [
+    {
+     "text": "In this world, everyone can see physics. Trial three was held on the main stage."
+    }
+   ]
+  },
+  {
+   "set": "stage",
+   "set_text": "SPIN TRIALS",
+   "crowd": 100,
+   "gather": [
+    0,
+    0,
+    8.5,
+    23,
+    0,
+    130
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "staff",
+     "id": "hs",
+     "pos": [
+      0,
+      0.9
+     ],
+     "grip": "center",
+     "len": 3.6,
+     "y": 2.75,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "host",
+     "pos": [
+      0,
+      0
+     ],
+     "y": 0.6,
+     "act": "hold"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "host",
+    "move": "push",
+    "angle": 12
+   },
+   "lines": [
+    {
+     "who": "host",
+     "text": "Spin the staff ten times. Same staff for both of you. Eight kilograms. Three meters long.",
+     "caption": "Spin the staff 10 times. Same staff for both of you. 8 kg. 3 m long."
+    }
+   ]
+  },
+  {
+   "set": "stage",
+   "set_text": "SPIN TRIALS",
+   "crowd": 100,
+   "gather": [
+    0,
+    0,
+    8.5,
+    23,
+    0,
+    130
+   ],
+   "cheer": 0.2,
+   "props": [],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      2.4,
+      0
+     ],
+     "y": 0.6,
+     "face": -15,
+     "expr": "smug"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "on": "leo",
+    "move": "push",
+    "angle": 15
+   },
+   "lines": [
+    {
+     "who": "leo",
+     "text": "I'm grabbing it by the end. More reach, more power."
+    }
+   ]
+  },
+  {
+   "set": "stage",
+   "set_text": "SPIN TRIALS",
+   "crowd": 100,
+   "gather": [
+    0,
+    0,
+    8.5,
+    23,
+    0,
+    130
+   ],
+   "cheer": 0.2,
+   "clear_fg": true,
+   "props": [
+    {
+     "type": "staff",
+     "id": "s2",
+     "pos": [
+      3.0,
+      0.9
+     ],
+     "grip": "end",
+     "len": 3.6,
+     "y": 2.75,
+     "face": 180,
+     "swing": [
+      [
+       0,
+       34
+      ],
+      [
+       1.1,
+       20
+      ],
+      [
+       1.9,
+       37
+      ],
+      [
+       2.9,
+       14
+      ],
+      [
+       3.8,
+       33
+      ],
+      [
+       4.9,
+       19
+      ],
+      [
+       5.9,
+       36
+      ],
+      [
+       7,
+       22
+      ]
+     ],
+     "wobble": 1.5
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      3.0,
+      0
+     ],
+     "y": 0.6,
+     "face": 0,
+     "act": "strain",
+     "expr": "angry"
+    }
+   ],
+   "cam": {
+    "pos": [
+     1.6,
+     4.0,
+     15.5
+    ],
+    "look": [
+     1.6,
+     2.3,
+     0.5
+    ],
+    "to_pos": [
+     1.6,
+     3.8,
+     14.2
+    ]
+   },
+   "sfx": [
+    {
+     "type": "thud",
+     "at": 0.45,
+     "db": -10
+    }
+   ],
+   "lines": [
+    {
+     "text": "Leo grabbed it by the end... and it barely moved."
+    }
+   ]
+  },
+  {
+   "set": "stage",
+   "set_text": "SPIN TRIALS",
+   "crowd": 100,
+   "gather": [
+    0,
+    0,
+    8.5,
+    23,
+    0,
+    130
+   ],
+   "cheer": 0.2,
+   "clear_fg": true,
+   "props": [
+    {
+     "type": "staff",
+     "id": "s2",
+     "pos": [
+      3.0,
+      0.9
+     ],
+     "grip": "end",
+     "len": 3.6,
+     "y": 2.75,
+     "face": 180,
+     "swing": [
+      [
+       0,
+       34
+      ],
+      [
+       1.1,
+       20
+      ],
+      [
+       1.9,
+       37
+      ],
+      [
+       2.9,
+       14
+      ],
+      [
+       3.8,
+       33
+      ],
+      [
+       4.9,
+       19
+      ],
+      [
+       5.9,
+       36
+      ],
+      [
+       7,
+       22
+      ]
+     ],
+     "wobble": 1.5
+    },
+    {
+     "type": "arrow",
+     "on": "s2",
+     "from": [
+      0,
+      0,
+      0.18
+     ],
+     "to": [
+      3.6,
+      0,
+      0.18
+     ],
+     "color": "#4da3ff",
+     "label": "r = 3 m",
+     "lw": 2.0,
+     "thick": 0.07,
+     "lat": [
+      1.8,
+      0.5,
+      0.18
+     ],
+     "show": [
+      0.5
+     ]
+    },
+    {
+     "type": "label",
+     "text": "I = Σ mr²",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 1.8,
+     "h": 0.5,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.06,
+     "show": [
+      0.3
+     ],
+     "hud": [
+      0,
+      0.62
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      3.0,
+      0
+     ],
+     "y": 0.6,
+     "face": 0,
+     "act": "strain",
+     "expr": "angry"
+    }
+   ],
+   "cam": {
+    "pos": [
+     1.0,
+     4.4,
+     16
+    ],
+    "look": [
+     1.6,
+     2.3,
+     0.5
+    ],
+    "to_pos": [
+     1.2,
+     4.1,
+     14.8
+    ]
+   },
+   "lines": [
+    {
+     "text": "Here's why. Moment of inertia adds up every bit of mass, times its distance from the axis, squared.",
+     "caption": "Moment of inertia adds up every bit of mass × its distance from the axis, squared. I = Σ mr²."
+    }
+   ]
+  },
+  {
+   "set": "stage",
+   "set_text": "SPIN TRIALS",
+   "crowd": 100,
+   "gather": [
+    0,
+    0,
+    8.5,
+    23,
+    0,
+    130
+   ],
+   "cheer": 0.2,
+   "clear_fg": true,
+   "props": [
+    {
+     "type": "staff",
+     "id": "s2",
+     "pos": [
+      3.0,
+      0.9
+     ],
+     "grip": "end",
+     "len": 3.6,
+     "y": 2.75,
+     "face": 180,
+     "swing": [
+      [
+       0,
+       34
+      ],
+      [
+       1.1,
+       20
+      ],
+      [
+       1.9,
+       37
+      ],
+      [
+       2.9,
+       14
+      ],
+      [
+       3.8,
+       33
+      ],
+      [
+       4.9,
+       19
+      ],
+      [
+       5.9,
+       36
+      ],
+      [
+       7,
+       22
+      ]
+     ],
+     "wobble": 1.5
+    },
+    {
+     "type": "arrow",
+     "on": "s2",
+     "from": [
+      0,
+      0,
+      0.18
+     ],
+     "to": [
+      3.6,
+      0,
+      0.18
+     ],
+     "color": "#4da3ff",
+     "label": "r = 3 m",
+     "lw": 2.0,
+     "thick": 0.07,
+     "lat": [
+      1.8,
+      0.5,
+      0.18
+     ],
+     "show": [
+      0.5
+     ]
+    },
+    {
+     "type": "label",
+     "text": "I = [1|3]ML² = 24 kg·m²",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.4,
+     "h": 0.62,
+     "color": "#ff6b6b",
+     "border": "#ff6b6b",
+     "minh": 0.075,
+     "show": [
+      0.3
+     ],
+     "hud": [
+      0,
+      0.6
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      3.0,
+      0
+     ],
+     "y": 0.6,
+     "face": 0,
+     "act": "strain",
+     "expr": "angry"
+    }
+   ],
+   "cam": {
+    "pos": [
+     3.4,
+     4.5,
+     14.5
+    ],
+    "look": [
+     1.6,
+     2.3,
+     0.5
+    ],
+    "to_pos": [
+     2.2,
+     4.1,
+     13.5
+    ]
+   },
+   "lines": [
+    {
+     "text": "Grab the end, and most of the staff is far from your hands. Twice as far counts four times as much. For Leo, twenty four.",
+     "caption": "Grab the end, and most of the staff is far from your hands. Twice as far → 4× as much. Leo: I = 24 kg·m²."
+    }
+   ]
+  },
+  {
+   "set": "stage",
+   "set_text": "SPIN TRIALS",
+   "crowd": 100,
+   "gather": [
+    0,
+    0,
+    8.5,
+    23,
+    0,
+    130
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "staff",
+     "id": "s1",
+     "pos": [
+      -2.6,
+      0.9
+     ],
+     "grip": "center",
+     "len": 3.6,
+     "y": 2.75,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      -2.6,
+      0
+     ],
+     "y": 0.6,
+     "face": 0,
+     "act": "hold",
+     "expr": "determined"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "ava",
+    "angle": 20,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "text": "Ava grabbed it right in the middle."
+    }
+   ]
+  },
+  {
+   "set": "stage",
+   "set_text": "SPIN TRIALS",
+   "crowd": 100,
+   "gather": [
+    0,
+    0,
+    8.5,
+    23,
+    0,
+    130
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "staff",
+     "id": "s1",
+     "pos": [
+      -2.6,
+      0.9
+     ],
+     "grip": "center",
+     "len": 3.6,
+     "y": 2.75,
+     "spin": {
+      "w": 0,
+      "alpha": 14,
+      "at": 0.5,
+      "max": 10
+     }
+    },
+    {
+     "type": "arrow",
+     "on": "s1",
+     "from": [
+      0,
+      0,
+      0.18
+     ],
+     "to": [
+      1.8,
+      0,
+      0.18
+     ],
+     "color": "#4da3ff",
+     "label": "1.5 m",
+     "lw": 1.6,
+     "thick": 0.07,
+     "lat": [
+      0.9,
+      0.5,
+      0.18
+     ],
+     "show": [
+      0.5
+     ]
+    },
+    {
+     "type": "arrow",
+     "on": "s1",
+     "from": [
+      0,
+      0,
+      0.18
+     ],
+     "to": [
+      -1.8,
+      0,
+      0.18
+     ],
+     "color": "#4da3ff",
+     "thick": 0.07,
+     "show": [
+      0.5
+     ]
+    },
+    {
+     "type": "label",
+     "text": "I = [1|12]ML² = 6 kg·m²",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.4,
+     "h": 0.62,
+     "color": "#5ef2c2",
+     "border": "#5ef2c2",
+     "minh": 0.075,
+     "show": [
+      1.2
+     ],
+     "hud": [
+      0,
+      0.6
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      -2.6,
+      0
+     ],
+     "y": 0.6,
+     "face": 0,
+     "act": "twirl",
+     "rate": 10,
+     "expr": "happy"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "ava",
+    "scale": 1.2,
+    "angle": -12,
+    "move": "push"
+   },
+   "sfx": [
+    {
+     "type": "whoosh",
+     "at": 0.15,
+     "db": -8
+    }
+   ],
+   "lines": [
+    {
+     "text": "Now no part of the staff is more than one and a half meters from her hands. Her moment of inertia: six. Four times smaller.",
+     "caption": "No part of the staff is more than 1.5 m from her hands. I = 6 kg·m². Four times smaller."
+    }
+   ]
+  },
+  {
+   "set": "stage",
+   "set_text": "SPIN TRIALS",
+   "crowd": 100,
+   "gather": [
+    0,
+    0,
+    8.5,
+    23,
+    0,
+    130
+   ],
+   "cheer": 0.2,
+   "props": [
+    {
+     "type": "staff",
+     "id": "s1",
+     "pos": [
+      -2.6,
+      0.9
+     ],
+     "grip": "center",
+     "len": 3.6,
+     "y": 2.75,
+     "spin": 10
+    },
+    {
+     "type": "label",
+     "text": "{} spins",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 1.6,
+     "h": 0.5,
+     "color": "#ffffff",
+     "bind": {
+      "prop": "s1",
+      "q": "rev"
+     },
+     "dec": 0,
+     "minh": 0.06,
+     "hud": [
+      0,
+      0.62
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      -2.6,
+      0
+     ],
+     "y": 0.6,
+     "face": 0,
+     "act": "twirl",
+     "rate": 10,
+     "expr": "happy"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "ava",
+    "angle": 25,
+    "move": "orbit"
+   },
+   "dur": 5.5,
+   "lines": [
+    {
+     "text": "Same staff. Same arms. Four times easier."
+    }
+   ]
+  },
+  {
+   "set": "stage",
+   "set_text": "SPIN TRIALS",
+   "crowd": 100,
+   "gather": [
+    0,
+    0,
+    8.5,
+    23,
+    0,
+    130
+   ],
+   "cheer": 0.2,
+   "props": [],
+   "cast": [
+    {
+     "id": "milo",
+     "pos": [
+      3.5,
+      9.4
+     ],
+     "face": 195,
+     "act": "cheer"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "milo",
+    "angle": 195,
+    "move": "push",
+    "relative": false
+   },
+   "lines": [
+    {
+     "who": "milo",
+     "text": "It's the same staff! She just moved the axis!"
+    }
+   ]
+  },
+  {
+   "set": "stage",
+   "set_text": "SPIN TRIALS",
+   "crowd": 100,
+   "gather": [
+    0,
+    0,
+    8.5,
+    23,
+    0,
+    130
+   ],
+   "cheer": 0.2,
+   "props": [],
+   "cast": [
+    {
+     "id": "host",
+     "pos": [
+      0,
+      -1.5
+     ],
+     "y": 0.6,
+     "act": "point",
+     "face": -35
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "host",
+    "angle": -20,
+    "punch": [
+     0.5,
+     1.25
+    ]
+   },
+   "flash": true,
+   "lines": [
+    {
+     "who": "host",
+     "text": "Ava takes trial three!"
+    }
+   ]
+  },
+  {
+   "set": "stage",
+   "set_text": "SPIN TRIALS",
+   "crowd": 100,
+   "gather": [
+    0,
+    0,
+    8.5,
+    23,
+    0,
+    130
+   ],
+   "cheer": 0.6,
+   "props": [],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      -1,
+      0
+     ],
+     "y": 0.6,
+     "face": 0,
+     "act": "cheer"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "ava",
+    "move": "reveal",
+    "reveal_dist": 36,
+    "reveal_height": 20,
+    "spin": -25
+   },
+   "dur": 3.4,
+   "sfx": [
+    {
+     "type": "crowd",
+     "at": 0.05,
+     "db": -6
+    }
+   ],
+   "lines": [
+    {
+     "text": "Three trials. Three wins. And the crowd was starting to chant her name."
+    }
+   ]
+  },
+  {
+   "set": "stage",
+   "set_text": "SPIN TRIALS",
+   "crowd": 100,
+   "gather": [
+    0,
+    0,
+    8.5,
+    23,
+    0,
+    130
+   ],
+   "cheer": 0.2,
+   "props": [],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      3,
+      0.5
+     ],
+     "y": 0.6,
+     "face": -20,
+     "expr": "angry"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "on": "leo",
+    "move": "push",
+    "angle": -12
+   },
+   "lines": [
+    {
+     "who": "leo",
+     "text": "Okay. No more tricks. Trial four is pure power."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 25,
+   "props": [
+    {
+     "type": "flywheel",
+     "id": "fl",
+     "pos": [
+      3.2,
+      4
+     ],
+     "kind": "hoop",
+     "r": 2.0,
+     "spin": 0.4
+    },
+    {
+     "type": "flywheel",
+     "id": "fa",
+     "pos": [
+      -3.2,
+      4
+     ],
+     "kind": "disk",
+     "r": 2.0,
+     "spin": 0
+    },
+    {
+     "type": "label",
+     "text": "PART 4 ▸ THE FLYWHEEL",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.4,
+     "h": 0.42,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.05,
+     "show": [
+      1.8
+     ],
+     "hud": [
+      0,
+      0.55
+     ]
+    }
+   ],
+   "cast": [],
+   "cam": {
+    "type": "medium",
+    "on": "fl",
+    "move": "push",
+    "angle": 15
+   },
+   "dur": 3.6,
+   "sfx": [
+    {
+     "type": "riser",
+     "at": 0.2,
+     "db": -10
+    }
+   ],
+   "lines": [
+    {
+     "text": "Trial four was the Flywheel. And Leo had already picked the shiniest one."
+    }
+   ]
+  }
+ ]
+}

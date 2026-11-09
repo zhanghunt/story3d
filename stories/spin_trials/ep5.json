@@ -1,0 +1,1140 @@
+{
+ "title": "Spin Trials 5: The Runaway Wheel",
+ "brand": "SPIN TRIALS",
+ "narrator_voice": "af_jessica",
+ "speed": 1.3,
+ "captions": {
+  "style": "word"
+ },
+ "characters": {
+  "ava": {
+   "skin": "#f1c79f",
+   "hair": "ponytail",
+   "hair_color": "#2b1a12",
+   "shirt_style": "hoodie",
+   "shirt": "#7c4dd8",
+   "pants_style": "jeans",
+   "pants": "#2f3f66",
+   "shoes": "#f5f5f5",
+   "eyes": "round",
+   "voice": "af_bella",
+   "pitch": 2,
+   "scale": 0.92
+  },
+  "leo": {
+   "skin": "#d79e72",
+   "hair": "spiky",
+   "hair_color": "#e3bb62",
+   "shirt_style": "jersey",
+   "shirt": "#d94b3d",
+   "number": 1,
+   "pants_style": "sweats",
+   "pants": "#1f2937",
+   "voice": "am_echo",
+   "pitch": 2,
+   "scale": 1.08
+  },
+  "milo": {
+   "skin": "#e9b98f",
+   "hair": "messy",
+   "hair_color": "#4a2c1a",
+   "shirt_style": "tee",
+   "shirt": "#2fa36b",
+   "pants_style": "shorts",
+   "pants": "#3a4f73",
+   "voice": "am_puck",
+   "pitch": 3,
+   "glasses": true
+  },
+  "host": {
+   "skin": "#f3d2b3",
+   "hair": "tophat",
+   "hat_color": "#1b1b1b",
+   "hair_color": "#e8e2d0",
+   "shirt_style": "suit",
+   "shirt": "#2a1f4a",
+   "tie": "#ffd46b",
+   "pants_style": "pants",
+   "pants": "#1f2937",
+   "shoes": "#1b1b1b",
+   "voice": "am_onyx",
+   "scale": 1.1,
+   "glasses": true
+  }
+ },
+ "shots": [
+  {
+   "set": "street",
+   "traffic": 0,
+   "crowd": 16,
+   "npc_tags": true,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      -34,
+      1.8
+     ],
+     "dir": 0,
+     "r": 2.0,
+     "v": 10
+    },
+    {
+     "type": "label",
+     "on": "w",
+     "frame": "base",
+     "at3": [
+      0,
+      5.4,
+      0
+     ],
+     "text": "v = {} m/s",
+     "bind": {
+      "prop": "w",
+      "q": "v"
+     },
+     "dec": 1,
+     "w": 2.8,
+     "h": 0.85,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.05
+    }
+   ],
+   "cast": [],
+   "cam": {
+    "type": "full",
+    "on": "w",
+    "angle": 35,
+    "relative": false,
+    "scale": 1.15
+   },
+   "lines": [
+    {
+     "text": "In this world, everyone can see physics. Right now, the whole town could see just one number."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "traffic": 0,
+   "crowd": 16,
+   "npc_tags": true,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      -16,
+      1.8
+     ],
+     "dir": 0,
+     "r": 2.0,
+     "v": 10
+    },
+    {
+     "type": "label",
+     "on": "w",
+     "frame": "base",
+     "at3": [
+      0,
+      5.4,
+      0
+     ],
+     "text": "v = {} m/s",
+     "bind": {
+      "prop": "w",
+      "q": "v"
+     },
+     "dec": 1,
+     "w": 2.8,
+     "h": 0.85,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.05
+    }
+   ],
+   "cast": [],
+   "cam": {
+    "type": "medium",
+    "on": "w",
+    "angle": -35,
+    "relative": false,
+    "scale": 1.3
+   },
+   "lines": [
+    {
+     "text": "A runaway wheel. Ten meters per second. Heading for the square.",
+     "caption": "A runaway wheel. v = 10 m/s. Heading for the square."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "traffic": 0,
+   "crowd": 16,
+   "props": [],
+   "cast": [
+    {
+     "id": "milo",
+     "pos": [
+      3,
+      5.5
+     ],
+     "face": -40,
+     "act": "shock"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "milo",
+    "angle": 15,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "who": "milo",
+     "text": "It's heading for the fountain!"
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "traffic": 0,
+   "crowd": 10,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      -11,
+      1.8
+     ],
+     "dir": 0,
+     "r": 2.0,
+     "v": 10
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "path": [
+      [
+       -8,
+       0,
+       4.4
+      ],
+      [
+       28,
+       0,
+       4.4
+      ]
+     ],
+     "act": "run",
+     "linear": true,
+     "move": [
+      0,
+      1
+     ]
+    }
+   ],
+   "cam": {
+    "type": "wide",
+    "on": [
+     "leo",
+     "w"
+    ],
+    "angle": 20,
+    "relative": false,
+    "scale": 0.75
+   },
+   "dur": 3.6,
+   "lines": [
+    {
+     "text": "Leo got there first. He grabbed the top of the wheel..."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "traffic": 0,
+   "crowd": 10,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      -3,
+      1.8
+     ],
+     "dir": 0,
+     "r": 2.0,
+     "v": 10
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "path": [
+      [
+       -1,
+       4.0,
+       1.8
+      ],
+      [
+       5,
+       7.6,
+       1.8
+      ],
+      [
+       11,
+       8.2,
+       2.6
+      ],
+      [
+       18,
+       0.2,
+       3.8
+      ]
+     ],
+     "act": "shock",
+     "linear": true,
+     "move": [
+      0,
+      0.95
+     ]
+    }
+   ],
+   "cam": {
+    "type": "wide",
+    "on": "leo",
+    "angle": 10,
+    "relative": false,
+    "scale": 0.8
+   },
+   "dur": 2.0,
+   "sfx": [
+    {
+     "type": "boom",
+     "at": 0.05,
+     "db": -6
+    },
+    {
+     "type": "swoosh_long",
+     "at": 0.05,
+     "db": -8
+    }
+   ],
+   "lines": [
+    {
+     "text": "...and got launched."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "traffic": 0,
+   "crowd": 0,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      -7,
+      1.8
+     ],
+     "dir": 0,
+     "r": 2.0,
+     "v": 1.6,
+     "trail": true,
+     "vectors": true,
+     "vscale": 0.6,
+     "vectors_show": [
+      0.8
+     ]
+    },
+    {
+     "type": "label",
+     "text": "SLOW MOTION",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 1.6,
+     "h": 0.36,
+     "color": "#ffffff",
+     "minh": 0.035,
+     "hud": [
+      0,
+      0.7
+     ]
+    }
+   ],
+   "cast": [],
+   "cam": {
+    "type": "full",
+    "on": "w",
+    "angle": 0,
+    "relative": false,
+    "scale": 1.15
+   },
+   "lines": [
+    {
+     "text": "A rolling wheel does two things at once. The whole wheel moves forward at v. And it spins, so every point on the rim also moves at v around the center."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "traffic": 0,
+   "crowd": 0,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      -1,
+      1.8
+     ],
+     "dir": 0,
+     "r": 2.0,
+     "v": 1.6,
+     "trail": true,
+     "vectors": true,
+     "vscale": 0.6
+    },
+    {
+     "type": "label",
+     "text": "top:  v + v = 2v",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.0,
+     "h": 0.42,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.045,
+     "show": [
+      0.3
+     ],
+     "hud": [
+      0,
+      0.64
+     ]
+    },
+    {
+     "type": "label",
+     "text": "bottom:  v − v = 0",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.1,
+     "h": 0.42,
+     "color": "#ff6b6b",
+     "border": "#ff6b6b",
+     "minh": 0.045,
+     "show": [
+      2.6
+     ],
+     "hud": [
+      0,
+      0.48
+     ]
+    }
+   ],
+   "cast": [],
+   "cam": {
+    "type": "full",
+    "on": "w",
+    "angle": 0,
+    "relative": false,
+    "scale": 1.15
+   },
+   "lines": [
+    {
+     "text": "At the top, the two add up: two v. Twenty meters per second. At the bottom, they cancel. Zero.",
+     "caption": "At the top they add up: 2v = 20 m/s. At the bottom they cancel: zero."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "traffic": 0,
+   "crowd": 0,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      -4,
+      1.8
+     ],
+     "dir": 0,
+     "r": 2.0,
+     "v": 1.6,
+     "trail": true
+    },
+    {
+     "type": "label",
+     "text": "v = Rω",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 1.5,
+     "h": 0.5,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.065,
+     "show": [
+      2.0
+     ],
+     "hud": [
+      0,
+      0.62
+     ]
+    }
+   ],
+   "cast": [],
+   "cam": {
+    "type": "full",
+    "on": "w",
+    "angle": 0,
+    "relative": false,
+    "scale": 0.7,
+    "height": -1.6,
+    "look_y": -0.9
+   },
+   "lines": [
+    {
+     "text": "The point touching the ground isn't moving at all. That's rolling without slipping: v equals R omega.",
+     "caption": "The point touching the ground isn't moving at all. That's rolling without slipping: v = Rω."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "traffic": 0,
+   "crowd": 10,
+   "props": [],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      -2,
+      5.5
+     ],
+     "face": -30,
+     "expr": "determined"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "on": "ava",
+    "move": "push",
+    "angle": 15
+   },
+   "lines": [
+    {
+     "who": "ava",
+     "text": "We can't stop it head on. We need a torque against the spin."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "traffic": 0,
+   "crowd": 0,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      -3,
+      1.8
+     ],
+     "dir": 0,
+     "r": 2.0,
+     "v": 1.2
+    },
+    {
+     "type": "arrow",
+     "on": "w",
+     "frame": "base",
+     "from": [
+      0,
+      2.0,
+      0.65
+     ],
+     "to": [
+      0,
+      3.95,
+      0.65
+     ],
+     "color": "#4da3ff",
+     "label": "r",
+     "lat": [
+      -0.7,
+      3.0,
+      0.65
+     ],
+     "show": [
+      0.4
+     ]
+    },
+    {
+     "type": "arrow",
+     "on": "w",
+     "frame": "base",
+     "from": [
+      2.3,
+      4.0,
+      0.65
+     ],
+     "to": [
+      0.2,
+      4.0,
+      0.65
+     ],
+     "color": "#ff4d4d",
+     "label": "F",
+     "lat": [
+      1.9,
+      4.75,
+      0.65
+     ],
+     "show": [
+      3.2
+     ]
+    },
+    {
+     "type": "label",
+     "text": "spin ω: into the screen ⊗",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.6,
+     "h": 0.42,
+     "color": "#ff6b6b",
+     "border": "#ff6b6b",
+     "minh": 0.042,
+     "show": [
+      0.3
+     ],
+     "hud": [
+      0,
+      0.66
+     ]
+    },
+    {
+     "type": "label",
+     "text": "τ = r × F: out of the screen ⊙",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.8,
+     "h": 0.42,
+     "color": "#5ef2c2",
+     "border": "#5ef2c2",
+     "minh": 0.042,
+     "show": [
+      5.2
+     ],
+     "hud": [
+      0,
+      0.5
+     ]
+    }
+   ],
+   "cast": [],
+   "cam": {
+    "type": "full",
+    "on": "w",
+    "angle": 0,
+    "relative": false,
+    "scale": 1.2
+   },
+   "lines": [
+    {
+     "text": "The wheel spins clockwise, so its spin points into the screen."
+    },
+    {
+     "text": "Ava used the right-hand rule. Fingers up the radius, curl toward a backward push, and the thumb points out of the screen. Exactly against the spin."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "traffic": 0,
+   "crowd": 10,
+   "props": [],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      -2,
+      5.5
+     ],
+     "face": 40,
+     "act": "point",
+     "expr": "determined"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "ava",
+    "angle": -70,
+    "punch": [
+     0.3,
+     1.2
+    ]
+   },
+   "lines": [
+    {
+     "who": "ava",
+     "text": "Leo! Push back on the top!"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    -12,
+    7,
+    24,
+    180,
+    220
+   ],
+   "cheer": 0.15,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      0,
+      6
+     ],
+     "dir": 90,
+     "r": 2.0,
+     "v": 5,
+     "a": -1.25
+    },
+    {
+     "type": "label",
+     "on": "w",
+     "frame": "base",
+     "at3": [
+      0,
+      5.4,
+      0
+     ],
+     "text": "v = {} m/s",
+     "bind": {
+      "prop": "w",
+      "q": "v"
+     },
+     "dec": 1,
+     "w": 2.8,
+     "h": 0.85,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.05
+    },
+    {
+     "type": "arrow",
+     "on": "w",
+     "frame": "base",
+     "from": [
+      3.0,
+      3.6,
+      0.6
+     ],
+     "to": [
+      1.6,
+      3.6,
+      0.6
+     ],
+     "color": "#ff4d4d",
+     "label": "F",
+     "lat": [
+      3.2,
+      4.4,
+      0.6
+     ],
+     "show": [
+      0.3
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "ride": {
+      "on": "w",
+      "frame": "base",
+      "at": [
+       2.3,
+       -0.5
+      ]
+     },
+     "face": -90,
+     "act": "reach",
+     "expr": "angry"
+    },
+    {
+     "id": "ava",
+     "ride": {
+      "on": "w",
+      "frame": "base",
+      "at": [
+       2.9,
+       1.0
+      ]
+     },
+     "face": -90,
+     "act": "push",
+     "expr": "determined"
+    }
+   ],
+   "cam": {
+    "type": "wide",
+    "on": "w",
+    "angle": 90,
+    "relative": false,
+    "scale": 0.7
+   },
+   "lines": [
+    {
+     "text": "Leo pushed back on the top with everything he had. And this time, his strength was pointed the right way."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    -12,
+    7,
+    24,
+    180,
+    220
+   ],
+   "cheer": 0.15,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      0,
+      -1.5
+     ],
+     "dir": 90,
+     "r": 2.0,
+     "v": 2.5,
+     "a": -1.25
+    },
+    {
+     "type": "label",
+     "on": "w",
+     "frame": "base",
+     "at3": [
+      0,
+      5.4,
+      0
+     ],
+     "text": "v = {} m/s",
+     "bind": {
+      "prop": "w",
+      "q": "v"
+     },
+     "dec": 1,
+     "w": 2.8,
+     "h": 0.85,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.05
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "ride": {
+      "on": "w",
+      "frame": "base",
+      "at": [
+       2.3,
+       -0.5
+      ]
+     },
+     "face": -90,
+     "act": "reach"
+    },
+    {
+     "id": "ava",
+     "ride": {
+      "on": "w",
+      "frame": "base",
+      "at": [
+       2.9,
+       1.0
+      ]
+     },
+     "face": -90,
+     "act": "push"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "w",
+    "angle": 90,
+    "relative": false,
+    "scale": 1.0,
+    "move": "push"
+   },
+   "sfx": [
+    {
+     "type": "thud",
+     "at": 0.55,
+     "db": -6
+    },
+    {
+     "type": "crowd",
+     "at": 0.6,
+     "db": -6
+    }
+   ],
+   "lines": [
+    {
+     "text": "Ten. Five. Zero. The wheel stopped one meter from the fountain."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    -12,
+    7,
+    24,
+    180,
+    220
+   ],
+   "cheer": 0.15,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      0,
+      -4
+     ],
+     "dir": 90,
+     "r": 2.0,
+     "v": 0,
+     "idle": true
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      -2.3,
+      -0.8
+     ],
+     "face": 30,
+     "look": "leo"
+    },
+    {
+     "id": "leo",
+     "pos": [
+      2.3,
+      -0.8
+     ],
+     "face": -30,
+     "look": "ava",
+     "expr": "sad"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": [
+     "ava",
+     "leo"
+    ],
+    "angle": 0,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "who": "leo",
+     "text": "You knew where to push. I just pushed."
+    },
+    {
+     "who": "ava",
+     "text": "Physics needs both."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    -12,
+    7,
+    24,
+    180,
+    220
+   ],
+   "cheer": 0.15,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      0,
+      -4
+     ],
+     "dir": 90,
+     "r": 2.0,
+     "v": 0,
+     "idle": true
+    }
+   ],
+   "cast": [
+    {
+     "id": "host",
+     "pos": [
+      4.5,
+      1.5
+     ],
+     "act": "cheer",
+     "face": -20
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "host",
+    "angle": 15,
+    "punch": [
+     0.55,
+     1.2
+    ]
+   },
+   "flash": true,
+   "sfx": [
+    {
+     "type": "crowd",
+     "at": 0.6,
+     "db": -5
+    }
+   ],
+   "lines": [
+    {
+     "who": "host",
+     "text": "For the first time ever... two champions!"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 110,
+   "gather": [
+    0,
+    -12,
+    7,
+    24,
+    180,
+    220
+   ],
+   "cheer": 0.6,
+   "props": [
+    {
+     "type": "roller",
+     "id": "w",
+     "pos": [
+      0,
+      -4
+     ],
+     "dir": 90,
+     "r": 2.0,
+     "v": 0,
+     "idle": true
+    },
+    {
+     "type": "label",
+     "text": "SPIN TRIALS  ·  THE END",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.6,
+     "h": 0.42,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.05,
+     "show": [
+      2.8
+     ],
+     "hud": [
+      0,
+      0.55
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      -1.2,
+      -0.8
+     ],
+     "face": 0,
+     "act": "cheer"
+    },
+    {
+     "id": "leo",
+     "pos": [
+      1.3,
+      -0.8
+     ],
+     "face": 0,
+     "act": "cheer"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": [
+     "ava",
+     "leo"
+    ],
+    "move": "reveal",
+    "reveal_dist": 40,
+    "reveal_height": 24,
+    "spin": 30
+   },
+   "dur": 4.5,
+   "lines": [
+    {
+     "text": "In this world, everyone can see physics. But only some people know how to read it."
+    }
+   ]
+  }
+ ]
+}

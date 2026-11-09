@@ -1,0 +1,1287 @@
+{
+ "title": "Spin Trials 1: The Great Wheel",
+ "brand": "SPIN TRIALS",
+ "narrator_voice": "af_jessica",
+ "speed": 1.3,
+ "captions": {
+  "style": "word"
+ },
+ "characters": {
+  "ava": {
+   "skin": "#f1c79f",
+   "hair": "ponytail",
+   "hair_color": "#2b1a12",
+   "shirt_style": "hoodie",
+   "shirt": "#7c4dd8",
+   "pants_style": "jeans",
+   "pants": "#2f3f66",
+   "shoes": "#f5f5f5",
+   "eyes": "round",
+   "voice": "af_bella",
+   "pitch": 2,
+   "scale": 0.92
+  },
+  "leo": {
+   "skin": "#d79e72",
+   "hair": "spiky",
+   "hair_color": "#e3bb62",
+   "shirt_style": "jersey",
+   "shirt": "#d94b3d",
+   "number": 1,
+   "pants_style": "sweats",
+   "pants": "#1f2937",
+   "voice": "am_echo",
+   "pitch": 2,
+   "scale": 1.08
+  },
+  "milo": {
+   "skin": "#e9b98f",
+   "hair": "messy",
+   "hair_color": "#4a2c1a",
+   "shirt_style": "tee",
+   "shirt": "#2fa36b",
+   "pants_style": "shorts",
+   "pants": "#3a4f73",
+   "voice": "am_puck",
+   "pitch": 3,
+   "glasses": true
+  },
+  "host": {
+   "skin": "#f3d2b3",
+   "hair": "tophat",
+   "hat_color": "#1b1b1b",
+   "hair_color": "#e8e2d0",
+   "shirt_style": "suit",
+   "shirt": "#2a1f4a",
+   "tie": "#ffd46b",
+   "pants_style": "pants",
+   "pants": "#1f2937",
+   "shoes": "#1b1b1b",
+   "voice": "am_onyx",
+   "scale": 1.1,
+   "glasses": true
+  }
+ },
+ "shots": [
+  {
+   "set": "street",
+   "npc_tags": true,
+   "crowd": 18,
+   "traffic": 3,
+   "cast": [
+    {
+     "id": "milo",
+     "pos": [
+      -3,
+      5.5
+     ],
+     "to": [
+      3,
+      5.5
+     ],
+     "act": "walk",
+     "linear": true,
+     "tag": {
+      "bind": "v",
+      "fmt": "v = {} m/s",
+      "dec": 1
+     }
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "milo",
+    "move": "descend",
+    "angle": 25,
+    "reveal_dist": 40,
+    "reveal_height": 26
+   },
+   "lines": [
+    {
+     "text": "In this world, everyone can see physics."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "npc_tags": true,
+   "crowd": 18,
+   "traffic": 4,
+   "cast": [
+    {
+     "id": "milo",
+     "pos": [
+      1,
+      5.5
+     ],
+     "face": 15,
+     "expr": "happy",
+     "act": "wave"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "milo",
+    "angle": 25,
+    "move": "orbit",
+    "height": 0.6
+   },
+   "lines": [
+    {
+     "text": "Every moving thing has its numbers floating right above it."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 0
+    }
+   ],
+   "cast": [],
+   "cam": {
+    "pos": [
+     62,
+     46,
+     74
+    ],
+    "to_pos": [
+     20,
+     15,
+     34
+    ],
+    "look": [
+     0,
+     0,
+     6
+    ],
+    "to_look": [
+     0,
+     1,
+     6
+    ]
+   },
+   "sfx": [
+    {
+     "type": "crowd",
+     "at": 0.3,
+     "db": -10
+    }
+   ],
+   "lines": [
+    {
+     "text": "And once a year, the whole town packs the square for the Spin Trials."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "host",
+     "pos": [
+      -2,
+      16.4
+     ],
+     "act": "talk"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "host",
+    "move": "push",
+    "angle": -15
+   },
+   "lines": [
+    {
+     "who": "host",
+     "text": "Five trials. One champion. Trial one... the Great Wheel!"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      -7,
+      18.6
+     ],
+     "face": 200,
+     "expr": "smug",
+     "tag": "3x CHAMP",
+     "tag_color": "#ffd46b"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "on": "leo",
+    "move": "push",
+    "angle": 20
+   },
+   "lines": [
+    {
+     "who": "leo",
+     "text": "Easy. I've won this three years in a row."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      6,
+      18.6
+     ],
+     "face": 195,
+     "expr": "determined"
+    },
+    {
+     "id": "milo",
+     "pos": [
+      7.8,
+      19.2
+     ],
+     "look": "ava"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": [
+     "ava",
+     "milo"
+    ],
+    "move": "push",
+    "angle": 195
+   },
+   "lines": [
+    {
+     "text": "Nobody expected anything from Ava. She was the smallest kid in the Trials."
+    },
+    {
+     "who": "milo",
+     "text": "You've got this. Probably."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "host",
+     "pos": [
+      -2,
+      16.4
+     ],
+     "act": "point",
+     "face": -60
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "host",
+    "move": "static",
+    "angle": 25
+   },
+   "lines": [
+    {
+     "who": "host",
+     "text": "Stand anywhere you like on the wheel. The fastest rider wins!"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "path": [
+      [
+       -7,
+       0,
+       18.6
+      ],
+      [
+       -3,
+       0,
+       16.2
+      ],
+      [
+       -1.2,
+       0.96,
+       13.6
+      ],
+      [
+       0,
+       0.96,
+       7.2
+      ]
+     ],
+     "act": "walk",
+     "move": [
+      0.05,
+      0.85
+     ]
+    }
+   ],
+   "cam": {
+    "type": "wide",
+    "on": "leo",
+    "angle": 200,
+    "relative": false,
+    "scale": 0.8,
+    "move": "pan"
+   },
+   "lines": [
+    {
+     "text": "Leo marched straight to the middle."
+    },
+    {
+     "who": "leo",
+     "text": "The center is the king spot."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "path": [
+      [
+       6,
+       0,
+       18.6
+      ],
+      [
+       2.6,
+       0,
+       16.0
+      ],
+      [
+       0.6,
+       0.96,
+       14.4
+      ],
+      [
+       0,
+       0.96,
+       14
+      ]
+     ],
+     "act": "walk",
+     "move": [
+      0.05,
+      0.75
+     ]
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "ava",
+    "angle": 205,
+    "relative": false,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "text": "Ava walked all the way out to the edge."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": {
+      "w": 0,
+      "alpha": 0.6,
+      "at": 0.4,
+      "max": 1.0
+     }
+    },
+    {
+     "type": "label",
+     "text": "ω = {} rad/s",
+     "at3": [
+      0,
+      6.4,
+      6
+     ],
+     "w": 3.8,
+     "h": 1.0,
+     "bind": {
+      "prop": "tt",
+      "q": "w"
+     },
+     "color": "#ffd46b",
+     "border": "#ffd46b"
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "ride": {
+      "on": "tt",
+      "at": [
+       0,
+       8
+      ]
+     },
+     "face": 90,
+     "tag": {
+      "bind": "v",
+      "fmt": "v = {} m/s",
+      "dec": 1
+     }
+    },
+    {
+     "id": "leo",
+     "ride": {
+      "on": "tt",
+      "at": [
+       0,
+       1
+      ]
+     },
+     "face": 90,
+     "tag": {
+      "bind": "v",
+      "fmt": "v = {} m/s",
+      "dec": 1
+     }
+    }
+   ],
+   "dur": 4.0,
+   "cam": {
+    "type": "wide",
+    "on": "tt",
+    "scale": 0.85,
+    "angle": 20,
+    "move": "orbit"
+   },
+   "sfx": [
+    {
+     "type": "hum",
+     "at": 0.1,
+     "db": -12
+    }
+   ],
+   "lines": [
+    {
+     "text": "Then the wheel started to turn. One radian per second, for everyone on it.",
+     "caption": "Then the wheel started to turn. ω = 1 rad/s, for everyone on it."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 1.0
+    },
+    {
+     "type": "label",
+     "text": "Same θ.  Same ω.",
+     "at3": [
+      0,
+      4.2,
+      2.2
+     ],
+     "w": 4.6,
+     "h": 1.1,
+     "color": "#5ef2c2",
+     "show": [
+      0.8
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "ride": {
+      "on": "tt",
+      "at": [
+       0,
+       8
+      ]
+     },
+     "face": 90,
+     "tag": {
+      "bind": "v",
+      "fmt": "v = {} m/s",
+      "dec": 1
+     }
+    },
+    {
+     "id": "leo",
+     "ride": {
+      "on": "tt",
+      "at": [
+       0,
+       1
+      ]
+     },
+     "face": 90,
+     "tag": {
+      "bind": "v",
+      "fmt": "v = {} m/s",
+      "dec": 1
+     }
+    }
+   ],
+   "cam": {
+    "pos": [
+     0,
+     42,
+     17
+    ],
+    "look": [
+     0,
+     0,
+     6.2
+    ],
+    "to_pos": [
+     0,
+     38,
+     15.5
+    ]
+   },
+   "lines": [
+    {
+     "text": "Here's the thing. Every point on a spinning wheel turns through the same angle, at the same rate. Same theta. Same omega.",
+     "caption": "Every point on a spinning wheel turns through the same angle, at the same rate. Same θ. Same ω."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 1.0
+    },
+    {
+     "type": "label",
+     "text": "s = Rθ",
+     "at3": [
+      0,
+      5.6,
+      6
+     ],
+     "w": 3.2,
+     "h": 1.1,
+     "color": "#ffffff",
+     "minh": 0.07,
+     "show": [
+      0.3
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "ride": {
+      "on": "tt",
+      "at": [
+       0,
+       8
+      ]
+     },
+     "face": 90,
+     "tag": {
+      "bind": "v",
+      "fmt": "v = {} m/s",
+      "dec": 1
+     }
+    },
+    {
+     "id": "leo",
+     "ride": {
+      "on": "tt",
+      "at": [
+       0,
+       1
+      ]
+     },
+     "face": 90,
+     "tag": {
+      "bind": "v",
+      "fmt": "v = {} m/s",
+      "dec": 1
+     }
+    }
+   ],
+   "cam": {
+    "type": "wide",
+    "on": "tt",
+    "scale": 0.75,
+    "angle": -30,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "text": "But how far you travel is the radius times the angle. s equals R theta.",
+     "caption": "But how far you travel is the radius times the angle. s = Rθ."
+    },
+    {
+     "text": "In one full turn, Ava covered fifty meters. Leo covered six."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 1.0
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "ride": {
+      "on": "tt",
+      "at": [
+       0,
+       8
+      ]
+     },
+     "face": 90,
+     "tag": {
+      "bind": "v",
+      "fmt": "v = {} m/s",
+      "dec": 1
+     },
+     "expr": "happy",
+     "act": "arms_up"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "ava",
+    "angle": 25
+   },
+   "sfx": [
+    {
+     "type": "whoosh",
+     "at": 0.2,
+     "db": -8
+    }
+   ],
+   "lines": [
+    {
+     "text": "Ava, eight meters out, was flying around at eight meters per second."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 1.0
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "ride": {
+      "on": "tt",
+      "at": [
+       0,
+       1
+      ]
+     },
+     "face": 60,
+     "tag": {
+      "bind": "v",
+      "fmt": "v = {} m/s",
+      "dec": 1
+     },
+     "expr": "worried"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "on": "leo",
+    "angle": 15
+   },
+   "lines": [
+    {
+     "text": "Leo, one meter from the center, was barely moving."
+    },
+    {
+     "who": "leo",
+     "text": "Hey! Why is she going so fast?"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 1.0
+    },
+    {
+     "type": "label",
+     "text": "v = Rω",
+     "at3": [
+      0,
+      5.6,
+      6
+     ],
+     "w": 3.2,
+     "h": 1.1,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.07,
+     "show": [
+      0.3
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "ride": {
+      "on": "tt",
+      "at": [
+       0,
+       8
+      ]
+     },
+     "face": 90,
+     "tag": {
+      "bind": "v",
+      "fmt": "v = {} m/s",
+      "dec": 1
+     }
+    },
+    {
+     "id": "leo",
+     "ride": {
+      "on": "tt",
+      "at": [
+       0,
+       1
+      ]
+     },
+     "face": 90,
+     "tag": {
+      "bind": "v",
+      "fmt": "v = {} m/s",
+      "dec": 1
+     }
+    }
+   ],
+   "cam": {
+    "type": "wide",
+    "on": "tt",
+    "scale": 0.9,
+    "angle": 160,
+    "move": "orbit",
+    "dir": -1
+   },
+   "lines": [
+    {
+     "text": "Speed equals radius times angular speed. v equals R omega.",
+     "caption": "Speed = radius × angular speed. v = Rω."
+    },
+    {
+     "text": "Same omega. Eight times the radius. Eight times the speed.",
+     "caption": "Same ω. 8× the radius. 8× the speed."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "host",
+     "pos": [
+      -2,
+      16.4
+     ],
+     "act": "point",
+     "face": -40
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "host",
+    "move": "static",
+    "angle": 30,
+    "punch": [
+     0.55,
+     1.25
+    ]
+   },
+   "flash": true,
+   "lines": [
+    {
+     "who": "host",
+     "text": "Winner of trial one... Ava!"
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.6,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      0,
+      14
+     ],
+     "y": 0.96,
+     "face": 0,
+     "act": "cheer"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": "ava",
+    "move": "reveal",
+    "reveal_dist": 42,
+    "reveal_height": 26,
+    "spin": 30
+   },
+   "sfx": [
+    {
+     "type": "crowd",
+     "at": 0.05,
+     "db": -6
+    }
+   ],
+   "dur": 3.4,
+   "lines": [
+    {
+     "text": "The smallest kid in the Trials had just won the first one."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 0
+    }
+   ],
+   "cast": [
+    {
+     "id": "leo",
+     "pos": [
+      -1,
+      7
+     ],
+     "y": 0.96,
+     "face": 0,
+     "expr": "angry"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "on": "leo",
+    "move": "push",
+    "angle": -20
+   },
+   "lines": [
+    {
+     "who": "leo",
+     "text": "Lucky. Next is the Vault Door. Nobody's stronger than me."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 120,
+   "gather": [
+    0,
+    6,
+    11.5,
+    25,
+    0,
+    360
+   ],
+   "cheer": 0.25,
+   "props": [
+    {
+     "type": "turntable",
+     "id": "tt",
+     "pos": [
+      0,
+      6
+     ],
+     "r": 9,
+     "spin": 0
+    },
+    {
+     "type": "label",
+     "text": "PART 2 ▸ THE VAULT DOOR",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.4,
+     "h": 0.42,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.05,
+     "show": [
+      1.6
+     ],
+     "hud": [
+      0,
+      0.55
+     ]
+    }
+   ],
+   "cast": [
+    {
+     "id": "ava",
+     "pos": [
+      0,
+      14
+     ],
+     "y": 0.96,
+     "face": 0,
+     "expr": "smug"
+    }
+   ],
+   "cam": {
+    "type": "close",
+    "on": "ava",
+    "move": "pull",
+    "angle": 10
+   },
+   "dur": 3.6,
+   "sfx": [
+    {
+     "type": "riser",
+     "at": 0.2,
+     "db": -10
+    }
+   ],
+   "lines": [
+    {
+     "text": "He was right. Nobody was stronger. But strength was never the point."
+    }
+   ]
+  }
+ ]
+}

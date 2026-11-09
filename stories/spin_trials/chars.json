@@ -1,0 +1,6 @@
+{
+  "ava": {"skin": "#f1c79f", "hair": "ponytail", "hair_color": "#2b1a12", "shirt_style": "hoodie", "shirt": "#7c4dd8", "pants_style": "jeans", "pants": "#2f3f66", "shoes": "#f5f5f5", "eyes": "round", "voice": "af_bella", "pitch": 2, "scale": 0.92},
+  "leo": {"skin": "#d79e72", "hair": "spiky", "hair_color": "#e3bb62", "shirt_style": "jersey", "shirt": "#d94b3d", "number": 1, "pants_style": "sweats", "pants": "#1f2937", "voice": "am_echo", "pitch": 2, "scale": 1.08},
+  "milo": {"skin": "#e9b98f", "hair": "messy", "hair_color": "#4a2c1a", "shirt_style": "tee", "shirt": "#2fa36b", "pants_style": "shorts", "pants": "#3a4f73", "voice": "am_puck", "pitch": 3, "glasses": true},
+  "host": {"skin": "#f3d2b3", "hair": "tophat", "hat_color": "#1b1b1b", "hair_color": "#e8e2d0", "shirt_style": "suit", "shirt": "#2a1f4a", "tie": "#ffd46b", "pants_style": "pants", "pants": "#1f2937", "shoes": "#1b1b1b", "voice": "am_onyx", "scale": 1.1, "glasses": true}
+}
