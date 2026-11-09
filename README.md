@@ -37,3 +37,17 @@ Needs Python packages `kokoro-onnx soundfile playwright numpy`, ffmpeg, Node 18+
 - `--stills` renders start/middle/end of every shot (`stills_ends_N.jpg`) and flags frames that are soft all over in `stills_report.txt`. Depth of field never blurs a whole frame.
 - Rendering without file:// : the render page also works as a private claude.ai artifact (it saves through the artifact downloads capability).
 - `stories/spin_trials/` holds the 5-episode ECE 105 rotation series (`python ep1.py` regenerates `ep1.json`).
+- Looks ("camera filters"): set `post: {look: "film" | "golden" | "dreamy" | "camcorder"}` on the story or a shot. Spin Trials uses `golden` (warm grade, light leaks, haze, vignette). `camcorder` adds REC / timecode / frame brackets and scanlines.
+- In a claude.ai artifact the render page asks to save as soon as it finishes; renders run ~20+ frames/s on the 5080 when the browser pane is visible (hidden panes are throttled).
+
+## Writing rules for new stories (learned from The Loophole)
+
+- **No breaks in speech.** Narration runs continuously. Shots with `lines` are as long as their audio
+  (pause is capped at 0.25 s); a shot's `dur` only adds silence if the shot sets `"hold": true`.
+  To make a video longer, write more narration — never pad with `dur`/`pause`. Ellipses are spoken as
+  commas and in-line pauses are squeezed to ≤0.16 s. `--voice-only` writes `speech_report.txt` and prints
+  `SPEECH GAP` for any silence over 0.35 s — fix the script until it reports none.
+- **Floating text never overlaps.** `declutter()` runs every frame: HUD/overlay labels win, then actor tags,
+  then world labels; anything that collides is nudged up just enough to clear (or down, if up would leave
+  the frame), and NPC tags that still collide are hidden. Still check `stills.jpg` when a shot has 2+ bubbles.
+- **Names:** multicultural casts are encouraged (e.g. Mr. Singh, Ling Ling, Priya, Mateo, Chief Tremblay).

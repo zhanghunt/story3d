@@ -44,6 +44,39 @@ def trim(a, thr=0.01):
     return a if not len(i) else a[max(i[0] - 480, 0):min(i[-1] + 1440, len(a))]
 
 
+def squeeze_silence(a, sr, max_gap=0.16, thr=0.012):
+    """Shorten any pause inside a line to at most max_gap seconds (no dead air mid-sentence)."""
+    win = int(sr * 0.01); n = len(a) // win
+    if n < 3:
+        return a
+    loud = np.array([np.abs(a[i * win:(i + 1) * win]).max() > thr for i in range(n)])
+    keep, run_ = np.ones(len(a), bool), 0
+    for i in range(n):
+        run_ = run_ + 1 if not loud[i] else 0
+        if run_ * 0.01 > max_gap:
+            keep[i * win:(i + 1) * win] = False
+    return a[keep]
+
+
+def speech_report(chunks_audio, sr, timeline, work, limit=0.35):
+    """Flag silences longer than `limit` between the first and last word (breaks in speech)."""
+    win = int(sr * 0.01); a = chunks_audio; n = len(a) // win
+    loud = [np.abs(a[i * win:(i + 1) * win]).max() > 0.012 for i in range(n)]
+    first = next((i for i, x in enumerate(loud) if x), 0); last = n - next((i for i, x in enumerate(reversed(loud)) if x), 0)
+    gaps, run_ = [], 0
+    for i in range(first, last):
+        if not loud[i]:
+            run_ += 1
+        else:
+            if run_ * 0.01 > limit:
+                gaps.append((round((i - run_) * 0.01, 2), round(run_ * 0.01, 2)))
+            run_ = 0
+    lines = [f"{d:.2f}s silence at {t:.2f}s" for t, d in gaps]
+    (work / "speech_report.txt").write_text("\n".join(lines) or "no breaks in speech")
+    for l in lines:
+        print("SPEECH GAP:", l)
+
+
 def synth(story, work):
     import soundfile as sf
     kok, chars = None, story.get("characters", {})
@@ -58,13 +91,15 @@ def synth(story, work):
             v = ln.get("voice") or cdef.get("voice") or story.get("voices", {}).get(who) or story.get("narrator_voice", "af_jessica")
             pitch = float(ln.get("pitch", cdef.get("pitch", story.get("narrator_pitch", 0) if who not in chars else 0)))
             sp = float(ln.get("speed", speed))
-            key = hashlib.md5(f"{ln['text']}|{v}|{sp}|{pitch}".encode()).hexdigest()[:10]
+            key = hashlib.md5(f"{ln['text']}|{v}|{sp}|{pitch}|sq1".encode()).hexdigest()[:10]
             p = work / "lines" / f"{key}.wav"
             if not p.exists():
                 if kok is None:
                     from kokoro_onnx import Kokoro
                     kok = Kokoro(*models())
-                a, sr = kok.create(ln["text"], voice=v, speed=sp, lang=story.get("lang", "en-us"))
+                say = re.sub(r"\s*(\.\.\.|…)\s*", ", ", ln["text"]).strip(" ,") or ln["text"]  # ellipses make the TTS stall
+                a, sr = kok.create(say, voice=v, speed=sp, lang=story.get("lang", "en-us"))
+                a = squeeze_silence(a, sr)
                 if pitch:  # natural-sounding pitch shift (formants preserved), e.g. +3 makes a boy voice younger
                     raw = p.with_suffix(".raw.wav"); sf.write(raw, a, sr)
                     run(["ffmpeg", "-y", "-i", str(raw), "-af", f"rubberband=pitch={2 ** (pitch / 12):.4f}:formant=preserved", "-ar", str(sr), str(p)]); raw.unlink()
@@ -81,13 +116,17 @@ def synth(story, work):
             timeline.append({"shot": si, "who": who, "text": ln.get("caption", ln["text"]), "start": t, "end": t + d,
                              "env": [round(min(e / (pk + 1e-6), 1.0), 3) for e in env], "anim": who in chars})
             chunks += [a, np.zeros(int(GAP * SR), np.float32)]; t += d + GAP
-        dmin = float(sh.get("dur", 0)) + float(sh.get("pause", 0))
+        # No dead air: a shot with narration lasts as long as its lines (plus at most a short beat); "dur" only stretches
+        # shots without lines, unless the shot sets "hold": true. Need more screen time? Write more narration.
+        has_lines = bool(sh.get("lines"))
+        dmin = (min(float(sh.get("pause", 0)), 0.25) + (float(sh.get("dur", 0)) if sh.get("hold") else 0)) if has_lines else float(sh.get("dur", 0)) + float(sh.get("pause", 0))
         if t - start < dmin:
             chunks.append(np.zeros(int((dmin - (t - start)) * SR), np.float32)); t = start + dmin
         if timeline and timeline[-1]["shot"] == si:
             timeline[-1]["hold"] = t - timeline[-1]["end"]
         sh["_start"], sh["_end"] = start, t
-    sf.write(work / "voice.wav", np.concatenate(chunks) if chunks else np.zeros(SR, np.float32), SR)
+    full = np.concatenate(chunks) if chunks else np.zeros(SR, np.float32)
+    sf.write(work / "voice.wav", full, SR); speech_report(full, SR, timeline, work)
     return timeline, t
 
 

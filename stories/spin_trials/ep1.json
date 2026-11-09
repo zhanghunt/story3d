@@ -6,6 +6,9 @@
  "captions": {
   "style": "word"
  },
+ "post": {
+  "look": "golden"
+ },
  "characters": {
   "ava": {
    "skin": "#f1c79f",
