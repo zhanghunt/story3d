@@ -744,34 +744,63 @@ function camPose(c, t, dur) {
 
 // ---------- post (bloom, DOF, grade, vignette, grain) ----------
 let rt, bloom, quad, POST = {}, SHADOW = 2048;
+// whole-video looks ("camera filters"): set post.look in the story (or per shot)
+const LOOKS = {
+  film: {},
+  golden: { grade: 'warm', bloom: 0.42, bloom_th: 0.8, bloom_r: 0.5, tone: 1.2, leak: 1.3, vignette: 0.68, exposure: 1.0 },
+  dreamy: { grade: 'dream', bloom: 0.55, bloom_th: 0.7, bloom_r: 0.75, tone: 0.8, leak: 1.1, vignette: 0.55, grain: 0.04 },
+  camcorder: { grade: 'cool', bloom: 0.35, ca: 2.2, tone: 0.6, leak: 0.3, vignette: 0.5, grain: 0.07, scan: 1, overlay: 'camcorder' },
+};
+let OVC = null, OVT = null;
+function camcorderOverlay(t, w, h) { // REC dot, timecode, frame brackets drawn into a transparent layer composited in the post shader
+  if (!OVC) { OVC = document.createElement('canvas'); OVC.width = w; OVC.height = h; OVT = new THREE.CanvasTexture(OVC); OVT.colorSpace = SRGB; }
+  const g = OVC.getContext('2d'); g.clearRect(0, 0, w, h); const m = w * 0.06, L = w * 0.09; g.strokeStyle = 'rgba(255,255,255,.9)'; g.lineWidth = w * 0.006;
+  [[m, m, 1, 1], [w - m, m, -1, 1], [m, h - m, 1, -1], [w - m, h - m, -1, -1]].forEach(([x, y, sx, sy]) => { g.beginPath(); g.moveTo(x, y + sy * L); g.lineTo(x, y); g.lineTo(x + sx * L, y); g.stroke(); });
+  g.font = `900 ${w * 0.045}px ${FONT}`; g.textBaseline = 'middle'; g.fillStyle = 'rgba(255,255,255,.92)'; g.fillText('REC', m + w * 0.075, m + w * 0.07);
+  if (Math.floor(t * 1.6) % 2 === 0) { g.fillStyle = '#ff3030'; g.beginPath(); g.arc(m + w * 0.04, m + w * 0.07, w * 0.016, 0, 7); g.fill(); }
+  const tt = TC + t, tc = [Math.floor(tt / 3600), Math.floor(tt / 60) % 60, Math.floor(tt) % 60, Math.floor((tt % 1) * 30)].map(v => String(v).padStart(2, '0')).join(':');
+  g.textAlign = 'right'; g.fillStyle = 'rgba(255,255,255,.92)'; g.font = `700 ${w * 0.036}px ${FONT}`; g.fillText(tc, w - m - w * 0.02, m + w * 0.07); g.textAlign = 'left';
+  g.fillText('▶ 1080p  60', m + w * 0.02, h - m - w * 0.06); OVT.needsUpdate = true; return OVT;
+}
+let TC = 0;
 const GRADES = { film: [1.1, 1.1, [0.0, 0.018, 0.04], [1.07, 1.01, 0.92]], warm: [1.05, 1.1, [0.02, 0.01, 0.0], [1.08, 1.0, 0.9]], cool: [1.05, 0.98, [0.0, 0.01, 0.03], [0.95, 1.0, 1.06]], night: [1.1, 0.92, [0.0, 0.01, 0.035], [0.9, 0.97, 1.1]], dream: [0.96, 1.15, [0.04, 0.03, 0.05], [1.05, 1.0, 1.05]], none: [1, 1, [0, 0, 0], [1, 1, 1]] };
 let HQ = false;
 function makePost(w, h) {
   rt = new THREE.WebGLRenderTarget(w, h, { type: THREE.HalfFloatType, samples: HQ ? 4 : 0 }); rt.depthTexture = new THREE.DepthTexture(w, h); rt.depthTexture.type = THREE.UnsignedIntType;
   bloom = new UnrealBloomPass(new THREE.Vector2(w / 2, h / 2), 0.5, 0.45, 0.92);
   quad = new FullScreenQuad(new THREE.ShaderMaterial({
-    uniforms: { tC: { value: rt.texture }, tD: { value: rt.depthTexture }, res: { value: new THREE.Vector2(w, h) }, near: { value: 0.1 }, far: { value: 1000 }, focus: { value: 10 }, ap: { value: 0 }, time: { value: 0 }, con: { value: 1 }, sat: { value: 1 }, lift: { value: new THREE.Vector3() }, gain: { value: new THREE.Vector3(1, 1, 1) }, vig: { value: 0.3 }, grain: { value: 0.025 }, ca: { value: 1 }, expo: { value: 1.0 }, flash: { value: 0 } },
+    uniforms: { tC: { value: rt.texture }, tD: { value: rt.depthTexture }, res: { value: new THREE.Vector2(w, h) }, near: { value: 0.1 }, far: { value: 1000 }, focus: { value: 10 }, ap: { value: 0 }, time: { value: 0 }, con: { value: 1 }, sat: { value: 1 }, lift: { value: new THREE.Vector3() }, gain: { value: new THREE.Vector3(1, 1, 1) }, vig: { value: 0.3 }, grain: { value: 0.025 }, ca: { value: 1 }, tone: { value: 1 }, leak: { value: 1 }, seed: { value: 0 }, scan: { value: 0 }, tOv: { value: null }, ov: { value: 0 }, expo: { value: 1.0 }, flash: { value: 0 } },
     vertexShader: 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.,1.); }',
-    fragmentShader: `precision highp float; varying vec2 vUv; uniform sampler2D tC, tD; uniform vec2 res; uniform float near, far, focus, ap, time, con, sat, vig, grain, expo, flash, ca; uniform vec3 lift, gain;
+    fragmentShader: `precision highp float; varying vec2 vUv; uniform sampler2D tC, tD; uniform vec2 res; uniform float near, far, focus, ap, time, con, sat, vig, grain, expo, flash, ca, tone, leak, seed, scan, ov; uniform sampler2D tOv; uniform vec3 lift, gain;
       float lin(float d){ float z=d*2.-1.; return 2.*near*far/(far+near-z*(far-near)); }
       vec3 aces(vec3 x){ return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14),0.,1.); }
       float h(vec2 p){ return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453); }
       void main(){
         vec3 col = texture2D(tC,vUv).rgb;
-        if (ca > 0.) { vec2 dd = (vUv-.5)*ca*.006*length(vUv-.5)*2.; col.r = texture2D(tC,vUv+dd).r; col.b = texture2D(tC,vUv-dd).b; } // lens fringing toward the edges
+        if (ca > 0.) { vec2 dd = (vUv-.5)*ca*.0045*smoothstep(.25,.7,length(vUv-.5)); col.r = texture2D(tC,vUv+dd).r; col.b = texture2D(tC,vUv-dd).b; } // lens fringing toward the edges
         if (ap > 0.) { float z = lin(texture2D(tD,vUv).r); float coc = clamp(abs(z-focus)/z*ap*res.y, 0., res.y*.005);
           if (coc > 0.8) { vec3 acc=col; float wsum=1.; for (int i=0;i<16;i++){ float fi=float(i)+.5; float r=sqrt(fi/16.)*coc; float a=fi*2.39996; vec2 o=vec2(cos(a),sin(a))*r/res; float zs=lin(texture2D(tD,vUv+o).r); float w = zs < z-0.5 ? clamp(abs(zs-focus)/zs*ap*res.y/coc,0.,1.) : 1.; acc += texture2D(tC,vUv+o).rgb*w; wsum+=w; } col = acc/wsum; } }
         col = aces(col*expo); col = pow(col, vec3(1./2.2));
         col = col*gain + lift*(1.-col); float l = dot(col,vec3(.299,.587,.114)); col = mix(vec3(l),col,sat); col = (col-.5)*con+.5;
-        vec2 q=vUv-.5; col *= 1.-vig*smoothstep(.3,.9,length(q*vec2(1.,1.2)));
-        col += (h(vUv*res+fract(time*7.31)*100.)-.5)*grain; col = mix(col, vec3(1.), flash);
+        float L = dot(col,vec3(.299,.587,.114)); // teal shadows / orange highlights split-tone
+        col = mix(col, col*vec3(.78,1.02,1.12)+vec3(0.,.02,.04), tone*.55*(1.-smoothstep(.0,.55,L)));
+        col = mix(col, col*vec3(1.12,1.0,.84), tone*.5*smoothstep(.45,1.,L));
+        float hl = smoothstep(.72,1.,L); col += vec3(1.,.45,.2)*hl*.06*tone; // warm halation on bright edges
+        vec2 lp = vec2(.15+.6*sin(time*.23+seed), 1.05); float lk = exp(-3.2*length((vUv-lp)*vec2(1.,.75))); // slow drifting light leak
+        col += vec3(1.,.55,.25)*lk*.32*leak*(.65+.35*sin(time*.7+seed*3.));
+        col *= 1.+ (h(vec2(floor(time*24.),seed))-.5)*.03*leak; // gentle film flicker
+        col = mix(col, vec3(.07,.06,.09)+col*.93, .55*tone); // filmic faded blacks
+        vec2 q=vUv-.5; col *= 1.-vig*smoothstep(.25,.85,length(q*vec2(1.,1.2)));
+        col += (h(vUv*res+fract(time*7.31)*100.)-.5)*grain; col *= 1.-scan*.07*step(.5,fract(vUv.y*res.y*.25)); col = mix(col, vec3(1.), flash);
+        if (ov > 0.) { vec4 o = texture2D(tOv, vUv); col = mix(col, o.rgb, o.a); }
         gl_FragColor = vec4(clamp(col,0.,1.),1.); }` }));
 }
 function renderPost(t, focusDist, s) {
-  const p = Object.assign({ grade: 'film', bloom: 0.32, dof: 'auto', vignette: 0.45, grain: 0.04, exposure: 1.0, ca: 1.0 }, POST, s.post || {});
+  const look = LOOKS[(s.post || {}).look || POST.look || 'film'] || {};
+  const p = Object.assign({ grade: 'film', bloom: 0.42, bloom_th: 0.92, bloom_r: 0.45, dof: 'auto', vignette: 0.6, grain: 0.055, exposure: 1.02, ca: 1.0, tone: 1.0, leak: 1.0, scan: 0 }, look, POST, s.post || {});
   const G = GRADES[p.grade] || GRADES.film, U = quad.material.uniforms;
   R.setRenderTarget(rt); R.render(scene, cam);
-  if (p.bloom > 0) { bloom.strength = p.bloom; bloom.render(R, null, rt, 0, false); }
+  if (p.bloom > 0) { bloom.strength = p.bloom; bloom.threshold = p.bloom_th; bloom.radius = p.bloom_r; bloom.render(R, null, rt, 0, false); }
   R.setRenderTarget(null);
   // DOF rule: the subject is always sharp and a whole frame is never soft. Blur only separates subject from background;
   // it fades out as focus distance grows (wides, reveals, aerials stay crisp) and is off for cameras with no subject.
@@ -779,7 +808,7 @@ function renderPost(t, focusDist, s) {
   const autoAp = noSubject ? 0 : ({ xclose: 0.010, close: 0.007, medium: 0.0035, low: 0.003, ots: 0.005, follow: 0.002, full: 0.002 }[ctype] || 0);
   const refD = { xclose: 1.8, close: 3.0, medium: 5.6, low: 4.8, ots: 4.0, follow: 8, full: 8.4 }[ctype] || 6;
   U.focus.value = focusDist; U.ap.value = (p.dof === 'auto' || p.dof === undefined ? autoAp : +p.dof) * Math.min(1, refD / Math.max(focusDist, 0.1)); U.near.value = cam.near; U.far.value = cam.far; U.time.value = t;
-  U.con.value = G[0]; U.sat.value = G[1]; U.lift.value.set(...G[2]); U.gain.value.set(...G[3]); U.vig.value = p.vignette; U.grain.value = p.grain; U.ca.value = p.ca; U.expo.value = p.exposure; U.flash.value = s.flash ? Math.max(0, 1 - t / 0.18) : 0;
+  U.con.value = G[0]; U.sat.value = G[1]; U.lift.value.set(...G[2]); U.gain.value.set(...G[3]); U.vig.value = p.vignette; U.grain.value = p.grain; U.ca.value = p.ca; U.tone.value = p.tone; U.leak.value = p.leak; U.scan.value = p.scan; U.ov.value = p.overlay === 'camcorder' ? 1 : 0; if (p.overlay === 'camcorder') U.tOv.value = camcorderOverlay(t, U.res.value.x, U.res.value.y); U.seed.value = SEED * 1.7; U.expo.value = p.exposure; U.flash.value = s.flash ? Math.max(0, 1 - t / 0.18) : 0;
   quad.render(R);
   if (OVER.children.length) { R.autoClear = false; R.clearDepth(); R.render(OVER, cam); R.autoClear = true; }
 }
@@ -987,7 +1016,7 @@ window.ENGINE = {
   },
   setup(s, chars, seed) {
     if (scene) { const ms = new Set(); scene.traverse(o => { if (o.geometry && o.geometry !== HEADGEO && o.geometry !== CAPGEO) o.geometry.dispose(); if (o.material) [].concat(o.material).forEach(m => ms.add(m)); }); ms.forEach(m => m.dispose()); Object.values(TEXS).forEach(t => t.dispose()); }
-    scene = new THREE.Scene(); shot = s; SEED = seed || 1; actors = {}; npcs = []; cars = []; MATS = {}; TEXS = {};
+    scene = new THREE.Scene(); shot = s; SEED = seed || 1; TC = s._start || 0; actors = {}; npcs = []; cars = []; MATS = {}; TEXS = {};
     while (cam.children.length) cam.remove(cam.children[0]); scene.add(cam); if ((s.cam || {}).foreground) foreground(s.cam.foreground);
     if (s.cam) { delete s.cam._curve; delete s.cam._anchor; delete s.cam._sm; }
     const c0 = (s.cast || [])[0]; const cp = c0 ? pathPts(c0)[0] : new THREE.Vector3(); CENTER.copy(cp).setY(0);

@@ -46,6 +46,7 @@ async function run() {
   };
   document.body.insertBefore(btn, document.body.children[1] || null);
   if (!dl && !window.claude) try { a.click(); } catch (e) { }
+  if (dl && job.autosave !== false) setTimeout(() => btn.onclick(), 300); // ask the viewer right away (claude.ai shows its own confirmation)
   status(`DONE ${fi} frames in ${window.DONE.secs}s - click Save video`);
 }
 run().catch((e) => { window.FAIL = String(e && e.stack || e); status('FAILED ' + e); });

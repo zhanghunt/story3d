@@ -37,3 +37,5 @@ Needs Python packages `kokoro-onnx soundfile playwright numpy`, ffmpeg, Node 18+
 - `--stills` renders start/middle/end of every shot (`stills_ends_N.jpg`) and flags frames that are soft all over in `stills_report.txt`. Depth of field never blurs a whole frame.
 - Rendering without file:// : the render page also works as a private claude.ai artifact (it saves through the artifact downloads capability).
 - `stories/spin_trials/` holds the 5-episode ECE 105 rotation series (`python ep1.py` regenerates `ep1.json`).
+- Looks ("camera filters"): set `post: {look: "film" | "golden" | "dreamy" | "camcorder"}` on the story or a shot. Spin Trials uses `golden` (warm grade, light leaks, haze, vignette). `camcorder` adds REC / timecode / frame brackets and scanlines.
+- In a claude.ai artifact the render page asks to save as soon as it finishes; renders run ~20+ frames/s on the 5080 when the browser pane is visible (hidden panes are throttled).

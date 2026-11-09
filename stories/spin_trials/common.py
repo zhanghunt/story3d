@@ -3,7 +3,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CH = json.load(open(os.path.join(HERE, 'chars.json')))
 CROWD_TT = {"crowd": 120, "gather": [0, 6, 11.5, 25, 0, 360], "cheer": 0.25}
 def story(title, shots, **kw):
-    d = {"title": title, "brand": "SPIN TRIALS", "narrator_voice": "af_jessica", "speed": 1.3, "captions": {"style": "word"}, "characters": CH, "shots": shots}
+    d = {"title": title, "brand": "SPIN TRIALS", "narrator_voice": "af_jessica", "speed": 1.3, "captions": {"style": "word"}, "post": {"look": "golden"}, "characters": CH, "shots": shots}
     d.update(kw); return d
 def N(text, caption=None):
     l = {"text": text}
