@@ -1,5 +1,8 @@
 node_modules/
 gpu.js
-work/
-*.mp4
 __pycache__/
+work/
+# finished videos and render pages stay on your PC (too big for GitHub)
+renders/*
+!renders/.gitkeep
+*.mp4
