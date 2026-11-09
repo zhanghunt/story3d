@@ -29,8 +29,14 @@ async function run() {
   }
   await enc.flush(); muxer.finalize();
   const blob = new Blob([muxer.target.buffer], { type: 'video/mp4' });
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = job.out || 'story_frames.mp4'; document.body.appendChild(a); a.click();
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = job.out || 'story_frames.mp4'; document.body.appendChild(a);
   window.DONE = { frames: fi, secs: +((performance.now() - t0) / 1000).toFixed(1), file: a.download };
-  status(`DONE ${fi} frames in ${window.DONE.secs}s -> ${a.download}`);
+  // Chrome only allows downloads started by a click, so offer a big button (and try once anyway).
+  const btn = document.createElement('button'); btn.textContent = `Save video (${(blob.size / 1e6).toFixed(0)} MB)`;
+  btn.style.cssText = 'display:block;margin:12px 8px;padding:18px 28px;font:700 22px sans-serif;background:#22c55e;color:#0b1a0f;border:0;border-radius:12px;cursor:pointer';
+  btn.onclick = () => { a.click(); btn.textContent = 'Saved to Downloads: ' + a.download; };
+  document.body.insertBefore(btn, document.body.children[1] || null);
+  try { a.click(); } catch (e) { }
+  status(`DONE ${fi} frames in ${window.DONE.secs}s - click Save video`);
 }
 run().catch((e) => { window.FAIL = String(e && e.stack || e); status('FAILED ' + e); });

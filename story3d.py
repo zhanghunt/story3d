@@ -118,7 +118,7 @@ def captions(story, timeline, total, work, W, H):
     out = ["[Script Info]", "ScriptType: v4.00+", "PlayResX: 1080", "PlayResY: 1920", "WrapStyle: 0", "", "[V4+ Styles]",
            "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
            f"Style: Cap,{font},{size},{col},&H00FFFFFF&,&H00000000&,&H90000000&,-1,0,0,0,100,100,1,0,1,{8 if style == 'word' else 6},3,5,60,60,0,1",
-           f"Style: Brand,{font},60,{ass_color(c.get('brand_color', '#FFD447'))},&H00FFFFFF&,&H00000000&,&H90000000&,-1,0,0,0,100,100,2,0,1,6,2,8,0,0,150,1",
+           f"Style: Brand,{font},46,{ass_color(c.get('brand_color', '#FFD447'))},&H00FFFFFF&,&H00000000&,&H90000000&,-1,0,0,0,100,100,2,0,1,5,2,8,0,0,64,1",
            "", "[Events]", "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
     if story.get("brand"):
         out.append(f"Dialogue: 1,{ts(0)},{ts(total + 1)},Brand,,0,0,0,,{story['brand']}")
@@ -316,13 +316,15 @@ def gpu_job(story, timeline, total, work, out):
         spec = {k: v for k, v in sh.items() if not k.startswith("_") and k not in ("lines", "sfx")}
         amps = [{k: round(v, 2) for k, v in amps_for(timeline, sh, f, chars).items()} for f in range(n)]
         shots.append({"spec": spec, "dur": round(dur, 4), "n": n, "amps": amps})
-    job = {"W": 1080, "H": 1920, "fps": FPS, "shots": shots, "chars": chars, "post": story.get("post", {}), "out": Path(out).stem + "_frames.mp4"}
+    job = {"W": 1080, "H": 1920, "fps": FPS, "shots": shots, "chars": chars, "post": story.get("post", {})}
+    tag = hashlib.md5((json.dumps(job, sort_keys=True) + js.read_text(encoding="utf-8")).encode()).hexdigest()[:6]
+    job["out"] = f"{Path(out).stem}_{tag}_frames.mp4"  # unique names: a stale page or video can never be mistaken for the new one
     body = js.read_text(encoding="utf-8").replace("</script", "<\\/script")
     html = ("<!doctype html><html><head><meta charset='utf-8'><title>story3d</title></head>"
             "<body style='margin:0;background:#111;color:#eee;font:16px sans-serif'><div id='st' style='padding:8px'>loading</div>"
             f"<script id='job' type='application/json'>{json.dumps(job, separators=(',', ':')).replace('</', '<\\/')}</script>"
             f"<script>{body}</script></body></html>")
-    p = work / "job.html"; p.write_text(html, encoding="utf-8")
+    p = work / f"{Path(out).stem}_{tag}_render.html"; p.write_text(html, encoding="utf-8")
     print(f"gpu job: {p} ({p.stat().st_size // 1024} KB, {sum(s['n'] for s in shots)} frames) -> downloads {job['out']}")
 
 

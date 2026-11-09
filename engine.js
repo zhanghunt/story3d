@@ -387,7 +387,7 @@ function streetSet(name, text) {
     if (R() > 0.4) { const f1 = fence(4.5); f1.position.set(x - 3.6, 0, -8.3); scene.add(f1); }
     const mb = mailbox(); mb.position.set(x + 1.2, 0.18, -7.6); scene.add(mb);
     solid(at(tree(R() > 0.6 ? 'pine' : 'round', k + 3), x + 6.5, 0, -11)); if (R() > 0.3) solid(at(tree('round', k + 9), x + 2, 0, 16.8));
-    if (k % 2 === 0) { const l = lamp(); l.position.set(x + 3, 0.18, -5.2); l.rotation.y = Math.PI / 2; scene.add(l); lamps.push(l); const l2 = lamp(); l2.position.set(x - 3, 0.18, 7.4); l2.rotation.y = -Math.PI / 2; scene.add(l2); }
+    if (k % 2 === 0) { const l = lamp(); l.position.set(x + 3, 0.18, -5.2); l.rotation.y = Math.PI / 2; scene.add(l); lamps.push(l); } // far side only: near-side poles block the camera
     if (k % 3 === 0) { const h = hydrant(); h.position.set(x + 4.5, 0.18, -5.3); scene.add(h); }
   }
   if (name === 'school') {
