@@ -216,6 +216,8 @@ function hair(def) {
   if (st === 'bun') { const b = new THREE.Mesh(new THREE.SphereGeometry(0.17, 14, 10), hm); b.position.set(0, cy + 0.42, -0.12); b.castShadow = true; g.add(b); }
   return g;
 }
+let MOSAIC = null;
+function mosaicTex() { if (MOSAIC) return MOSAIC; MOSAIC = canvasTex(64, 64, (g, w, h) => { const r = prng(77); for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) { const k = r(); g.fillStyle = k < 0.45 ? '#e8b48c' : k < 0.75 ? '#c98f68' : k < 0.9 ? '#f5d3b5' : '#8a5a3c'; g.fillRect(x * 8, y * 8, 8, 8); } }); MOSAIC.magFilter = THREE.NearestFilter; MOSAIC.minFilter = THREE.NearestFilter; return MOSAIC; }
 function makeActor(id, def, isNpc = false) {
   const root = new THREE.Group(); root.rotation.order = 'YXZ';
   const hips = new THREE.Group(); hips.position.y = 2 * S; root.add(hips);
@@ -237,7 +239,20 @@ function makeActor(id, def, isNpc = false) {
   const legL = limb(0.5 * S, 0, -S, lmL), legR = limb(-0.5 * S, 0, -S, lmR);
   const blob = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 1.2), new THREE.MeshBasicMaterial({ map: blobTex(), transparent: true, depthWrite: false, opacity: 0.55 })); blob.rotation.x = -Math.PI / 2; blob.position.y = 0.02; blob.renderOrder = 1; root.add(blob);
   root.scale.setScalar(def.scale || 1); scene.add(root);
-  return { id, def, root, hips, head, armL, armR, legL, legR, faceC, faceT, faceKey: '', tag: null, tagKey: '', blob };
+  const skinM = mat(def.skin || '#f1c79f', { roughness: 0.6 }), fingers = [];
+  // double-pinky hand: a curled fist (knuckle row + folded thumb) with one thin pinky sticking up from the inner edge,
+  // so it reads as a pinky, not a thumb
+  const knuckM = mat(new THREE.Color(def.skin || '#f1c79f').multiplyScalar(0.86).getStyle(), { roughness: 0.6 }), nailM = mat('#ffe6e0', { roughness: 0.35 });
+  [[armL, -1], [armR, 1]].forEach(([arm, sx]) => {
+    const h = new THREE.Group(); h.visible = false; arm.add(h); fingers.push(h);
+    for (let i = 0; i < 3; i++) { const k = box(0.15, 0.15, 0.17, knuckM, 0.05); k.position.set(-sx * 0.04 - sx * i * 0.165 + sx * 0.1, -0.93, 0.14); h.add(k); } // curled fingers
+    const th = box(0.34, 0.11, 0.12, knuckM, 0.04); th.position.set(-sx * 0.05, -0.86, 0.29); h.add(th); // thumb folded over the fist
+    const pk = new THREE.Group(); pk.position.set(sx * 0.24, -0.86, 0.3); pk.rotation.y = sx * 0.3; h.add(pk);
+    const f = box(0.075, 0.075, 0.4, skinM, 0.025); f.position.z = 0.2; pk.add(f);
+    const nail = box(0.06, 0.03, 0.08, nailM, 0.01); nail.position.set(0, -0.04, 0.36); pk.add(nail);
+  });
+  const censor = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.62, 0.62), new THREE.MeshBasicMaterial({ map: mosaicTex(), toneMapped: false })); censor.position.set(0, -1.02, 0.12); censor.visible = false; armR.add(censor);
+  return { id, def, root, hips, head, armL, armR, legL, legR, faceC, faceT, faceKey: '', tag: null, tagKey: '', blob, fingers, censor };
 }
 let _blob; function blobTex() { return _blob || (_blob = canvasTex(64, 64, (g) => { const r = g.createRadialGradient(32, 32, 2, 32, 32, 31); r.addColorStop(0, 'rgba(0,0,0,.65)'); r.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = r; g.fillRect(0, 0, 64, 64); })); }
 function tagSprite(text, color) {
@@ -288,7 +303,8 @@ function stepNpcs(t) {
     const tt = t + n.ph, spd = s.walk ? Math.hypot(s.walk[2], s.walk[3]) : 0, ph = spd * tt * 5.6, sw = moving ? Math.sin(ph) * 0.5 : 0, sw2 = moving ? Math.sin(ph - 0.25) * 0.5 : 0;
     a.legL.rotation.set(sw, 0, 0); a.legR.rotation.set(-sw, 0, 0); a.armL.rotation.set(-sw2 * 0.8, 0, 0.05); a.armR.rotation.set(sw2 * 0.8, 0, -0.05);
     a.hips.rotation.set(0, moving ? Math.sin(ph) * 0.05 : 0, 0); a.hips.position.y = 2 * S + (moving ? Math.abs(Math.cos(ph)) * 0.045 : Math.sin(tt * 1.6) * 0.008);
-    if (s.cheer) { const b = 0.5 + 0.5 * Math.sin(tt * 4.6); a.armL.rotation.set(0, 0, 2.35 + 0.2 * b); a.armR.rotation.set(0, 0, -2.35 - 0.2 * b); a.hips.position.y += b * 0.16; a.head.rotation.x = -0.1; }
+    if (s.cheer && shot.crowd_act === 'pinky') { const k = Math.min(Math.max((t - (shot.crowd_at || 0) - ((n.a.root.id * 0.618) % 1) * 0.9) / 0.3, 0), 1); a.fingers.forEach(f => f.visible = k > 0.5); a.armL.rotation.set(-1.25 * k, 0, -0.78 * k); a.armR.rotation.set(-1.25 * k, 0, 0.78 * k); if (n.tg) n.tg.visible = k > 0.5; }
+    else if (s.cheer) { const b = 0.5 + 0.5 * Math.sin(tt * 4.6); a.armL.rotation.set(0, 0, 2.35 + 0.2 * b); a.armR.rotation.set(0, 0, -2.35 - 0.2 * b); a.hips.position.y += b * 0.16; a.head.rotation.x = -0.1; }
     else if (!moving) { a.head.rotation.y = Math.sin(tt * 0.4) * 0.25; a.armR.rotation.x = -0.25 * (0.5 + 0.5 * Math.sin(tt * 0.9)); }
     const key = 'neutral0' + ((tt % 3.7) > 3.55);
     if (a.faceKey !== key) { drawFace(a.faceC.getContext('2d'), a.def, (n.ph > 5 ? 'happy' : 'neutral'), 0, (tt % 3.7) > 3.55); a.faceT.needsUpdate = true; a.faceKey = key; }
@@ -634,6 +650,10 @@ function actorPose(a, spec, t, dur, amp) {
   }
   if (act === 'wave') { H.armR.rotation.z = lerp(-0.05, -2.6, w) + osc(5.2) * 0.28 * w; H.armR.rotation.x = -0.15 * w; H.head.rotation.z = 0.05 * w; }
   if (act === 'push' || act === 'strain') { const tr = act === 'strain' ? osc(31) * 0.035 + osc(47) * 0.02 : 0; H.armL.rotation.set(-1.5 * w + tr, 0, 0.1); H.armR.rotation.set(-1.5 * w - tr, 0, -0.1); lean = (act === 'strain' ? 0.32 : 0.24) * w; H.legL.rotation.x = 0.42 * w; H.legR.rotation.x = -0.32 * w; H.head.rotation.x += (act === 'strain' ? 0.12 : -0.05) * w + tr; bob -= 0.08 * w; }
+  if (a.fingers) { const pk = act === 'pinky' || (act === 'pinky_late' && t > (spec.at || 1)); a.fingers.forEach(f => f.visible = pk && (act !== 'pinky' || w > 0.6)); a.censor.visible = act === 'flip'; }
+  if (act === 'pinky' || (act === 'pinky_late' && t > (spec.at || 1))) { const k = act === 'pinky' ? w : ease((t - (spec.at || 1)) / 0.3); H.armL.rotation.set(-1.25 * k, 0, -0.78 * k); H.armR.rotation.set(-1.25 * k, 0, 0.78 * k); }
+  if (act === 'flip') { H.armR.rotation.set(-2.1 * w, 0, -0.15 * w); }
+  if (act === 'raise') { H.armR.rotation.set(-1.0 * w + osc(9) * 0.03, 0, 0.1); } // hand starting to come up... and freezing
   if (act === 'hold') { H.armL.rotation.set(-1.35 * w, 0, -0.32 * w); H.armR.rotation.set(-1.35 * w, 0, 0.32 * w); }
   if (act === 'twirl') { const k = osc(spec.rate || 9); H.armL.rotation.set(-1.35 * w + k * 0.12, 0, -0.32 * w); H.armR.rotation.set(-1.35 * w - k * 0.12, 0, 0.32 * w); H.hips.rotation.y += osc((spec.rate || 9) / 2) * 0.04; }
   if (act === 'reach') { H.armL.rotation.set(-2.6 * w, 0, 0.15); H.armR.rotation.set(-2.6 * w, 0, -0.15); H.head.rotation.x -= 0.15 * w; }
@@ -749,6 +769,7 @@ const LOOKS = {
   film: {},
   golden: { grade: 'warm', bloom: 0.42, bloom_th: 0.8, bloom_r: 0.5, tone: 1.2, leak: 1.3, vignette: 0.68, exposure: 1.0 },
   dreamy: { grade: 'dream', bloom: 0.55, bloom_th: 0.7, bloom_r: 0.75, tone: 0.8, leak: 1.1, vignette: 0.55, grain: 0.04 },
+  flashback: { grade: 'sepia', bloom: 0.45, bloom_th: 0.75, vignette: 0.95, grain: 0.1, leak: 0.7, tone: 0.2, ca: 1.5 },
   camcorder: { grade: 'cool', bloom: 0.35, ca: 2.2, tone: 0.6, leak: 0.3, vignette: 0.5, grain: 0.07, scan: 1, overlay: 'camcorder' },
 };
 let OVC = null, OVT = null;
@@ -763,7 +784,7 @@ function camcorderOverlay(t, w, h) { // REC dot, timecode, frame brackets drawn 
   g.fillText('▶ 1080p  60', m + w * 0.02, h - m - w * 0.06); OVT.needsUpdate = true; return OVT;
 }
 let TC = 0;
-const GRADES = { film: [1.1, 1.1, [0.0, 0.018, 0.04], [1.07, 1.01, 0.92]], warm: [1.05, 1.1, [0.02, 0.01, 0.0], [1.08, 1.0, 0.9]], cool: [1.05, 0.98, [0.0, 0.01, 0.03], [0.95, 1.0, 1.06]], night: [1.1, 0.92, [0.0, 0.01, 0.035], [0.9, 0.97, 1.1]], dream: [0.96, 1.15, [0.04, 0.03, 0.05], [1.05, 1.0, 1.05]], none: [1, 1, [0, 0, 0], [1, 1, 1]] };
+const GRADES = { sepia: [1.06, 0.22, [0.07, 0.045, 0.0], [1.08, 0.95, 0.76]], film: [1.1, 1.1, [0.0, 0.018, 0.04], [1.07, 1.01, 0.92]], warm: [1.05, 1.1, [0.02, 0.01, 0.0], [1.08, 1.0, 0.9]], cool: [1.05, 0.98, [0.0, 0.01, 0.03], [0.95, 1.0, 1.06]], night: [1.1, 0.92, [0.0, 0.01, 0.035], [0.9, 0.97, 1.1]], dream: [0.96, 1.15, [0.04, 0.03, 0.05], [1.05, 1.0, 1.05]], none: [1, 1, [0, 0, 0], [1, 1, 1]] };
 let HQ = false;
 function makePost(w, h) {
   rt = new THREE.WebGLRenderTarget(w, h, { type: THREE.HalfFloatType, samples: HQ ? 4 : 0 }); rt.depthTexture = new THREE.DepthTexture(w, h); rt.depthTexture.type = THREE.UnsignedIntType;
@@ -821,6 +842,30 @@ let PROPS = {}, PHYS = [], LABELS = [], OVER = new THREE.Scene();
 const _ws = new THREE.Vector3();
 function shown(o) { while (o) { if (!o.visible) return false; o = o.parent; } return true; }
 const _wp = new THREE.Vector3();
+// Floating text never overlaps: project every visible tag/label to the screen and, in priority order
+// (screen-pinned HUD > cast tags > world labels > crowd tags), nudge later ones upward until they clear; crowd tags that
+// still collide are hidden.
+const _dv = new THREE.Vector3(), _cu = new THREE.Vector3(), _ws2 = new THREE.Vector3();
+function declutter() {
+  const th = Math.tan(cam.fov * D2R / 2), items = [], placed = [], m = 0.012;
+  cam.updateMatrixWorld(); _cu.set(0, 1, 0).applyQuaternion(cam.quaternion);
+  LABELS.forEach(l => { if (l.sp.visible) items.push({ sp: l.sp, pri: l.anchor.parent === cam || (l.anchor.parent && l.anchor.parent.parent === cam) ? 0 : 2, over: true }); });
+  Object.values(actors).forEach(a => { if (a.tag && a.tag.visible) { a.tag.position.y = 3.85; items.push({ sp: a.tag, pri: 1, base: a }); } });
+  npcs.forEach(n => { const t = n.tg || (n.a.root.children.find(c => c.isSprite)); if (t && t.visible && n.a.root.visible) { t.position.y = 3.85; items.push({ sp: t, pri: 3 }); } });
+  items.sort((x, y) => x.pri - y.pri);
+  for (const it of items) {
+    for (let k = 0; k < 10; k++) {
+      it.sp.updateMatrixWorld(); it.sp.getWorldPosition(_dv); const d = Math.max(_dv.distanceTo(cam.position), 0.1); it.sp.getWorldScale(_ws2); _dv.project(cam);
+      if (_dv.z > 1) { break; }
+      const hh = _ws2.y / 2 / (th * d), hw = _ws2.x / 2 / (th * d * cam.aspect), r = { x0: _dv.x - hw, x1: _dv.x + hw, y0: _dv.y - hh, y1: _dv.y + hh };
+      const hit = placed.find(q => r.x0 < q.x1 + m && r.x1 > q.x0 - m && r.y0 < q.y1 + m && r.y1 > q.y0 - m);
+      if (!hit || it.pri === 0) { placed.push(r); break; }
+      if (it.pri === 3 || k === 9) { it.sp.visible = false; break; }
+      const up = hit.y1 + m - r.y0 + 0.004, down = hit.y0 - m - r.y1 - 0.004, dyN = r.y1 + up < 0.94 ? up : down, dyW = dyN * th * d; // move up just enough to clear (down if that would leave the frame)
+      if (it.over) it.sp.position.addScaledVector(_cu, dyW); else it.sp.position.y += dyW / Math.max(it.sp.parent.getWorldScale(_ws2).y, 0.01);
+    }
+  }
+}
 function minScreen(sprite, bw, bh, frac, ps = 1) { sprite.getWorldPosition(_wp); const d = Math.max(_wp.distanceTo(cam.position), 0.1), vh = 2 * Math.tan(cam.fov * D2R / 2) * d; let s = Math.max(1, frac * vh / (bh * ps)); s = Math.min(s, 0.9 * vh * cam.aspect / (bw * ps)); sprite.scale.set(bw * s, bh * s, 1); }
 const easeBack = (u) => { u = Math.min(Math.max(u, 0), 1); const c = 1.6; return 1 + (c + 1) * Math.pow(u - 1, 3) + c * Math.pow(u - 1, 2); };
 function vis(p, t) { const s = p.show; if (!s) return 1; const a = s[0], b = s[1] === undefined ? 1e9 : s[1]; if (t < a || t > b + 0.25) return 0; const pop = p.grow === false ? 1 : easeBack((t - a) / 0.32); return t > b ? Math.max(0, 1 - (t - b) / 0.25) * pop : pop; }
@@ -1026,6 +1071,7 @@ window.ENGINE = {
     PROPS = {}; PHYS = []; LABELS = []; OVER = new THREE.Scene(); (s.props || []).forEach(p => { if (isPhys(p)) makePhys(p); });
     (s.cast || []).forEach(c => { if (chars[c.id]) actors[c.id] = makeActor(c.id, chars[c.id]); });
     spawnNpcs(s, setName); fx = makeFx(s.fx);
+    if (s.npc_tag) npcs.forEach(n => { if (!n.spec.cheer) return; const tg = tagSprite(s.npc_tag, s.npc_tag_color || '#5ef2c2'); tg.position.y = 3.85; tg.scale.set(1.3, 0.42, 1); n.a.root.add(tg); n.tg = tg; });
     if (s.npc_tags) { // "in this world, everyone can see physics": speed readouts over walkers and cars
       npcs.forEach(n => { if (!n.spec.walk) return; const v = Math.hypot(n.spec.walk[2], n.spec.walk[3]), tg = tagSprite(`v = ${v.toFixed(1)} m/s`, '#5ef2c2'); tg.position.y = 3.85; tg.scale.set(2.0, 0.48, 1); n.a.root.add(tg); });
       cars.forEach(c => { const tg = tagSprite(`v = ${Math.abs(c.v).toFixed(0)} m/s`, '#ffd46b'); tg.position.y = 3.0; tg.scale.set(2.6, 0.62, 1); c.o.add(tg); });
@@ -1042,6 +1088,7 @@ window.ENGINE = {
     const fd = camPose(shot.cam || {}, t, dur); cam.updateMatrixWorld();
     LABELS.forEach(l => { const on = shown(l.anchor); l.sp.visible = on; if (!on) return; l.anchor.getWorldPosition(l.sp.position); l.anchor.getWorldScale(_ws); minScreen(l.sp, l.w, l.h, l.frac); l.sp.scale.multiplyScalar(_ws.x); });
     Object.values(actors).forEach(a => { if (a.tag && a.tag.visible !== false) { const b = a.tag.userData.base || (a.tag.userData.base = [a.tag.scale.x, a.tag.scale.y]); minScreen(a.tag, b[0], b[1], shot.tag_min || 0.03, a.def.scale || 1); } });
+    declutter();
     const ctr = Object.values(actors)[0] ? Object.values(actors)[0].root.position.clone().setY(0) : new THREE.Vector3();
     const sd = sun.userData.dir || (sun.userData.dir = sun.position.clone().normalize()); sun.target.position.copy(ctr); sun.position.copy(ctr).addScaledVector(sd, 45);
     stepFx(t, cam.position.clone().setY(0)); renderPost(t, fd, shot);
