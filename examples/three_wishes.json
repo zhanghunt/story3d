@@ -1,0 +1,33 @@
+{
+  "title": "Three Wishes",
+  "brand": "HUNTBLOX",
+  "speed": 1.08,
+  "narrator_voice": "am_adam",
+  "captions": {"style": "word"},
+  "characters": {
+    "milo": {"skin": "#e9b98f", "hair": "messy", "hair_color": "#4a2c1a", "shirt_style": "jersey", "shirt": "#2e7d4f", "number": 3, "pants_style": "jeans", "pants": "#3a4f73", "shoes": "#f2f2f2", "voice": "am_puck", "tag": "3"},
+    "ava": {"skin": "#f3d2b3", "hair": "ponytail", "hair_color": "#1b1410", "shirt_style": "hoodie", "shirt": "#d94b3d", "pants_style": "jeans", "pants": "#7fa3d1", "eyes": "round", "blush": true, "voice": "af_heart", "tag": "0", "tag_color": "#ff6b6b"}
+  },
+  "shots": [
+    {"set": "street", "cast": [{"id": "milo", "pos": [0, 3], "to": [4, 3], "act": "walk"}], "cam": {"path": [[-30, 26, 40], [-12, 14, 22], [0, 8, 14]], "look": [2, 1.5, 3]},
+     "lines": [{"text": "In this town, every kid gets exactly three wishes."}]},
+    {"set": "street", "cast": [{"id": "milo", "pos": [0, 3], "face": 15}], "cam": {"type": "medium", "on": "milo", "move": "push", "angle": 15},
+     "lines": [{"text": "Milo never used a single one."}]},
+    {"set": "street", "cast": [{"id": "milo", "pos": [-2, 3.4], "to": [2, 3.4], "act": "walk"}, {"id": "ava", "pos": [-3.6, 3.0], "to": [0.4, 3.0], "act": "walk"}], "cam": {"type": "full", "on": ["milo", "ava"], "move": "dolly"},
+     "lines": [{"text": "His best friend Ava used all three before she turned eight."}]},
+    {"set": "street", "cast": [{"id": "ava", "pos": [-1.2, 3], "look": "milo", "act": "talk"}, {"id": "milo", "pos": [1.2, 3], "look": "ava"}], "cam": {"type": "close", "on": "ava", "move": "push"},
+     "lines": [{"who": "ava", "text": "Why are you saving them?"}]},
+    {"set": "street", "cast": [{"id": "ava", "pos": [-1.2, 3], "look": "milo"}, {"id": "milo", "pos": [1.2, 3], "look": "ava", "expr": "determined"}], "cam": {"type": "ots", "on": ["ava", "milo"], "move": "push"},
+     "lines": [{"who": "milo", "text": "I'm waiting for the right one."}]},
+    {"set": "street", "time": "night", "fx": "rain", "cast": [{"id": "ava", "pos": [0, 5], "act": "cry", "expr": "cry"}], "cam": {"type": "medium", "on": "ava", "move": "push", "angle": 10}, "post": {"grade": "night"},
+     "lines": [{"text": "Then one night, Ava's house went dark."}]},
+    {"set": "room", "cast": [{"id": "ava", "pos": [0, -1], "act": "sob"}], "cam": {"type": "medium", "on": "ava", "move": "pull", "foreground": "window"}, "post": {"grade": "cool"},
+     "lines": [{"text": "Her family lost everything."}], "pause": 0.4},
+    {"set": "park", "time": "sunset", "cast": [{"id": "milo", "pos": [0, -1], "act": "cheer", "tag": {"from": 3, "to": 2, "at": 0.45, "dur": 0.15}}], "cam": {"type": "low", "on": "milo", "move": "arc"}, "fx": "sparkles", "post": {"bloom": 0.8},
+     "lines": [{"text": "So Milo made his first wish."}]},
+    {"set": "street", "time": "sunset", "cast": [{"id": "milo", "act": "fly", "tag": "2", "path": [[-10, 2, 3], [0, 6, 0], [14, 10, -6]], "linear": true}], "cam": {"type": "follow", "on": "milo", "dist": 9, "height": 0.6, "angle": 75}, "post": {"bloom": 0.6},
+     "lines": [{"text": "He flew across the whole town to find her."}]},
+    {"set": "street", "time": "night", "cast": [{"id": "milo", "pos": [0.9, 5], "look": "ava", "expr": "happy", "tag": "1"}, {"id": "ava", "pos": [-0.9, 5], "look": "milo", "expr": "shock"}], "cam": {"type": "full", "on": ["milo", "ava"], "move": "push", "punch": [0.6, 1.3]}, "flash": true, "post": {"grade": "night", "bloom": 0.4},
+     "lines": [{"text": "And his second wish? He gave it to her."}]}
+  ]
+}

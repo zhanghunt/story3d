@@ -1,0 +1,5 @@
+node_modules/
+gpu.js
+work/
+*.mp4
+__pycache__/

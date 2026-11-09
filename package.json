@@ -1,0 +1,9 @@
+{
+  "name": "story3d",
+  "private": true,
+  "version": "2.0.0",
+  "description": "Roblox-style blocky 3D story Shorts renderer (three.js)",
+  "dependencies": { "three": "0.170.0", "mp4-muxer": "5.1.3" },
+  "devDependencies": { "esbuild": "0.24.0" },
+  "scripts": { "build-gpu": "esbuild gpu_main.js --bundle --format=iife --minify --outfile=gpu.js" }
+}
