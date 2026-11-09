@@ -53,20 +53,30 @@ def synth(story, work):
         start = t
         for li, ln in enumerate(sh.get("lines", [])):
             who = ln.get("who", "")
-            v = ln.get("voice") or chars.get(who, {}).get("voice") or story.get("voices", {}).get(who) or story.get("narrator_voice", "am_adam")
+            cdef = chars.get(who, {})
+            v = ln.get("voice") or cdef.get("voice") or story.get("voices", {}).get(who) or story.get("narrator_voice", "af_jessica")
+            pitch = float(ln.get("pitch", cdef.get("pitch", story.get("narrator_pitch", 0) if who not in chars else 0)))
             sp = float(ln.get("speed", speed))
-            key = hashlib.md5(f"{ln['text']}|{v}|{sp}".encode()).hexdigest()[:10]
+            key = hashlib.md5(f"{ln['text']}|{v}|{sp}|{pitch}".encode()).hexdigest()[:10]
             p = work / "lines" / f"{key}.wav"
             if not p.exists():
                 if kok is None:
                     from kokoro_onnx import Kokoro
                     kok = Kokoro(*models())
                 a, sr = kok.create(ln["text"], voice=v, speed=sp, lang=story.get("lang", "en-us"))
-                sf.write(p, a, sr)
+                if pitch:  # natural-sounding pitch shift (formants preserved), e.g. +3 makes a boy voice younger
+                    raw = p.with_suffix(".raw.wav"); sf.write(raw, a, sr)
+                    run(["ffmpeg", "-y", "-i", str(raw), "-af", f"rubberband=pitch={2 ** (pitch / 12):.4f}:formant=preserved", "-ar", str(sr), str(p)]); raw.unlink()
+                else:
+                    sf.write(p, a, sr)
             a = trim(sf.read(p, dtype="float32")[0])
             d = len(a) / SR
             env = [float(np.sqrt(np.mean(a[i:i + SR // FPS] ** 2))) for i in range(0, len(a), SR // FPS)]
             pk = np.percentile(env, 95) if env else 1
+            sm_, out_ = 0.0, []  # smooth the mouth: fast-ish attack, slower release -> no flicker
+            for e in env:
+                e = e / (pk + 1e-6); k = 1 - (0.35 if e > sm_ else 0.18) ** (30 / FPS); sm_ += (e - sm_) * k; out_.append(sm_)
+            env = [x * (pk + 1e-6) for x in out_]
             timeline.append({"shot": si, "who": who, "text": ln.get("caption", ln["text"]), "start": t, "end": t + d,
                              "env": [round(min(e / (pk + 1e-6), 1.0), 3) for e in env], "anim": who in chars})
             chunks += [a, np.zeros(int(GAP * SR), np.float32)]; t += d + GAP
@@ -339,7 +349,7 @@ def finish_gpu(story, work, frames, total, out):
     fl += f"{mixn}amix=inputs={mixn.count('[')}:duration=first:normalize=0,atrim=0:{total + 0.5:.2f},alimiter=limit=0.8,volume=-0.5dB[a]"
     tmp = str(out) + ".tmp.mp4"
     run(["ffmpeg", "-y", *ins, "-filter_complex", fl, "-map", "[vo]", "-map", "[a]", "-c:v", "libx264", "-preset", "veryfast", "-crf", "19",
-         "-r", str(FPS), "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", tmp])
+         "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", tmp])
     os.replace(tmp, out); print("wrote", out)
 
 
@@ -367,6 +377,8 @@ def main():
     if len(a) < 4:
         sys.exit(__doc__)
     story = json.loads(Path(a[1]).read_text(encoding="utf-8"))
+    global FPS
+    FPS = int(story.get("fps", 60 if ("--gpu" in a or "--finish" in a) else 30))  # GPU renders at 60 fps for smooth motion
     story.setdefault("shots", story.pop("scenes", []))
     work, out = Path(a[2]), Path(a[3]); work.mkdir(parents=True, exist_ok=True)
     draft = "--draft" in a
