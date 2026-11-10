@@ -436,6 +436,7 @@ def finish_gpu(story, work, frames, total, out):
     fl += f"{mixn}amix=inputs={mixn.count('[')}:duration=first:normalize=0,atrim=0:{total + 0.5:.2f},alimiter=limit=0.8,volume=-0.5dB[a]"
     tmp = str(out) + ".tmp.mp4"
     run(["ffmpeg", "-y", *ins, "-filter_complex", fl, "-map", "[vo]", "-map", "[a]", "-c:v", "libx264", "-preset", "veryfast", "-crf", "19",
+         "-r", str(FPS), "-fps_mode", "cfr",  # constant 60 fps: every frame exactly 1/60 s apart
          "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", tmp])
     os.replace(tmp, out); print("wrote", out)
 
@@ -465,7 +466,7 @@ def main():
         sys.exit(__doc__)
     story = json.loads(Path(a[1]).read_text(encoding="utf-8"))
     global FPS
-    FPS = int(story.get("fps", 60 if ("--gpu" in a or "--finish" in a) else 30))  # GPU renders at 60 fps for smooth motion
+    FPS = int(story.get("fps", 60))  # always 60 fps for smooth motion
     story.setdefault("shots", story.pop("scenes", []))
     work, out = Path(a[2]), Path(a[3]); work.mkdir(parents=True, exist_ok=True)
     draft = "--draft" in a
