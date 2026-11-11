@@ -1,0 +1,2162 @@
+{
+ "title": "Bored to Death",
+ "brand": "IN THIS WORLD",
+ "narrator_voice": "af_jessica",
+ "speed": 1.375,
+ "captions": {
+  "style": "word"
+ },
+ "post": {
+  "look": "golden"
+ },
+ "characters": {
+  "liam": {
+   "skin": "#f1c79f",
+   "hair": "messy",
+   "hair_color": "#5a3a22",
+   "shirt_style": "hoodie",
+   "shirt": "#f08a24",
+   "pants_style": "jeans",
+   "pants": "#2f3f66",
+   "shoes": "#f5f5f5",
+   "voice": "am_puck",
+   "pitch": 3,
+   "scale": 0.92
+  },
+  "priya12": {
+   "skin": "#b9835d",
+   "hair": "long",
+   "hair_color": "#15110f",
+   "shirt_style": "stripes",
+   "shirt": "#12a594",
+   "shirt2": "#ffffff",
+   "pants_style": "jeans",
+   "pants": "#33416b",
+   "shoes": "#f5f5f5",
+   "eyes": "round",
+   "voice": "af_bella",
+   "scale": 0.92,
+   "pitch": 3
+  },
+  "priya13": {
+   "skin": "#b9835d",
+   "hair": "long",
+   "hair_color": "#15110f",
+   "shirt_style": "stripes",
+   "shirt": "#12a594",
+   "shirt2": "#ffffff",
+   "pants_style": "jeans",
+   "pants": "#33416b",
+   "shoes": "#f5f5f5",
+   "eyes": "round",
+   "voice": "af_bella",
+   "scale": 0.99,
+   "pitch": 2.5
+  },
+  "priya14": {
+   "skin": "#b9835d",
+   "hair": "long",
+   "hair_color": "#15110f",
+   "shirt_style": "stripes",
+   "shirt": "#12a594",
+   "shirt2": "#ffffff",
+   "pants_style": "jeans",
+   "pants": "#33416b",
+   "shoes": "#f5f5f5",
+   "eyes": "round",
+   "voice": "af_bella",
+   "scale": 1.06,
+   "pitch": 2
+  },
+  "priya15": {
+   "skin": "#b9835d",
+   "hair": "long",
+   "hair_color": "#15110f",
+   "shirt_style": "stripes",
+   "shirt": "#12a594",
+   "shirt2": "#ffffff",
+   "pants_style": "jeans",
+   "pants": "#33416b",
+   "shoes": "#f5f5f5",
+   "eyes": "round",
+   "voice": "af_bella",
+   "scale": 1.13,
+   "pitch": 1.5
+  },
+  "singh": {
+   "skin": "#b9835d",
+   "hair": "short",
+   "hair_color": "#ecebe6",
+   "brow_color": "#cfcec8",
+   "wrinkles": true,
+   "glasses": true,
+   "shirt_style": "button",
+   "shirt": "#7a9a6a",
+   "tie": "#2b3a55",
+   "pants_style": "pants",
+   "pants": "#3a3f4a",
+   "shoes": "#1b1b1b",
+   "voice": "am_santa",
+   "scale": 1.08
+  },
+  "nani": {
+   "skin": "#f1c79f",
+   "hair": "bun",
+   "hair_color": "#6b4426",
+   "glasses": "#7a1f3d",
+   "blush": true,
+   "eyes": "round",
+   "shirt_style": "jacket",
+   "shirt": "#be185d",
+   "shirt2": "#fde68a",
+   "pants_style": "pants",
+   "pants": "#4b5563",
+   "shoes": "#8b5a2b",
+   "voice": "af_heart",
+   "pitch": 4,
+   "scale": 0.8
+  },
+  "mateo": {
+   "skin": "#d79e72",
+   "hair": "spiky",
+   "hair_color": "#1e1a17",
+   "shirt_style": "jersey",
+   "shirt": "#d94b3d",
+   "number": 7,
+   "pants_style": "sweats",
+   "pants": "#1f2937",
+   "voice": "am_echo",
+   "pitch": 2,
+   "scale": 0.96
+  },
+  "waiter": {
+   "skin": "#e9b98f",
+   "hair": "short",
+   "hair_color": "#3b3b3b",
+   "shirt_style": "suit",
+   "shirt": "#5b6270",
+   "tie": "#b3262e",
+   "pants_style": "pants",
+   "pants": "#2b2f36",
+   "shoes": "#1b1b1b",
+   "scale": 1.08
+  }
+ },
+ "shots": [
+  {
+   "set": "street",
+   "crowd": 24,
+   "traffic": 4,
+   "npc_tag": [
+    "AGE 8",
+    "AGE 11",
+    "AGE 14",
+    "AGE 19",
+    "AGE 23",
+    "AGE 27",
+    "AGE 31",
+    "AGE 16",
+    "AGE 12",
+    "AGE 35"
+   ],
+   "npc_tag_color": "#3ddc84",
+   "props": [
+    {
+     "type": "sign",
+     "pos": [
+      4.6,
+      6.4
+     ],
+     "text": "BUS STOP\nDELAYED",
+     "face": -20
+    }
+   ],
+   "cast": [
+    {
+     "id": "waiter",
+     "pos": [
+      2,
+      5.5
+     ],
+     "face": -20,
+     "act": "think",
+     "expr": "bored",
+     "tag": {
+      "from": 30,
+      "to": 31,
+      "at": 0.2,
+      "dur": 0.75,
+      "fmt": "AGE {}",
+      "dec": 1
+     },
+     "tag_color": "#ff4d4d"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "waiter",
+    "move": "descend",
+    "angle": 20,
+    "reveal_dist": 18,
+    "reveal_height": 20
+   },
+   "sfx": [
+    {
+     "type": "riser",
+     "at": 0.2,
+     "db": -10
+    }
+   ],
+   "lines": [
+    {
+     "text": "In this world, you only age when you're bored."
+    }
+   ]
+  },
+  {
+   "set": "classroom",
+   "cast": [
+    {
+     "id": "singh",
+     "pos": [
+      0,
+      -2
+     ],
+     "face": 0,
+     "expr": "bored",
+     "tag": {
+      "from": 89.6,
+      "to": 90,
+      "at": 0.1,
+      "dur": 0.5,
+      "fmt": "AGE {}",
+      "dec": 1
+     },
+     "tag_color": "#ff4d4d"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "zoom": 1.25,
+    "on": "singh",
+    "move": "push",
+    "angle": 12,
+    "punch": [
+     0.52,
+     1.15
+    ]
+   },
+   "sfx": [
+    {
+     "type": "ding",
+     "at": 0.52,
+     "db": -5
+    }
+   ],
+   "lines": [
+    {
+     "text": "That's why Mr. Singh looks ninety. He's twenty-six.",
+     "caption": "That's why Mr. Singh looks 90. He's 26."
+    }
+   ]
+  },
+  {
+   "set": "classroom",
+   "cast": [
+    {
+     "id": "singh",
+     "pos": [
+      0,
+      -2
+     ],
+     "face": 0,
+     "act": "talk",
+     "expr": "bored",
+     "tag": {
+      "from": 90,
+      "to": 90.3,
+      "at": 0.1,
+      "dur": 0.75,
+      "fmt": "AGE {}",
+      "dec": 1
+     },
+     "tag_color": "#ff4d4d"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "singh",
+    "move": "push",
+    "angle": -22
+   },
+   "lines": [
+    {
+     "who": "singh",
+     "text": "Okay, class. Attendance."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 90,
+   "npc_tag": [
+    "AGE 8",
+    "AGE 11",
+    "AGE 14",
+    "AGE 19",
+    "AGE 23",
+    "AGE 27",
+    "AGE 31",
+    "AGE 16",
+    "AGE 12",
+    "AGE 35"
+   ],
+   "npc_tag_color": "#3ddc84",
+   "cast": [],
+   "props": [
+    {
+     "type": "label",
+     "text": "Waiting room   +1 week",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.4,
+     "h": 0.42,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.05,
+     "show": [
+      1.75
+     ],
+     "hud": [
+      0,
+      0.66
+     ]
+    },
+    {
+     "type": "label",
+     "text": "Homework   +1 month",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.4,
+     "h": 0.42,
+     "color": "#ff9f43",
+     "border": "#ff9f43",
+     "minh": 0.05,
+     "show": [
+      2.85
+     ],
+     "hud": [
+      0,
+      0.52
+     ]
+    },
+    {
+     "type": "label",
+     "text": "Long meeting   +1 year",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.4,
+     "h": 0.42,
+     "color": "#ff4d4d",
+     "border": "#ff4d4d",
+     "minh": 0.05,
+     "show": [
+      3.65
+     ],
+     "hud": [
+      0,
+      0.38
+     ]
+    }
+   ],
+   "cam": {
+    "pos": [
+     -40,
+     46,
+     60
+    ],
+    "to_pos": [
+     -14,
+     20,
+     30
+    ],
+    "look": [
+     0,
+     0,
+     0
+    ],
+    "to_look": [
+     0,
+     2,
+     0
+    ]
+   },
+   "lines": [
+    {
+     "text": "Fun stops your clock. Boredom starts it again."
+    },
+    {
+     "text": "A waiting room costs you a week. Homework costs a month. One long meeting can cost a whole year."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 130,
+   "gather": [
+    0,
+    4,
+    6,
+    26,
+    0,
+    360
+   ],
+   "cheer": 0.75,
+   "npc_tag": [
+    "AGE 8",
+    "AGE 11",
+    "AGE 14",
+    "AGE 19",
+    "AGE 23",
+    "AGE 27",
+    "AGE 31",
+    "AGE 16",
+    "AGE 12",
+    "AGE 35"
+   ],
+   "npc_tag_color": "#3ddc84",
+   "cast": [],
+   "cam": {
+    "pos": [
+     18,
+     12,
+     34
+    ],
+    "to_pos": [
+     -12,
+     14,
+     32
+    ],
+    "look": [
+     4,
+     2,
+     4
+    ],
+    "to_look": [
+     -3,
+     2,
+     4
+    ]
+   },
+   "sfx": [
+    {
+     "type": "crowd",
+     "at": 0.1,
+     "db": -8
+    }
+   ],
+   "lines": [
+    {
+     "text": "So everybody here chases fun. All day, every day."
+    }
+   ]
+  },
+  {
+   "set": "park",
+   "crowd": 10,
+   "cast": [
+    {
+     "id": "nani",
+     "pos": [
+      0,
+      3
+     ],
+     "face": 0,
+     "act": "dance",
+     "expr": "grin",
+     "tag": "AGE 9",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "props": [
+    {
+     "type": "label",
+     "text": "GRANDMA   born 81 years ago",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 2.9,
+     "h": 0.42,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.05,
+     "show": [
+      0.5
+     ],
+     "hud": [
+      0,
+      0.7
+     ]
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "nani",
+    "move": "arc",
+    "angle": 15
+   },
+   "lines": [
+    {
+     "text": "Liam's grandma was born eighty-one years ago. She has never been bored once.",
+     "caption": "Liam's grandma was born 81 years ago. She has never been bored once."
+    }
+   ]
+  },
+  {
+   "set": "park",
+   "crowd": 10,
+   "cast": [
+    {
+     "id": "nani",
+     "path": [
+      [
+       0,
+       0,
+       3
+      ],
+      [
+       6,
+       0,
+       3.4
+      ],
+      [
+       16,
+       0,
+       2.6
+      ]
+     ],
+     "act": "run",
+     "expr": "grin",
+     "move": [
+      0.15,
+      1
+     ],
+     "tag": "AGE 9",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "track",
+    "on": "nani",
+    "angle": 20,
+    "dist": 11,
+    "height": 1.6
+   },
+   "lines": [
+    {
+     "who": "nani",
+     "text": "Last one to the swings is a rotten egg!"
+    }
+   ]
+  },
+  {
+   "set": "school",
+   "crowd": 20,
+   "cast": [
+    {
+     "id": "liam",
+     "pos": [
+      -1.1,
+      5.5
+     ],
+     "face": 10,
+     "expr": "happy",
+     "act": "wave",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    },
+    {
+     "id": "priya12",
+     "pos": [
+      1.1,
+      5.5
+     ],
+     "face": -10,
+     "expr": "happy",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": [
+     "liam",
+     "priya12"
+    ],
+    "move": "push",
+    "angle": 12
+   },
+   "lines": [
+    {
+     "text": "Liam was twelve. So was his best friend, Priya.",
+     "caption": "Liam was 12. So was his best friend, Priya."
+    }
+   ]
+  },
+  {
+   "set": "park",
+   "crowd": 12,
+   "cast": [
+    {
+     "id": "liam",
+     "pos": [
+      -1.4,
+      3
+     ],
+     "face": 15,
+     "expr": "grin",
+     "act": "jump",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    },
+    {
+     "id": "priya12",
+     "pos": [
+      1.4,
+      3.3
+     ],
+     "face": -15,
+     "expr": "grin",
+     "act": "cheer",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": [
+     "liam",
+     "priya12"
+    ],
+    "move": "arc",
+    "angle": -18
+   },
+   "lines": [
+    {
+     "text": "They had both been twelve for three years. That was the plan.",
+     "caption": "They had both been 12 for three years. That was the plan."
+    }
+   ]
+  },
+  {
+   "set": "school",
+   "crowd": 16,
+   "cast": [
+    {
+     "id": "priya12",
+     "pos": [
+      1.1,
+      5.5
+     ],
+     "face": -10,
+     "expr": "bored",
+     "tag": {
+      "from": 12,
+      "to": 12.6,
+      "at": 0.3,
+      "dur": 0.6,
+      "fmt": "AGE {}",
+      "dec": 1
+     },
+     "tag_color": "#ff4d4d"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "zoom": 1.25,
+    "on": "priya12",
+    "move": "push",
+    "angle": -15
+   },
+   "sfx": [
+    {
+     "type": "ding",
+     "at": 0.45,
+     "db": -6
+    }
+   ],
+   "lines": [
+    {
+     "text": "Then, this fall, Priya's clock started running."
+    }
+   ]
+  },
+  {
+   "set": "classroom",
+   "cast": [
+    {
+     "id": "priya13",
+     "pos": [
+      0.6,
+      0.2
+     ],
+     "face": 10,
+     "expr": "bored",
+     "tag": {
+      "from": 12.8,
+      "to": 13,
+      "at": 0.1,
+      "dur": 0.5,
+      "fmt": "AGE {}",
+      "dec": 1
+     },
+     "tag_color": "#ff4d4d"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "zoom": 1.25,
+    "on": "priya13",
+    "move": "push",
+    "angle": 18
+   },
+   "lines": [
+    {
+     "text": "By October, she was thirteen.",
+     "caption": "By October, she was 13."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "crowd": 18,
+   "npc_tag": [
+    "AGE 8",
+    "AGE 11",
+    "AGE 14",
+    "AGE 19",
+    "AGE 23",
+    "AGE 27",
+    "AGE 31",
+    "AGE 16",
+    "AGE 12",
+    "AGE 35"
+   ],
+   "npc_tag_color": "#3ddc84",
+   "cast": [
+    {
+     "id": "priya14",
+     "pos": [
+      1.0,
+      5.5
+     ],
+     "face": -15,
+     "expr": "worried",
+     "tag": "AGE 14",
+     "tag_color": "#ff4d4d"
+    },
+    {
+     "id": "liam",
+     "pos": [
+      -1.0,
+      5.5
+     ],
+     "face": 70,
+     "expr": "worried",
+     "look": "priya14",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": [
+     "priya14",
+     "liam"
+    ],
+    "move": "push",
+    "angle": -10
+   },
+   "lines": [
+    {
+     "text": "By November, she was fourteen, and a whole head taller than him.",
+     "caption": "By November, she was 14, and a whole head taller than him."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 140,
+   "gather": [
+    0,
+    4,
+    7.5,
+    26,
+    0,
+    360
+   ],
+   "npc_tag": [
+    "AGE 8",
+    "AGE 11",
+    "AGE 14",
+    "AGE 19",
+    "AGE 23",
+    "AGE 27",
+    "AGE 31",
+    "AGE 16",
+    "AGE 12",
+    "AGE 35"
+   ],
+   "npc_tag_color": "#3ddc84",
+   "cast": [
+    {
+     "id": "priya14",
+     "pos": [
+      0,
+      4
+     ],
+     "face": 0,
+     "expr": "sad",
+     "tag": "AGE 14",
+     "tag_color": "#ff4d4d"
+    }
+   ],
+   "cam": {
+    "pos": [
+     10,
+     30,
+     30
+    ],
+    "to_pos": [
+     6,
+     22,
+     20
+    ],
+    "look": [
+     0,
+     0,
+     3
+    ],
+    "to_look": [
+     0,
+     0,
+     3
+    ]
+   },
+   "lines": [
+    {
+     "text": "Everyone knew what that meant. Somebody was boring her."
+    }
+   ]
+  },
+  {
+   "set": "school",
+   "crowd": 14,
+   "cast": [
+    {
+     "id": "mateo",
+     "pos": [
+      1.2,
+      5.5
+     ],
+     "face": -90,
+     "act": "point",
+     "expr": "smug",
+     "look": "liam"
+    },
+    {
+     "id": "liam",
+     "pos": [
+      -1.1,
+      5.5
+     ],
+     "face": 90,
+     "expr": "worried",
+     "look": "mateo",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": [
+     "mateo",
+     "liam"
+    ],
+    "move": "push",
+    "angle": 14
+   },
+   "lines": [
+    {
+     "who": "mateo",
+     "text": "Bro. She hangs out with you every single day."
+    }
+   ]
+  },
+  {
+   "set": "school",
+   "crowd": 14,
+   "cast": [
+    {
+     "id": "liam",
+     "pos": [
+      -1.1,
+      5.5
+     ],
+     "face": 40,
+     "act": "shock",
+     "expr": "shock",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "zoom": 1.25,
+    "on": "liam",
+    "move": "push",
+    "angle": -12,
+    "punch": [
+     0.3,
+     1.15
+    ]
+   },
+   "lines": [
+    {
+     "text": "Liam did the math. It was him."
+    }
+   ]
+  },
+  {
+   "set": "room",
+   "cast": [
+    {
+     "id": "liam",
+     "pos": [
+      0,
+      0
+     ],
+     "face": 0,
+     "expr": "determined",
+     "act": "think",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "zoom": 1.25,
+    "on": "liam",
+    "move": "push",
+    "angle": 16
+   },
+   "lines": [
+    {
+     "text": "So Liam got interesting. Fast."
+    }
+   ]
+  },
+  {
+   "set": "park",
+   "crowd": 10,
+   "cast": [
+    {
+     "id": "liam",
+     "pos": [
+      -1.3,
+      3
+     ],
+     "face": 50,
+     "act": "dance",
+     "expr": "grin",
+     "look": "priya14"
+    },
+    {
+     "id": "priya14",
+     "pos": [
+      1.5,
+      3.2
+     ],
+     "face": -50,
+     "expr": "happy",
+     "look": "liam",
+     "tag": "AGE 14",
+     "tag_color": "#ff4d4d"
+    }
+   ],
+   "props": [
+    {
+     "type": "label",
+     "text": "MONDAY",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 1.4,
+     "h": 0.4,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.05,
+     "show": null,
+     "hud": [
+      0,
+      0.72
+     ]
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": [
+     "liam",
+     "priya14"
+    ],
+    "move": "arc",
+    "angle": 12
+   },
+   "lines": [
+    {
+     "text": "Monday, he learned to dance."
+    }
+   ]
+  },
+  {
+   "set": "room",
+   "fx": "confetti",
+   "cast": [
+    {
+     "id": "liam",
+     "pos": [
+      -1.6,
+      0.4
+     ],
+     "face": 30,
+     "act": "cheer",
+     "expr": "grin"
+    },
+    {
+     "id": "priya14",
+     "pos": [
+      1.5,
+      0.6
+     ],
+     "face": -30,
+     "act": "shock",
+     "expr": "happy",
+     "tag": "AGE 14",
+     "tag_color": "#ff4d4d"
+    }
+   ],
+   "props": [
+    {
+     "type": "label",
+     "text": "WEDNESDAY",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 1.7,
+     "h": 0.4,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.05,
+     "show": null,
+     "hud": [
+      0,
+      0.72
+     ]
+    },
+    {
+     "type": "table",
+     "pos": [
+      0,
+      -1.2
+     ],
+     "size": [
+      2.2,
+      1.2
+     ]
+    },
+    {
+     "type": "cake",
+     "pos": [
+      0,
+      -1.2
+     ],
+     "candles": 7
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": [
+     "liam",
+     "priya14"
+    ],
+    "move": "push",
+    "angle": -14
+   },
+   "sfx": [
+    {
+     "type": "pop",
+     "at": 0.1,
+     "db": -6
+    }
+   ],
+   "lines": [
+    {
+     "text": "Wednesday, he threw her a surprise party."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 130,
+   "gather": [
+    0,
+    4,
+    6,
+    26,
+    0,
+    360
+   ],
+   "cheer": 0.9,
+   "fx": "confetti",
+   "cast": [
+    {
+     "id": "liam",
+     "pos": [
+      -1.0,
+      4
+     ],
+     "face": 0,
+     "act": "cheer",
+     "expr": "grin"
+    },
+    {
+     "id": "priya14",
+     "pos": [
+      1.1,
+      4
+     ],
+     "face": 0,
+     "expr": "happy",
+     "act": "wave",
+     "tag": "AGE 14",
+     "tag_color": "#ff4d4d"
+    }
+   ],
+   "props": [
+    {
+     "type": "label",
+     "text": "FRIDAY",
+     "at3": [
+      0,
+      0,
+      0
+     ],
+     "w": 1.3,
+     "h": 0.4,
+     "color": "#ffd46b",
+     "border": "#ffd46b",
+     "minh": 0.05,
+     "show": null,
+     "hud": [
+      0,
+      0.72
+     ]
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": [
+     "liam",
+     "priya14"
+    ],
+    "move": "reveal",
+    "reveal_dist": 46,
+    "reveal_height": 30,
+    "spin": 40
+   },
+   "sfx": [
+    {
+     "type": "crowd",
+     "at": 0.15,
+     "db": -6
+    }
+   ],
+   "lines": [
+    {
+     "text": "And Friday, he threw her an entire parade."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 130,
+   "gather": [
+    0,
+    4,
+    6,
+    26,
+    0,
+    360
+   ],
+   "cheer": 0.6,
+   "fx": "confetti",
+   "cast": [
+    {
+     "id": "priya14",
+     "pos": [
+      1.1,
+      4
+     ],
+     "face": -25,
+     "act": "talk",
+     "expr": "grin",
+     "look": "liam",
+     "tag": "AGE 14",
+     "tag_color": "#ff4d4d"
+    },
+    {
+     "id": "liam",
+     "pos": [
+      -1.0,
+      4
+     ],
+     "face": 25,
+     "expr": "happy",
+     "look": "priya14"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "zoom": 1.25,
+    "on": "priya14",
+    "move": "push",
+    "angle": 18
+   },
+   "lines": [
+    {
+     "who": "priya14",
+     "text": "You are so weird."
+    },
+    {
+     "text": "She laughed every single time."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "time": "sunset",
+   "crowd": 12,
+   "cast": [
+    {
+     "id": "priya15",
+     "pos": [
+      1.0,
+      5.5
+     ],
+     "face": -10,
+     "expr": "sad",
+     "tag": {
+      "from": 14.7,
+      "to": 15,
+      "at": 0.1,
+      "dur": 0.55,
+      "fmt": "AGE {}",
+      "dec": 1
+     },
+     "tag_color": "#ff4d4d"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "zoom": 1.25,
+    "on": "priya15",
+    "move": "push",
+    "angle": -16,
+    "roll": -5
+   },
+   "sfx": [
+    {
+     "type": "sad",
+     "at": 0.2,
+     "db": -9
+    }
+   ],
+   "lines": [
+    {
+     "text": "And she still turned fifteen.",
+     "caption": "And she still turned 15."
+    }
+   ]
+  },
+  {
+   "set": "room",
+   "time": "night",
+   "props": [
+    {
+     "type": "box",
+     "pos": [
+      0,
+      -0.45
+     ],
+     "size": [
+      1.7,
+      0.95,
+      1.5
+     ],
+     "color": "#5b7fd6"
+    }
+   ],
+   "cast": [
+    {
+     "id": "liam",
+     "pos": [
+      0,
+      0
+     ],
+     "face": 10,
+     "expr": "sad",
+     "act": "sit",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "liam",
+    "move": "push",
+    "angle": -18
+   },
+   "lines": [
+    {
+     "text": "Liam checked his own number. Still twelve.",
+     "caption": "Liam checked his own number. Still 12."
+    }
+   ]
+  },
+  {
+   "set": "room",
+   "time": "night",
+   "props": [
+    {
+     "type": "box",
+     "pos": [
+      0,
+      -0.45
+     ],
+     "size": [
+      1.7,
+      0.95,
+      1.5
+     ],
+     "color": "#5b7fd6"
+    }
+   ],
+   "cast": [
+    {
+     "id": "liam",
+     "pos": [
+      0,
+      0
+     ],
+     "face": 10,
+     "expr": "sad",
+     "act": "sit",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "zoom": 1.25,
+    "on": "liam",
+    "move": "push",
+    "angle": 14
+   },
+   "lines": [
+    {
+     "who": "liam",
+     "text": "I'm having the best year of my life. And I'm boring her to death."
+    }
+   ]
+  },
+  {
+   "set": "room",
+   "time": "night",
+   "props": [
+    {
+     "type": "box",
+     "pos": [
+      -1.0,
+      -0.45
+     ],
+     "size": [
+      1.7,
+      0.95,
+      1.5
+     ],
+     "color": "#5b7fd6"
+    }
+   ],
+   "cast": [
+    {
+     "id": "nani",
+     "pos": [
+      1.1,
+      0.5
+     ],
+     "face": -60,
+     "act": "talk",
+     "expr": "smug",
+     "look": "liam",
+     "tag": "AGE 9",
+     "tag_color": "#3ddc84"
+    },
+    {
+     "id": "liam",
+     "pos": [
+      -1.0,
+      0
+     ],
+     "face": 35,
+     "expr": "sad",
+     "act": "sit"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": [
+     "nani",
+     "liam"
+    ],
+    "move": "push",
+    "angle": 10
+   },
+   "lines": [
+    {
+     "who": "nani",
+     "text": "Boring? Liam. That girl's number has never moved in this house. Not once. I checked."
+    }
+   ]
+  },
+  {
+   "set": "room",
+   "time": "night",
+   "cast": [
+    {
+     "id": "liam",
+     "pos": [
+      -1.0,
+      0
+     ],
+     "face": 30,
+     "expr": "shock",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "zoom": 1.25,
+    "on": "liam",
+    "move": "push",
+    "angle": -14,
+    "punch": [
+     0.45,
+     1.12
+    ]
+   },
+   "lines": [
+    {
+     "text": "So where was it moving?"
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "time": "sunset",
+   "crowd": 14,
+   "traffic": 2,
+   "cast": [
+    {
+     "id": "priya15",
+     "path": [
+      [
+       -3.2,
+       0,
+       5.3
+      ],
+      [
+       3.2,
+       0,
+       5.3
+      ]
+     ],
+     "act": "walk",
+     "linear": true,
+     "expr": "happy",
+     "tag": "AGE 15",
+     "tag_color": "#3ddc84"
+    },
+    {
+     "id": "liam",
+     "path": [
+      [
+       -4.8,
+       0,
+       5.9
+      ],
+      [
+       1.6,
+       0,
+       5.9
+      ]
+     ],
+     "act": "walk",
+     "linear": true,
+     "expr": "determined",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": [
+     "priya15",
+     "liam"
+    ],
+    "angle": 32,
+    "relative": false,
+    "zoom": 1.15,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "text": "That evening, Liam walked her home for the first time."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "time": "night",
+   "crowd": 0,
+   "traffic": 0,
+   "cast": [
+    {
+     "id": "priya15",
+     "path": [
+      [
+       0,
+       0,
+       4.5
+      ],
+      [
+       0,
+       0,
+       -4.5
+      ]
+     ],
+     "act": "walk",
+     "move": [
+      0,
+      1
+     ],
+     "expr": "sad",
+     "tag": "AGE 15",
+     "tag_color": "#3ddc84"
+    },
+    {
+     "id": "liam",
+     "pos": [
+      2.6,
+      6.4
+     ],
+     "face": 180,
+     "act": "wave",
+     "expr": "worried"
+    }
+   ],
+   "cam": {
+    "pos": [
+     7,
+     5.5,
+     17
+    ],
+    "to_pos": [
+     4.5,
+     5,
+     14.5
+    ],
+    "look": [
+     0,
+     2.4,
+     0
+    ],
+    "to_look": [
+     0,
+     2.4,
+     -2
+    ]
+   },
+   "lines": [
+    {
+     "text": "Her house was dark. Her parents both worked nights."
+    }
+   ]
+  },
+  {
+   "set": "room",
+   "time": "night",
+   "set_text": "#5b6478",
+   "props": [
+    {
+     "type": "box",
+     "pos": [
+      0,
+      -0.45
+     ],
+     "size": [
+      1.7,
+      0.95,
+      1.5
+     ],
+     "color": "#8a6fb0"
+    }
+   ],
+   "cast": [
+    {
+     "id": "priya15",
+     "pos": [
+      0,
+      0
+     ],
+     "face": 15,
+     "act": "sit",
+     "expr": "bored",
+     "tag": {
+      "from": 15,
+      "to": 15.4,
+      "at": 0.3,
+      "dur": 0.7,
+      "fmt": "AGE {}",
+      "dec": 1
+     },
+     "tag_color": "#ff4d4d"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": "priya15",
+    "move": "push",
+    "angle": -20,
+    "foreground": "window",
+    "roll": -6
+   },
+   "sfx": [
+    {
+     "type": "sad",
+     "at": 0.15,
+     "db": -8
+    }
+   ],
+   "lines": [
+    {
+     "text": "Priya sat down, alone, and her number started to climb."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "time": "night",
+   "post": {
+    "exposure": 1.25
+   },
+   "crowd": 0,
+   "traffic": 0,
+   "cast": [
+    {
+     "id": "liam",
+     "pos": [
+      2.6,
+      6.4
+     ],
+     "face": 170,
+     "expr": "sad",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "zoom": 1.25,
+    "on": "liam",
+    "move": "push",
+    "angle": 200,
+    "relative": false
+   },
+   "lines": [
+    {
+     "text": "She was never bored with Liam."
+    }
+   ]
+  },
+  {
+   "set": "room",
+   "time": "night",
+   "set_text": "#5b6478",
+   "props": [
+    {
+     "type": "box",
+     "pos": [
+      0,
+      -0.45
+     ],
+     "size": [
+      1.7,
+      0.95,
+      1.5
+     ],
+     "color": "#8a6fb0"
+    }
+   ],
+   "cast": [
+    {
+     "id": "priya15",
+     "pos": [
+      0,
+      0
+     ],
+     "face": 15,
+     "act": "sit",
+     "expr": "sad",
+     "tag": {
+      "from": 15.4,
+      "to": 15.6,
+      "at": 0.1,
+      "dur": 0.75,
+      "fmt": "AGE {}",
+      "dec": 1
+     },
+     "tag_color": "#ff4d4d"
+    }
+   ],
+   "cam": {
+    "type": "high",
+    "on": "priya15",
+    "move": "pull",
+    "angle": 25,
+    "punch": [
+     0.35,
+     1.2
+    ]
+   },
+   "sfx": [
+    {
+     "type": "impact",
+     "at": 0.35,
+     "db": -7
+    }
+   ],
+   "lines": [
+    {
+     "text": "She was bored without him."
+    }
+   ],
+   "pause": 0.25
+  },
+  {
+   "set": "park",
+   "crowd": 12,
+   "cast": [
+    {
+     "id": "liam",
+     "path": [
+      [
+       -4.6,
+       0,
+       3.7
+      ],
+      [
+       3.4,
+       0,
+       3.7
+      ]
+     ],
+     "act": "walk",
+     "linear": true,
+     "expr": "happy",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    },
+    {
+     "id": "priya15",
+     "path": [
+      [
+       -6.4,
+       0,
+       2.7
+      ],
+      [
+       1.6,
+       0,
+       2.7
+      ]
+     ],
+     "act": "walk",
+     "linear": true,
+     "expr": "neutral",
+     "tag": "AGE 15",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": [
+     "liam",
+     "priya15"
+    ],
+    "angle": 34,
+    "relative": false,
+    "move": "push"
+   },
+   "lines": [
+    {
+     "text": "So the next day, Liam walked her home again. The long way."
+    }
+   ]
+  },
+  {
+   "set": "park",
+   "crowd": 10,
+   "cast": [
+    {
+     "id": "priya15",
+     "pos": [
+      1.1,
+      3
+     ],
+     "face": -70,
+     "act": "talk",
+     "expr": "worried",
+     "look": "liam",
+     "tag": "AGE 15",
+     "tag_color": "#3ddc84"
+    },
+    {
+     "id": "liam",
+     "pos": [
+      -1.1,
+      3
+     ],
+     "face": 70,
+     "expr": "smug",
+     "look": "priya15",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": [
+     "priya15",
+     "liam"
+    ],
+    "move": "push",
+    "angle": -12
+   },
+   "lines": [
+    {
+     "who": "priya15",
+     "text": "Liam. My house is the other way."
+    },
+    {
+     "who": "liam",
+     "text": "I know."
+    }
+   ]
+  },
+  {
+   "set": "plaza",
+   "crowd": 90,
+   "npc_tag": [
+    "AGE 8",
+    "AGE 11",
+    "AGE 14",
+    "AGE 19",
+    "AGE 23",
+    "AGE 27",
+    "AGE 31",
+    "AGE 16",
+    "AGE 12",
+    "AGE 35"
+   ],
+   "npc_tag_color": "#3ddc84",
+   "cast": [
+    {
+     "id": "liam",
+     "path": [
+      [
+       -7,
+       0,
+       6
+      ],
+      [
+       0,
+       0,
+       3.2
+      ],
+      [
+       7,
+       0,
+       6
+      ]
+     ],
+     "act": "walk",
+     "linear": true,
+     "expr": "happy"
+    },
+    {
+     "id": "priya15",
+     "path": [
+      [
+       -8.6,
+       0,
+       6.6
+      ],
+      [
+       -1.6,
+       0,
+       3.9
+      ],
+      [
+       5.4,
+       0,
+       6.8
+      ]
+     ],
+     "act": "walk",
+     "linear": true,
+     "expr": "happy",
+     "tag": "AGE 15",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": [
+     "liam",
+     "priya15"
+    ],
+    "move": "reveal",
+    "reveal_dist": 50,
+    "reveal_height": 34,
+    "spin": -35,
+    "relative": false
+   },
+   "lines": [
+    {
+     "text": "Past the park. Around the fountain. Through the whole town. Twice."
+    }
+   ]
+  },
+  {
+   "set": "street",
+   "time": "sunset",
+   "crowd": 14,
+   "cast": [
+    {
+     "id": "priya15",
+     "pos": [
+      1.1,
+      5.5
+     ],
+     "face": -12,
+     "expr": "grin",
+     "act": "cheer",
+     "tag": "AGE 15",
+     "tag_color": "#3ddc84"
+    },
+    {
+     "id": "liam",
+     "pos": [
+      -1.1,
+      5.5
+     ],
+     "face": 12,
+     "expr": "happy",
+     "tag": "AGE 12",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "full",
+    "on": [
+     "priya15",
+     "liam"
+    ],
+    "move": "push",
+    "angle": -10
+   },
+   "sfx": [
+    {
+     "type": "ding",
+     "at": 0.6,
+     "db": -5
+    }
+   ],
+   "lines": [
+    {
+     "text": "It took three hours. Her number didn't move once."
+    }
+   ]
+  },
+  {
+   "set": "room",
+   "time": "night",
+   "cast": [
+    {
+     "id": "liam",
+     "pos": [
+      0,
+      0
+     ],
+     "face": 5,
+     "act": "hold",
+     "expr": "worried",
+     "tag": {
+      "from": 12.7,
+      "to": 13,
+      "at": 0.25,
+      "dur": 0.4,
+      "fmt": "AGE {}",
+      "dec": 1
+     },
+     "tag_color": "#ff4d4d"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "zoom": 1.25,
+    "on": "liam",
+    "move": "push",
+    "angle": 15,
+    "punch": [
+     0.62,
+     1.18
+    ]
+   },
+   "sfx": [
+    {
+     "type": "ding",
+     "at": 0.62,
+     "db": -4
+    }
+   ],
+   "lines": [
+    {
+     "text": "Liam's did. He turned thirteen that same night.",
+     "caption": "Liam's did. He turned 13 that same night."
+    },
+    {
+     "text": "Waiting for her to text back."
+    }
+   ],
+   "pause": 0.25
+  },
+  {
+   "set": "plaza",
+   "time": "sunset",
+   "crowd": 130,
+   "gather": [
+    0,
+    4,
+    6,
+    26,
+    0,
+    360
+   ],
+   "cheer": 0.5,
+   "npc_tag": [
+    "AGE 8",
+    "AGE 11",
+    "AGE 14",
+    "AGE 19",
+    "AGE 23",
+    "AGE 27",
+    "AGE 31",
+    "AGE 16",
+    "AGE 12",
+    "AGE 35"
+   ],
+   "npc_tag_color": "#3ddc84",
+   "cast": [
+    {
+     "id": "liam",
+     "pos": [
+      -1.0,
+      4
+     ],
+     "face": 0,
+     "act": "wave",
+     "expr": "happy",
+     "tag": "AGE 13",
+     "tag_color": "#3ddc84"
+    },
+    {
+     "id": "priya15",
+     "pos": [
+      1.1,
+      4
+     ],
+     "face": 0,
+     "act": "cheer",
+     "expr": "grin",
+     "tag": "AGE 15",
+     "tag_color": "#3ddc84"
+    }
+   ],
+   "cam": {
+    "type": "medium",
+    "on": [
+     "liam",
+     "priya15"
+    ],
+    "move": "reveal",
+    "reveal_dist": 50,
+    "reveal_height": 34,
+    "spin": 35
+   },
+   "sfx": [
+    {
+     "type": "crowd",
+     "at": 0.2,
+     "db": -7
+    },
+    {
+     "type": "riser",
+     "at": 0.4,
+     "db": -11
+    }
+   ],
+   "lines": [
+    {
+     "text": "In this world, you only age when you're bored. So find the people who stop your clock. And take the long way home."
+    }
+   ]
+  }
+ ]
+}

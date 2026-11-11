@@ -145,7 +145,7 @@ const FW = 384, FH = 192;
 function drawFace(g, def, expr, mouth, blink) {
   g.clearRect(0, 0, FW, FH);
   const ink = '#1d1d22', ex = [150, 234], ey = 84, eyes = def.eyes || 'classic';
-  const brow = { neutral: [0, 0], happy: [0, -4], grin: [0, -6], sad: [14, -6], cry: [18, -8], worried: [14, -4], angry: [-16, 8], determined: [-10, 5], shock: [0, -12], smug: [-4, 4] }[expr] || [0, 0];
+  const brow = { neutral: [0, 0], happy: [0, -4], grin: [0, -6], sad: [14, -6], cry: [18, -8], worried: [14, -4], angry: [-16, 8], determined: [-10, 5], shock: [0, -12], smug: [-4, 4], bored: [-3, 9] }[expr] || [0, 0];
   if (def.blush) { g.fillStyle = 'rgba(255,120,130,.35)'; [112, 272].forEach(x => { g.beginPath(); g.ellipse(x, 120, 20, 10, 0, 0, 7); g.fill(); }); }
   g.fillStyle = def.brow_color || ink;
   ex.forEach((x, i) => { const s = i === 0 ? 1 : -1; g.save(); g.translate(x, ey - 36 + brow[1]); g.rotate(-s * brow[0] * D2R); rrect(g, -18, -3.5, 36, 7, 3.5); g.fill(); g.restore(); });
@@ -156,6 +156,7 @@ function drawFace(g, def, expr, mouth, blink) {
     if (eyes === 'round') { g.fillStyle = '#fbfbfb'; g.beginPath(); g.ellipse(x, ey, 22 * big, 22 * big, 0, 0, 7); g.fill(); g.strokeStyle = ink; g.lineWidth = 3; g.stroke(); g.fillStyle = ink; g.beginPath(); g.arc(x + 2, ey + 2, (expr === 'shock' ? 7 : 11), 0, 7); g.fill(); g.fillStyle = '#fff'; g.beginPath(); g.arc(x + 6, ey - 3, 3.5, 0, 7); g.fill(); }
     else if (eyes === 'dot') { g.fillStyle = ink; g.beginPath(); g.arc(x, ey, 8 * big, 0, 7); g.fill(); }
     else { g.fillStyle = ink; g.beginPath(); g.ellipse(x, ey, 10 * big, 16 * big, 0, 0, 7); g.fill(); g.fillStyle = '#fff'; g.beginPath(); g.ellipse(x + 3, ey - 6, 3.5, 5, 0, 0, 7); g.fill(); }
+    if (expr === 'bored') { const hw = eyes === 'round' ? 25 : 14, hh = eyes === 'round' ? 25 : 19; g.fillStyle = def.skin || '#f1c79f'; g.fillRect(x - hw, ey - hh, hw * 2, hh - 1); g.fillStyle = ink; rrect(g, x - hw + 1, ey - 3, hw * 2 - 2, 5, 2.5); g.fill(); } // heavy eyelids
   });
   if (def.glasses) { g.strokeStyle = def.glasses === true ? '#222' : def.glasses; g.lineWidth = 5; ex.forEach(x => { g.beginPath(); g.arc(x, ey, 27, 0, 7); g.stroke(); }); g.beginPath(); g.moveTo(ex[0] + 27, ey); g.lineTo(ex[1] - 27, ey); g.stroke(); }
   if ((expr === 'sad' || expr === 'cry') && !blink) { g.fillStyle = 'rgba(110,180,255,.9)'; ex.forEach(x => { rrect(g, x - 5, ey + 16, 10, expr === 'cry' ? 80 : 20, 5); g.fill(); }); }
@@ -167,7 +168,15 @@ function drawFace(g, def, expr, mouth, blink) {
   else if (expr === 'cry') { rrect(g, mx - 20, my - 8, 40, 22, 10); g.fill(); }
   else if (expr === 'shock') { g.beginPath(); g.ellipse(mx, my, 10, 14, 0, 0, 7); g.fill(); }
   else if (expr === 'angry' || expr === 'determined') { g.fillRect(mx - 18, my - 2, 36, 5); }
+  else if (expr === 'bored') { g.fillRect(mx - 13, my, 26, 5); }
   else { g.beginPath(); g.arc(mx, my - 26, 26, 0.35 * Math.PI, 0.65 * Math.PI); g.stroke(); }
+  if (def.wrinkles) { // an aged face: forehead lines, crow's feet, smile lines
+    g.strokeStyle = 'rgba(70,40,25,.55)'; g.lineWidth = 3.5; g.lineCap = 'round';
+    [22, 34].forEach((y, i) => { g.beginPath(); g.moveTo(138 + i * 8, y); g.quadraticCurveTo(192, y - 6, 246 - i * 8, y); g.stroke(); });
+    [[112, 1], [272, -1]].forEach(([x, d]) => { [-9, 0, 9].forEach(k => { g.beginPath(); g.moveTo(x + d * 6, ey + k * 0.6); g.lineTo(x - d * 10, ey + k * 1.6); g.stroke(); }); });
+    [[-1, 1], [1, -1]].forEach(([sd]) => { g.beginPath(); g.moveTo(192 + sd * 34, 112); g.quadraticCurveTo(192 + sd * 44, 132, 192 + sd * 36, 152); g.stroke(); });
+    ex.forEach(x => { g.beginPath(); g.arc(x, ey + 20, 16, 0.2 * Math.PI, 0.8 * Math.PI); g.stroke(); });
+  }
   if (def.face_text) { g.fillStyle = def.face_text_color || ink; g.font = `900 30px ${FONT}`; g.textAlign = 'center'; g.fillText(def.face_text, 300, 130); }
 }
 
@@ -598,6 +607,7 @@ function lighting(time, setName) {
   if (indoor) { const pl = new THREE.PointLight('#ffe6c0', 30, 26, 1.5); pl.position.set(0, 8, -1); scene.add(pl); }
   if (setName === 'stage') [-6, 0, 6].forEach((x, i) => { const sp = new THREE.SpotLight(['#ffe9b0', '#b8c8ff', '#ffd0f0'][i], 300, 60, 0.35, 0.5, 1.5); sp.position.set(x, 24, 4); sp.target.position.set(x * 0.2, 0, 0); scene.add(sp); scene.add(sp.target); });
   if (time === 'night' && !indoor) { const fill = new THREE.DirectionalLight('#c9d6ff', 0.7); fill.position.set(-8, 6, 20); scene.add(fill); }
+  if (time === 'night' && indoor) { const fill = new THREE.DirectionalLight('#ffe2c0', 1.25); fill.position.set(-5, 6, 16); scene.add(fill); } // lamp-light on faces: the ceiling light alone leaves them in shadow
   if (time === 'night' && !indoor) lamps.sort((a, b) => a.position.distanceTo(CENTER) - b.position.distanceTo(CENTER)).slice(0, 3).forEach(l => { const pl = new THREE.PointLight('#ffcf7a', 30, 20, 1.6); pl.position.copy(l.position).add(new THREE.Vector3(0, 4.6, 0)); scene.add(pl); });
   return s;
 }
@@ -1081,7 +1091,9 @@ window.ENGINE = {
     PROPS = {}; PHYS = []; LABELS = []; OVER = new THREE.Scene(); (s.props || []).forEach(p => { if (isPhys(p)) makePhys(p); });
     (s.cast || []).forEach(c => { if (chars[c.id]) actors[c.id] = makeActor(c.id, chars[c.id]); });
     spawnNpcs(s, setName); fx = makeFx(s.fx);
-    if (s.npc_tag) npcs.forEach(n => { if (!n.spec.cheer) return; const tg = tagSprite(s.npc_tag, s.npc_tag_color || '#5ef2c2'); tg.position.y = 3.85; tg.scale.set(1.3, 0.42, 1); n.a.root.add(tg); n.tg = tg; });
+    if (Array.isArray(s.npc_tag)) { const rr = prng(SEED * 31 + 7), cols = [].concat(s.npc_tag_color || '#5ef2c2'); // a list: every extra gets one of these tags (e.g. ages)
+      npcs.forEach(nn => { const k = Math.floor(rr() * s.npc_tag.length), tx = String(s.npc_tag[k]), tg = tagSprite(tx, cols[k % cols.length]); tg.position.y = 3.85; tg.scale.set(Math.max(1.3, 0.19 * tx.length), 0.42, 1); nn.a.root.add(tg); nn.tg = tg; }); }
+    else if (s.npc_tag) npcs.forEach(n => { if (!n.spec.cheer) return; const tg = tagSprite(s.npc_tag, s.npc_tag_color || '#5ef2c2'); tg.position.y = 3.85; tg.scale.set(1.3, 0.42, 1); n.a.root.add(tg); n.tg = tg; });
     if (s.npc_tags) { // "in this world, everyone can see physics": speed readouts over walkers and cars
       npcs.forEach(n => { if (!n.spec.walk) return; const v = Math.hypot(n.spec.walk[2], n.spec.walk[3]), tg = tagSprite(`v = ${v.toFixed(1)} m/s`, '#5ef2c2'); tg.position.y = 3.85; tg.scale.set(2.0, 0.48, 1); n.a.root.add(tg); });
       cars.forEach(c => { const tg = tagSprite(`v = ${Math.abs(c.v).toFixed(0)} m/s`, '#ffd46b'); tg.position.y = 3.0; tg.scale.set(2.6, 0.62, 1); c.o.add(tg); });
