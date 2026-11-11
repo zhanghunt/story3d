@@ -52,6 +52,17 @@ Needs Python packages `kokoro-onnx soundfile playwright numpy`, ffmpeg, Node 18+
   the frame), and NPC tags that still collide are hidden. Still check `stills.jpg` when a shot has 2+ bubbles.
 - **Names:** multicultural casts are encouraged (e.g. Mr. Singh, Ling Ling, Priya, Mateo, Chief Tremblay).
 
+## Added for Bored to Death (ages over heads)
+
+- **`wrinkles: true`** on a character draws forehead lines, crow's feet and smile lines (an aged face).
+- **`expr: "bored"`**: heavy eyelids, flat brows, flat mouth.
+- **`npc_tag` as a list**: every extra gets one of the tags (e.g. `["AGE 8", "AGE 27", ...]`), not only the cheering ones.
+  A single string still behaves as before.
+- Night interiors (`room` / `classroom` with `time: "night"`) get a warm front fill so faces are not left in shadow.
+- `stories/bored_to_death/` holds the story (`python make.py` regenerates `bored_to_death.json`).
+- Street shots: a camera further than about z = 11 on the near side gets pulled in front of the hedges and houses there;
+  use `full`/`medium` on the cast, or lift the camera to y >= 7 as The Loophole's street montage does.
+
 ## Smooth 60 fps (frame pacing)
 
 Every output is constant 60 fps (`-fps_mode cfr`); the GPU page stamps frame *i* at exactly i/60 s, so how fast
