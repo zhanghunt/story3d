@@ -29,14 +29,16 @@ def run(cmd):
 
 
 # ---------------- voice ----------------
-def models():
+def models(which="fp32"):
+    """Kokoro speech model: the full-precision file by default (clearer consonants than the 8-bit one); "int8" is the small fallback."""
     CACHE.mkdir(parents=True, exist_ok=True)
-    for f in ("kokoro-v1.0.int8.onnx", "voices-v1.0.bin"):
+    name = "kokoro-v1.0.int8.onnx" if which == "int8" else "kokoro-v1.0.onnx"
+    for f in (name, "voices-v1.0.bin"):
         p = CACHE / f
         if not p.exists():
             print("downloading", f, flush=True)
             urllib.request.urlretrieve(MODEL_URL + f, str(p) + ".part"); os.rename(str(p) + ".part", p)
-    return str(CACHE / "kokoro-v1.0.int8.onnx"), str(CACHE / "voices-v1.0.bin")
+    return str(CACHE / name), str(CACHE / "voices-v1.0.bin")
 
 
 def trim(a, thr=0.01):
@@ -44,7 +46,7 @@ def trim(a, thr=0.01):
     return a if not len(i) else a[max(i[0] - 480, 0):min(i[-1] + 1440, len(a))]
 
 
-def squeeze_silence(a, sr, max_gap=0.16, thr=0.012):
+def squeeze_silence(a, sr, max_gap=0.22, thr=0.012):
     """Shorten any pause inside a line to at most max_gap seconds (no dead air mid-sentence)."""
     win = int(sr * 0.01); n = len(a) // win
     if n < 3:
@@ -80,7 +82,8 @@ def speech_report(chunks_audio, sr, timeline, work, limit=0.35):
 def synth(story, work):
     import soundfile as sf
     kok, chars = None, story.get("characters", {})
-    speed = float(story.get("speed", 1.375))  # 1.25x the old 1.1 default: faster narration + captions for high-energy shorts
+    speed = float(story.get("speed", 1.25))  # measured: words stay clear up to about 1.3; at 1.375 roughly one word in six is lost. Do not go above 1.3
+    tts_model = story.get("tts_model", "fp32")
     (work / "lines").mkdir(parents=True, exist_ok=True)
     t, timeline, chunks = 0.0, [], []
     for si, sh in enumerate(story["shots"]):
@@ -88,15 +91,15 @@ def synth(story, work):
         for li, ln in enumerate(sh.get("lines", [])):
             who = ln.get("who", "")
             cdef = chars.get(who, {})
-            v = ln.get("voice") or cdef.get("voice") or story.get("voices", {}).get(who) or story.get("narrator_voice", "af_jessica")
+            v = ln.get("voice") or cdef.get("voice") or story.get("voices", {}).get(who) or story.get("narrator_voice", "bm_george")
             pitch = float(ln.get("pitch", cdef.get("pitch", story.get("narrator_pitch", 0) if who not in chars else 0)))
-            sp = float(ln.get("speed", speed))
-            key = hashlib.md5(f"{ln['text']}|{v}|{sp}|{pitch}|sq1".encode()).hexdigest()[:10]
+            sp = float(ln.get("speed", cdef.get("speed", speed)))  # a character can talk at their own pace
+            key = hashlib.md5(f"{ln['text']}|{v}|{sp}|{pitch}|sq2|{tts_model}".encode()).hexdigest()[:10]
             p = work / "lines" / f"{key}.wav"
             if not p.exists():
                 if kok is None:
                     from kokoro_onnx import Kokoro
-                    kok = Kokoro(*models())
+                    kok = Kokoro(*models(tts_model))
                 say = re.sub(r"\s*(\.\.\.|…)\s*", ", ", ln["text"]).strip(" ,") or ln["text"]  # ellipses make the TTS stall
                 a, sr = kok.create(say, voice=v, speed=sp, lang=story.get("lang", "en-us"))
                 a = squeeze_silence(a, sr)
@@ -170,8 +173,6 @@ def captions(story, timeline, total, work, W, H):
            f"Style: Cap,{font},{size},{col},&H00FFFFFF&,&H00000000&,&H90000000&,-1,0,0,0,100,100,1,0,1,{8 if style == 'word' else 6},3,5,60,60,0,1",
            f"Style: Brand,{font},46,{ass_color(c.get('brand_color', '#FFD447'))},&H00FFFFFF&,&H00000000&,&H90000000&,-1,0,0,0,100,100,2,0,1,5,2,8,0,0,64,1",
            "", "[Events]", "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
-    if story.get("brand"):
-        out.append(f"Dialogue: 1,{ts(0)},{ts(total + 1)},Brand,,0,0,0,,{story['brand']}")
     srt, n, pop = [], 1, "{\\fscx70\\fscy70\\t(0,70,\\fscx108\\fscy108)\\t(70,130,\\fscx100\\fscy100)}"
     esc = lambda s: s.replace("{", "(").replace("}", ")")
     for ln in timeline:
@@ -362,12 +363,16 @@ def render(story, timeline, total, work, W, H, only, stills):
             n = max(int(round(dur * FPS)), 1)
             spec = {k: v for k, v in sh.items() if not k.startswith("_") and k not in ("lines", "sfx")}
             if stills:  # start / middle / end of every shot, so camera moves and reveals are checked at both ends
+                if only and not (only[0] <= i <= only[1]):
+                    continue
                 pg.evaluate("([s,c,seed])=>ENGINE.setup(s,c,seed)", [spec, chars, i + 1])
                 trio = []
                 for tag, at in (("a", 0.06), ("b", sh.get("still_at", 0.5)), ("c", 0.94)):
                     f = int(at * (n - 1))
                     data = pg.evaluate("([t,d,a])=>ENGINE.frame(t,d,a)", [f / FPS, dur, amps_for(timeline, sh, f, chars)])
                     pth = work / "stills" / f"shot_{i:02d}{tag}.jpg"; pth.parent.mkdir(exist_ok=True)
+                    if os.environ.get("STORY3D_DEBUG"):
+                        print("DBG", i, tag, json.dumps(pg.evaluate("()=>ENGINE.dbg()")), flush=True)
                     pth.write_bytes(base64.b64decode(data.split(",", 1)[1])); trio.append(pth)
                 sheet.append(trio); continue
             cap = ass_slice(work, sh["_start"], sh["_start"] + dur, i)
@@ -425,15 +430,23 @@ def gpu_job(story, timeline, total, work, out):
     print(f"gpu job: {p} ({p.stat().st_size // 1024} KB, {sum(s['n'] for s in shots)} frames) -> downloads {job['out']}")
 
 
+# Audio mix built for clarity: the voice is cleaned (rumble out, a little presence in), levelled, and every effect ducks
+# under speech; the finished mix is brought to a phone-friendly loudness.
+VOICE_CHAIN = ("[1:a]aresample=48000,highpass=f=75,equalizer=f=240:t=q:w=1.0:g=-1.5,equalizer=f=3300:t=q:w=1.1:g=2.5,equalizer=f=7500:t=q:w=1.0:g=1.5,"
+               "acompressor=threshold=-21dB:ratio=2.5:attack=6:release=110:makeup=2.5,apad,asplit=2[v][vk];"
+               "[2:a]aresample=48000,volume=-3dB[s0];[s0][vk]sidechaincompress=threshold=0.02:ratio=8:attack=8:release=280[s];")
+MASTER = "loudnorm=I=-15:TP=-1.5:LRA=9,alimiter=limit=0.89"
+
+
 def finish_gpu(story, work, frames, total, out):
     sfx_track(story, work, total)
     ins = ["-i", str(frames), "-i", str(work / "voice.wav"), "-i", str(work / "sfx.wav")]
-    fl = f"[0:v]ass={work / 'captions.ass'},format=yuv420p[vo];[1:a]aresample=48000,apad[v];[2:a]aresample=48000[s];"
+    fl = f"[0:v]ass={work / 'captions.ass'},format=yuv420p[vo];" + VOICE_CHAIN
     mixn = "[v][s]"
     if story.get("music"):
         ins += ["-stream_loop", "-1", "-i", story["music"]]
         fl += f"[3:a]aresample=48000,volume={story.get('music_db', -20)}dB[m];"; mixn += "[m]"
-    fl += f"{mixn}amix=inputs={mixn.count('[')}:duration=first:normalize=0,atrim=0:{total + 0.5:.2f},alimiter=limit=0.8,volume=-0.5dB[a]"
+    fl += f"{mixn}amix=inputs={mixn.count('[')}:duration=first:normalize=0,atrim=0:{total + 0.5:.2f},{MASTER}[a]"
     tmp = str(out) + ".tmp.mp4"
     run(["ffmpeg", "-y", *ins, "-filter_complex", fl, "-map", "[vo]", "-map", "[a]", "-c:v", "libx264", "-preset", "veryfast", "-crf", "19",
          "-r", str(FPS), "-fps_mode", "cfr",  # constant 60 fps: every frame exactly 1/60 s apart
@@ -447,13 +460,13 @@ def mux(story, work, files, total, out):
     lst = work / "concat.txt"; lst.write_text("".join(f"file '{f.resolve()}'\n" for f in files))
     run(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-c", "copy", str(work / "video.mp4")])
     ins = ["-i", str(work / "video.mp4"), "-i", str(work / "voice.wav"), "-i", str(work / "sfx.wav")]
-    fl = "[1:a]aresample=48000,apad[v];[2:a]aresample=48000[s];"
+    fl = VOICE_CHAIN
     mixn = "[v][s]"
     if story.get("music"):
         ins += ["-stream_loop", "-1", "-i", story["music"]]
         fl += f"[3:a]aresample=48000,volume={story.get('music_db', -20)}dB[m];"; mixn += "[m]"
     k = mixn.count("[")
-    fl += f"{mixn}amix=inputs={k}:duration=first:normalize=0,atrim=0:{total + 0.5:.2f},alimiter=limit=0.8,volume=-0.5dB[a]"
+    fl += f"{mixn}amix=inputs={k}:duration=first:normalize=0,atrim=0:{total + 0.5:.2f},{MASTER}[a]"
     tmp = str(out) + ".tmp.mp4"
     run(["ffmpeg", "-y", *ins, "-filter_complex", fl, "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
          "-shortest", "-movflags", "+faststart", tmp])
