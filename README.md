@@ -51,3 +51,21 @@ Needs Python packages `kokoro-onnx soundfile playwright numpy`, ffmpeg, Node 18+
   then world labels; anything that collides is nudged up just enough to clear (or down, if up would leave
   the frame), and NPC tags that still collide are hidden. Still check `stills.jpg` when a shot has 2+ bubbles.
 - **Names:** multicultural casts are encouraged (e.g. Mr. Singh, Ling Ling, Priya, Mateo, Chief Tremblay).
+
+## Smooth 60 fps (frame pacing)
+
+Every output is constant 60 fps (`-fps_mode cfr`); the GPU page stamps frame *i* at exactly i/60 s, so how fast
+the page renders never changes the timing. What *can* judder is the motion inside the frames, so the engine avoids:
+- **Camera teleports** — `unblock()` (pull the camera in front of a wall) now glides through two cascaded smoothers
+  (in fast, out slow) and is tracked every frame, even above 14 m, so crossing that line can't snap.
+- **Dead stops at cuts** — camera moves use `easeCut()`: the same S-curve but still ~25% of cruise speed on the
+  first/last frame, so shots never freeze for a few frames before a cut.
+- **First-frame flash** — the occlusion scrub (`hideBlockers`) runs before frame 0 is placed, so walking actors are
+  where they belong on the first frame.
+- **Out-of-cadence flicker** — film flicker is a smooth sum of sines (a 24 Hz stepped flicker beats 3:2 against 60 fps).
+- Follow cameras smooth by time, not per frame.
+
+To check a change, trace the camera per frame (`ENGINE.camState()`) and look for single-frame speed jumps.
+
+**Rendering:** Hunt renders final videos himself in the Claude app's built-in browser, with the window in the
+foreground. Claude prepares the render page and finishes (`--finish`) the downloaded frames.

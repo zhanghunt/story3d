@@ -10,6 +10,10 @@ const FONT = '"Inter Black","Inter","Arial Black","DejaVu Sans",sans-serif';
 const D2R = Math.PI / 180, SRGB = THREE.SRGBColorSpace;
 const rnd = (s) => { const x = Math.sin(s * 127.1 + SEED * 311.7) * 43758.5453; return x - Math.floor(x); };
 const ease = (u) => u < 0 ? 0 : u > 1 ? 1 : u * u * u * (u * (u * 6 - 15) + 10); // smootherstep
+// camera easing for moves that meet a cut: same S-curve, but still ~25% of cruise speed on the first/last frame,
+// so a shot never freezes for a few frames before the cut (reads as a hitch at 60 fps)
+const CUT_M = 0.12, CUT_E0 = ease(CUT_M), CUT_E1 = ease(1 - CUT_M);
+const easeCut = (u) => (ease(CUT_M + (1 - 2 * CUT_M) * Math.min(Math.max(u, 0), 1)) - CUT_E0) / (CUT_E1 - CUT_E0);
 const lerp = (a, b, u) => a + (b - a) * u;
 function prng(seed) { let a = (seed * 2654435761) >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 function hcode(s) { let h = 2166136261; for (const c of String(s)) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return h >>> 0; }
@@ -381,11 +385,16 @@ function makeProp(p) {
 const solids = [];
 function solid(o) { scene.add(o); o.updateMatrixWorld(true); solids.push(new THREE.Box3().setFromObject(o).expandByScalar(0.3)); return o; }
 const _ray = new THREE.Ray(), _hit = new THREE.Vector3();
-function unblock(look) {
+let UB = null; // smoothed "pull the camera in front of a wall" amount, so occlusion fixes glide instead of teleporting
+function unblock(look, t, off) {
   const d = cam.position.distanceTo(look); let best = d;
   _ray.origin.copy(look); _ray.direction.subVectors(cam.position, look).normalize();
   for (const b of solids) { if (b.containsPoint(look)) continue; if (_ray.intersectBox(b, _hit)) { const h = _hit.distanceTo(look); if (h < best) best = h; } }
-  if (best < d) cam.position.copy(look).addScaledVector(_ray.direction, Math.max(best - 0.6, 1.2));
+  const want = best < d && !off ? Math.max(best - 0.6, 1.2) / d : 1; // fraction of the distance to keep
+  if (t === undefined || !UB || t <= UB.t || t - UB.t > 0.1) UB = { t, q: want, r: want };
+  else { // two cascaded smoothers (so speed changes are gradual too): pull in quickly, let go slowly
+    const dt = t - UB.t, tau = want < UB.q ? 0.06 : 0.3; UB.q += (want - UB.q) * (1 - Math.exp(-dt / tau)); UB.r += (UB.q - UB.r) * (1 - Math.exp(-dt / tau)); UB.t = t; UB.r = Math.min(UB.r, 1); }
+  if (UB.r < 0.999) cam.position.copy(look).addScaledVector(_ray.direction, d * UB.r);
 }
 const lamps = [], CENTER = new THREE.Vector3();
 const clutter = []; // thin set dressing that may be hidden for a shot when it blocks the lens or the subject
@@ -709,19 +718,19 @@ function foreground(kind) {
 const _v = new THREE.Vector3();
 function anchor(a) { a.root.updateMatrixWorld(true); return a.root.localToWorld(_v.set(0, 2.0, 0)).clone().sub(new THREE.Vector3(0, 2.0 * (a.def.scale || 1), 0)); }
 function camPose(c, t, dur) {
-  const u = Math.min(t / dur, 1), e = ease(u * 0.85 + 0.075) * 1.0, mv = c.move || 'push'; let focus = null;
+  const u = Math.min(t / dur, 1), e = easeCut(u), mv = c.move || 'push'; let focus = null;
   if (c.path) {
     if (!c._curve) c._curve = new THREE.CatmullRomCurve3(c.path.map(p => new THREE.Vector3(...p)));
-    const k = c.linear ? u : ease(u); cam.position.copy(c._curve.getPointAt(k));
+    const k = c.linear ? u : easeCut(u); cam.position.copy(c._curve.getPointAt(k));
     if (c.look) cam.lookAt(...c.look); else cam.lookAt(c._curve.getPointAt(Math.min(k + 0.04, 1)).add(new THREE.Vector3(0, -1.5, 0)));
   } else if (c.type === 'follow' || c.type === 'track') {
     const A = actors[[].concat(c.on)[0]]; const p = anchor(A), d = (c.dist || 8) * (c.zoom || 1), ang = (c.angle || 0) * D2R + (c.type === 'follow' ? A.root.rotation.y + Math.PI : 0), hh = c.height !== undefined ? c.height : 1.2;
     if (c.type === 'follow' || !c._anchor) c._anchor = new THREE.Vector3(p.x + Math.sin(ang) * d, p.y + 2.2 + hh, p.z + Math.cos(ang) * d);
-    if (c.type === 'follow') { c._sm = c._sm ? c._sm.lerp(c._anchor, 0.12) : c._anchor.clone(); cam.position.copy(c._sm); } else cam.position.copy(c._anchor);
-    const lp = new THREE.Vector3(p.x, p.y + 2.3, p.z); unblock(lp); cam.lookAt(lp); focus = lp;
+    if (c.type === 'follow') { c._sm = c._sm && t > c._st ? c._sm.lerp(c._anchor, 1 - Math.exp(-(t - c._st) * 7.7)) : c._anchor.clone(); c._st = t; cam.position.copy(c._sm); } else cam.position.copy(c._anchor);
+    const lp = new THREE.Vector3(p.x, p.y + 2.3, p.z); unblock(lp, t); cam.lookAt(lp); focus = lp;
   } else if (c.pos) {
     const p0 = new THREE.Vector3(...c.pos), p1 = new THREE.Vector3(...(c.to_pos || c.pos)), l0 = new THREE.Vector3(...(c.look || [0, 2, 0])), l1 = new THREE.Vector3(...(c.to_look || c.look || [0, 2, 0]));
-    cam.position.lerpVectors(p0, p1, ease(u)); const lk = new THREE.Vector3().lerpVectors(l0, l1, ease(u)); cam.lookAt(lk); focus = lk;
+    cam.position.lerpVectors(p0, p1, easeCut(u)); const lk = new THREE.Vector3().lerpVectors(l0, l1, easeCut(u)); cam.lookAt(lk); focus = lk;
   } else {
     const ons = [].concat(c.on || Object.keys(actors)[0] || Object.keys(PROPS)[0]).filter(id => actors[id] || PROPS[id]);
     const pts = ons.map(id => actors[id] ? anchor(actors[id]) : PROPS[id].focusNow()), ctr = pts.reduce((a, b) => a.add(b), new THREE.Vector3()).multiplyScalar(1 / Math.max(pts.length, 1));
@@ -732,7 +741,7 @@ function camPose(c, t, dur) {
     if (pts.length > 1 && c.type !== 'ots') { const hh = Math.atan(Math.tan((c.fov || 40) * D2R / 2) * cam.aspect); dist = Math.max(dist, (spread + 1.15) / Math.tan(hh) * (c.zoom || 1)); }
     const K = c.energy || POST.cam_energy || 1.8; // movement strength (1 = the old, calmer moves)
     if (mv === 'push') dist *= lerp(1 + 0.06 * K, 1 - 0.05 * K, e); if (mv === 'pull') dist *= lerp(1 - 0.05 * K, 1 + 0.08 * K, e); if (mv === 'static') dist *= lerp(1.025, 0.985, e);
-    let rv = 0; if (mv === 'reveal' || mv === 'zoomout' || mv === 'descend') { const k = ease(Math.min(t / dur, 1)); rv = mv === 'descend' ? 1 - k : k; }
+    let rv = 0; if (mv === 'reveal' || mv === 'zoomout' || mv === 'descend') { const k = easeCut(Math.min(t / dur, 1)); rv = mv === 'descend' ? 1 - k : k; }
     let baseA = c.angle;
     if (baseA === undefined && ons.length === 1) { const sp = (shot.cast || []).find(k => k.id === ons[0]); if (sp && sp.look && actors[sp.look]) { const A = actors[ons[0]].root, B = actors[sp.look].root.position; const az = Math.atan2(B.x - A.position.x, B.z - A.position.z), dl = Math.atan2(Math.sin(az - A.rotation.y), Math.cos(az - A.rotation.y)); baseA = -Math.sign(dl || 1) * 38; } }
     let ang = (baseA || 0) * D2R + (ons.length === 1 && c.relative !== false ? (actors[ons[0]] ? actors[ons[0]].root.rotation.y : PROPS[ons[0]].yaw0) : 0);
@@ -749,7 +758,7 @@ function camPose(c, t, dur) {
       cam.position.set(ctr.x + Math.sin(ang) * dist, ctr.y + camH, ctr.z + Math.cos(ang) * dist).addScaledVector(side, lx);
       cam.lookAt(ctr.x + (mv === 'pan' ? side.x * lx * 0.2 : 0), ctr.y + lerp(F[2] * sc + (c.look_y || 0), 0, rv), ctr.z + (mv === 'pan' ? side.z * lx * 0.2 : 0));
     }
-    focus = ctr.clone().setY(ctr.y + 2.7 * sc); if (cam.position.y < 14) unblock(focus);
+    focus = ctr.clone().setY(ctr.y + 2.7 * sc); unblock(focus, t, cam.position.y >= 14); // always tracked, so crossing the 14 m line can't snap
     if (c.type !== 'ots') cam.lookAt(ctr.x, ctr.y + lerp((c.type === 'low' ? 3.2 : F[2]) * sc + (c.look_y || 0), 0, rv), ctr.z);
     if (rv) cam.fov = c.fov || 40;
   }
@@ -809,7 +818,7 @@ function makePost(w, h) {
         float hl = smoothstep(.72,1.,L); col += vec3(1.,.45,.2)*hl*.06*tone; // warm halation on bright edges
         vec2 lp = vec2(.15+.6*sin(time*.23+seed), 1.05); float lk = exp(-3.2*length((vUv-lp)*vec2(1.,.75))); // slow drifting light leak
         col += vec3(1.,.55,.25)*lk*.32*leak*(.65+.35*sin(time*.7+seed*3.));
-        col *= 1.+ (h(vec2(floor(time*24.),seed))-.5)*.03*leak; // gentle film flicker
+        col *= 1.+ (sin(time*31.+seed)*.5+sin(time*19.7+seed*2.)*.3+sin(time*47.3)*.2)*.012*leak; // gentle film flicker (smooth, so it never steps out of cadence with 60 fps)
         col = mix(col, vec3(.07,.06,.09)+col*.93, .55*tone); // filmic faded blacks
         vec2 q=vUv-.5; col *= 1.-vig*smoothstep(.25,.85,length(q*vec2(1.,1.2)));
         col += (h(vUv*res+fract(time*7.31)*100.)-.5)*grain; col *= 1.-scan*.07*step(.5,fract(vUv.y*res.y*.25)); col = mix(col, vec3(1.), flash);
@@ -1054,6 +1063,7 @@ function ridePos(spec, t) {
 
 // ---------- api ----------
 window.ENGINE = {
+  camState() { return [cam.position.toArray(), cam.quaternion.toArray(), cam.fov]; }, // camera pose, for pacing tests
   init(w, h, opts = {}) {
     R = new THREE.WebGLRenderer({ antialias: false, preserveDrawingBuffer: true }); R.setPixelRatio(1); R.setSize(w, h);
     HQ = !!opts.hq; R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFShadowMap; SHADOW = opts.shadow || (HQ ? 4096 : 2048); R.toneMapping = THREE.NoToneMapping; document.body.appendChild(R.domElement);
@@ -1061,7 +1071,7 @@ window.ENGINE = {
   },
   setup(s, chars, seed) {
     if (scene) { const ms = new Set(); scene.traverse(o => { if (o.geometry && o.geometry !== HEADGEO && o.geometry !== CAPGEO) o.geometry.dispose(); if (o.material) [].concat(o.material).forEach(m => ms.add(m)); }); ms.forEach(m => m.dispose()); Object.values(TEXS).forEach(t => t.dispose()); }
-    scene = new THREE.Scene(); shot = s; SEED = seed || 1; TC = s._start || 0; actors = {}; npcs = []; cars = []; MATS = {}; TEXS = {};
+    scene = new THREE.Scene(); shot = s; UB = null; SEED = seed || 1; TC = s._start || 0; actors = {}; npcs = []; cars = []; MATS = {}; TEXS = {};
     while (cam.children.length) cam.remove(cam.children[0]); scene.add(cam); if ((s.cam || {}).foreground) foreground(s.cam.foreground);
     if (s.cam) { delete s.cam._curve; delete s.cam._anchor; delete s.cam._sm; }
     const c0 = (s.cast || [])[0]; const cp = c0 ? pathPts(c0)[0] : new THREE.Vector3(); CENTER.copy(cp).setY(0);
@@ -1080,10 +1090,10 @@ window.ENGINE = {
   },
   frame(t, dur, amps) { this.draw(t, dur, amps); return R.domElement.toDataURL('image/jpeg', 0.9); },
   draw(t, dur, amps) {
+    if (!shot._occl) { shot._occl = 1; hideBlockers(dur); } // first: it scrubs actors/camera through the whole shot, so frame 0 must be placed after it
     stepPhys(t);
     (shot.cast || []).forEach(c => { const a = actors[c.id]; if (a) placeActor(a, c, t, dur); });
     (shot.cast || []).forEach(c => actors[c.id] && actorPose(actors[c.id], c, t, dur, (amps || {})[c.id] || 0));
-    if (!shot._occl) { shot._occl = 1; hideBlockers(dur); }
     stepNpcs(t);
     const fd = camPose(shot.cam || {}, t, dur); cam.updateMatrixWorld();
     LABELS.forEach(l => { const on = shown(l.anchor); l.sp.visible = on; if (!on) return; l.anchor.getWorldPosition(l.sp.position); l.anchor.getWorldScale(_ws); minScreen(l.sp, l.w, l.h, l.frac); l.sp.scale.multiplyScalar(_ws.x); });
@@ -1108,7 +1118,7 @@ function hideBlockers(dur) {
     clutter.forEach((l, j) => { const lp = l.position, dx = lp.x - cp.x, dz = lp.z - cp.z, fh = Math.hypot(fwd.x, fwd.z) || 1, al = (dx * fwd.x + dz * fwd.z) / fh, pe = Math.abs(dx * fwd.z - dz * fwd.x) / fh;
       if (al > 0 && al < fd - 1.5 && pe < Math.max(1.2, al * 0.38 * Math.tan((cam.fov || 40) * D2R / 2) * 2)) hideL.add(j); });
   }
-  c._sm = null; c._anchor = null; npcs.forEach((n, j) => { n.a.root.visible = !hide.has(j); }); clutter.forEach((l, j) => { l.visible = !hideL.has(j) && !(shot.gather && l.userData.kind === 'bench'); }); stepPhys(0);
+  c._sm = null; c._anchor = null; UB = null; npcs.forEach((n, j) => { n.a.root.visible = !hide.has(j); }); clutter.forEach((l, j) => { l.visible = !hideL.has(j) && !(shot.gather && l.userData.kind === 'bench'); }); stepPhys(0);
 }
 function bake() {
   scene.updateMatrixWorld(true); const groups = new Map(), drop = [];
