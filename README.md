@@ -52,6 +52,68 @@ Needs Python packages `kokoro-onnx soundfile playwright numpy`, ffmpeg, Node 18+
   the frame), and NPC tags that still collide are hidden. Still check `stills.jpg` when a shot has 2+ bubbles.
 - **Names:** multicultural casts are encouraged (e.g. Mr. Singh, Ling Ling, Priya, Mateo, Chief Tremblay).
 
+## Movement, voice and world detail (added for Nine Hundred)
+
+### Movement: every character moves in their own way
+
+- **`gait`** on a character (or on one cast entry, for one shot): `plain`, `bouncy`, `stride`, `glide`, `shuffle`, `swagger`,
+  `tiptoe`, `march`, `heavy`, `skip`, `sneak`, `hobble`. An object overrides single values, e.g. `{"bob": 0.2, "out": 0.3}`.
+  Each gait sets cadence, leg and arm swing, how far the arms are held out, rise per step, hip sway and roll, shoulder
+  counter-twist, lean, foot lift and head nod. Every character also gets a small personal variation from their id, and
+  extras each get a gait of their own, so no two people walk alike.
+- **Mood sets posture.** `expr` now also shapes the body: `sad`/`cry` slump and slow down, `happy`/`grin` lift the chest
+  and bounce, `determined`/`angry` widen the stance, `smug`/`bored` put the weight on one hip, `worried` fidgets.
+- **Always-on life:** weight settles on one leg and shifts, eyes wander and hold, the chest breathes. Walks lean into
+  speeding up, bank into curves, and the arms and head settle a beat after the feet stop.
+- **Gestures follow the voice:** while a character speaks, hand beats scale with how loud each syllable is.
+- **New `act` values:** `laugh`, `nod`, `shake`, `hug`, `clap`, `sigh`, `stumble`, `shiver`, `spin` (`spins`, `spin_dur`),
+  `look_up`, `pick` (bend and pick something up), `hope` (hands clasped), `coin` (flip a coin and catch it; `rate`).
+- The rig has a waist joint (`chest`), so shoulders turn against the hips.
+- All of it is a pure function of time: any frame can be drawn on its own, so stills match the final video.
+
+### Voice: clarity first
+
+- The narration of the previous video was measured by transcribing it with a speech recogniser (`check_speech.py`):
+  **18.7 % of words misheard at 4.9 words/s**. Nine Hundred measures **0.3 % at 3.4 words/s**.
+- What the tests showed (same script, Kokoro voices, Whisper as the listener):
+  - **Speed is the cliff.** Up to `speed` 1.3 the error stays at 0-4 %; at 1.375 it jumps to 9-27 % for every voice.
+    The default is now **1.25**. Do not go above 1.3.
+  - **Pitch-shifting a voice more than doubles the errors** (`am_puck` 5 % -> 13 %). Pick a voice that already sounds
+    right and leave `pitch` out.
+  - The full-precision model is slightly cleaner than the 8-bit one; it is now the default (`"tts_model": "int8"` goes back).
+  - Clearest male narrators: `bm_george` (0 % up to 1.25, and the most robust in noise), then `am_michael` (1.3 %).
+    Clear character voices: `am_liam`, `am_echo`, `am_michael`, `af_heart`, `af_sarah`, `am_adam`.
+- A character can have its own `speed` (dialogue a little slower than narration reads well).
+- The mix is built for speech: rumble filtered out, a little presence added, light compression, effects duck under the
+  voice, and the whole mix is set to -15 LUFS.
+- **`python check_speech.py STORY.json WORKDIR`** lists every line a recogniser mishears. Reword or slow those lines.
+- The `brand` header is gone: it only covered the picture.
+
+### The town square (`plaza`, `square`, `townsquare`)
+
+- Four streets leave the square and run out of sight between rows of shops, with pavements, lamps, trees, parked cars
+  and people walking them.
+- Eighteen market stalls (fruit, flowers, bread, balloons, toys, lemonade, books, vegetables, honey, hats) with a keeper
+  behind each, an ice-cream cart, cafe tables under parasols, planters, benches, flower beds with trees at the corners,
+  bunting between the lamps, a tiered fountain with falling water, a clock tower, and a `MARKET DAY` banner over two
+  street mouths (`set_text` changes the words).
+- Paved ring and paths give the cobbles structure. The middle stays clear for the story; extras keep off the stalls.
+- Default crowd is 70.
+
+### Sky and ground, on every outdoor set
+
+- Cloud banks at several heights drift slowly, and flocks of birds cross behind the action (`"birds": n` per shot,
+  default 6; `"sky": false` turns both off). Pigeons peck about in the square and the park.
+- Lawns get grass tufts, clumps of flowers, pebbles and fallen leaves; pavements get leaves, scraps of paper and the odd
+  can (`"dress": false` turns it off).
+
+### Fixes found on the way
+
+- A camera placed relative to where someone faces was scanned for blockers from the wrong side; extras standing in
+  front of the lens are now hidden in those shots too.
+- Park: no trees in the strip where cameras stand.
+- `--stills --only a-b` renders stills for some shots; `STORY3D_DEBUG=1` prints what stands near the lens.
+
 ## Added for Bored to Death (ages over heads)
 
 - **`wrinkles: true`** on a character draws forehead lines, crow's feet and smile lines (an aged face).
