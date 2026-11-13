@@ -112,6 +112,8 @@ Needs Python packages `kokoro-onnx soundfile playwright numpy`, ffmpeg, Node 18+
 - A camera placed relative to where someone faces was scanned for blockers from the wrong side; extras standing in
   front of the lens are now hidden in those shots too.
 - Park: no trees in the strip where cameras stand.
+- On-screen cards (`hud` labels) never touch: a later card drops below the one above with a gap, measured at its settled
+  size so the stack does not shift while a card pops in. (They used to overlap by a border's width and flicker in motion.)
 - `--stills --only a-b` renders stills for some shots; `STORY3D_DEBUG=1` prints what stands near the lens.
 
 ## Added for Bored to Death (ages over heads)

@@ -1127,7 +1127,8 @@ const _dv = new THREE.Vector3(), _cu = new THREE.Vector3(), _ws2 = new THREE.Vec
 function declutter() {
   const th = Math.tan(cam.fov * D2R / 2), items = [], placed = [], m = 0.012;
   cam.updateMatrixWorld(); _cu.set(0, 1, 0).applyQuaternion(cam.quaternion);
-  LABELS.forEach(l => { if (l.sp.visible) items.push({ sp: l.sp, pri: l.anchor.parent === cam || (l.anchor.parent && l.anchor.parent.parent === cam) ? 0 : 2, over: true }); });
+  LABELS.forEach(l => { const hud = l.anchor.parent === cam;
+    if (l.sp.visible) items.push({ sp: l.sp, pri: hud || (l.anchor.parent && l.anchor.parent.parent === cam) ? 0 : 2, over: true, hud: hud ? l.anchor : null, L: l }); });
   Object.values(actors).forEach(a => { if (a.tag && a.tag.visible) { a.tag.position.y = 3.85; items.push({ sp: a.tag, pri: 1, base: a }); } });
   npcs.forEach(n => { const t = n.tg || (n.a.root.children.find(c => c.isSprite)); if (t && t.visible && n.a.root.visible) { t.position.y = 3.85; items.push({ sp: t, pri: 3 }); } });
   items.sort((x, y) => x.pri - y.pri);
@@ -1135,8 +1136,10 @@ function declutter() {
     for (let k = 0; k < 10; k++) {
       it.sp.updateMatrixWorld(); it.sp.getWorldPosition(_dv); const d = Math.max(_dv.distanceTo(cam.position), 0.1); it.sp.getWorldScale(_ws2); _dv.project(cam);
       if (_dv.z > 1) { break; }
+      if (it.hud) _ws2.multiplyScalar(1 / Math.max(it.hud.scale.x, 0.05)); // an on-screen card is measured at its settled size, so the stack does not move while one pops in
       const hh = _ws2.y / 2 / (th * d), hw = _ws2.x / 2 / (th * d * cam.aspect), r = { x0: _dv.x - hw, x1: _dv.x + hw, y0: _dv.y - hh, y1: _dv.y + hh };
       const hit = placed.find(q => r.x0 < q.x1 + m && r.x1 > q.x0 - m && r.y0 < q.y1 + m && r.y1 > q.y0 - m);
+      if (hit && it.hud && k < 9) { it.sp.position.addScaledVector(_cu, (hit.y0 - 0.022 - r.y1) * th * d); continue; } // two on-screen cards never touch: the later one drops below, with a gap
       if (!hit || it.pri === 0) { placed.push(r); break; }
       if (it.pri === 3 || k === 9) { it.sp.visible = false; break; }
       const up = hit.y1 + m - r.y0 + 0.004, down = hit.y0 - m - r.y1 - 0.004, dyN = r.y1 + up < 0.94 ? up : down, dyW = dyN * th * d; // move up just enough to clear (down if that would leave the frame)
