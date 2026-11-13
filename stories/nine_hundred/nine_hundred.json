@@ -1,6 +1,6 @@
 {
  "title": "Nine Hundred",
- "narrator_voice": "bm_george",
+ "narrator_voice": "am_michael",
  "speed": 1.25,
  "captions": {
   "style": "word"
@@ -65,7 +65,7 @@
    "pants_style": "pants",
    "pants": "#334155",
    "shoes": "#1b1b1b",
-   "voice": "am_michael",
+   "voice": "bm_george",
    "speed": 1.1,
    "scale": 1.1,
    "gait": "stride"
@@ -435,7 +435,8 @@
    ],
    "lines": [
     {
-     "text": "Mateo did not spend it slowly."
+     "text": "Mateo did not spend it slowly.",
+     "speed": 1.12
     }
    ]
   },

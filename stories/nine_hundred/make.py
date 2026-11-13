@@ -10,7 +10,7 @@ CH = {
  "mama": {"skin": "#b97a4f", "hair": "bun", "hair_color": "#1b1410", "shirt_style": "jacket", "shirt": "#e2725b", "shirt2": "#fff4e0", "pants_style": "pants", "pants": "#3b4252", "shoes": "#6b4a2f", "eyes": "round", "voice": "af_heart", "speed": 1.08, "scale": 1.08, "gait": "glide"},
  # the kid with luck to burn
  "kai": {"skin": "#f1c79f", "hair": "spiky", "hair_color": "#c9a24a", "shirt_style": "jersey", "shirt": "#d94b3d", "number": 9, "pants_style": "sweats", "pants": "#1f2937", "shoes": "#f5f5f5", "voice": "am_echo", "speed": 1.15, "scale": 0.98, "gait": "swagger"},
- "doctor": {"skin": "#e9b98f", "hair": "side", "hair_color": "#6b6b6b", "glasses": True, "shirt_style": "jacket", "shirt": "#f8fafc", "shirt2": "#93c5fd", "pants_style": "pants", "pants": "#334155", "shoes": "#1b1b1b", "voice": "am_michael", "speed": 1.1, "scale": 1.1, "gait": "stride"},
+ "doctor": {"skin": "#e9b98f", "hair": "side", "hair_color": "#6b6b6b", "glasses": True, "shirt_style": "jacket", "shirt": "#f8fafc", "shirt2": "#93c5fd", "pants_style": "pants", "pants": "#334155", "shoes": "#1b1b1b", "voice": "bm_george", "speed": 1.1, "scale": 1.1, "gait": "stride"},
  # two passers-by who show the rule
  "ines": {"skin": "#d79e72", "hair": "long", "hair_color": "#3a2618", "shirt_style": "stripes", "shirt": "#7d4fb3", "shirt2": "#ffffff", "pants_style": "jeans", "pants": "#3f5f8f", "shoes": "#f2f2f2", "eyes": "round", "scale": 1.04, "gait": "stride"},
  "abuelo": {"skin": "#d79e72", "hair": "short", "hair_color": "#ecebe6", "brow_color": "#cfcec8", "wrinkles": True, "glasses": True, "shirt_style": "button", "shirt": "#8aa37b", "pants_style": "pants", "pants": "#5b5246", "shoes": "#3b2a1c", "scale": 1.04, "gait": "shuffle"},
@@ -49,7 +49,7 @@ shots = [
  # 3 Mateo did not
  {"set": "plaza", "crowd": 50, "cast": [{"id": "mateo", "pos": [-17.2, 2.4], "face": 95, "act": "spin", "spin_dur": 1.0, "expr": "grin", "tag": "LUCK 1,000", "tag_color": GOLD}],
   "cam": {"type": "full", "on": "mateo", "move": "push", "angle": 12}, "sfx": [{"type": "swoosh_long", "at": 0.05, "db": -12}],
-  "lines": [N("Mateo did not spend it slowly.")]},
+  "lines": [{**N("Mateo did not spend it slowly."), "speed": 1.12}]},
  # 3a tests
  {"set": "classroom", "cast": [{"id": "mateo", "pos": [0.6, 0.2], "face": 8, "act": "think", "expr": "smug", "tag": LK(1000, 742, 0.1, 0.8), "tag_color": GOLD}],
   "cam": {"type": "medium", "zoom": 1.25, "on": "mateo", "move": "push", "angle": 18},
@@ -163,6 +163,6 @@ shots = [
   "cam": {"type": "medium", "on": ["mateo", "mama"], "move": "reveal", "reveal_dist": 50, "reveal_height": 34, "spin": 35}, "sfx": [{"type": "riser", "at": 0.3, "db": -12}],
   "lines": [N("In this world, everyone is born with a thousand luck. The luckiest ones are the people somebody spent theirs on.")]},
 ]
-story = {"title": "Nine Hundred", "narrator_voice": "bm_george", "speed": 1.25, "captions": {"style": "word"}, "post": {"look": "golden"}, "characters": CH, "shots": shots}
+story = {"title": "Nine Hundred", "narrator_voice": "am_michael", "speed": 1.25, "captions": {"style": "word"}, "post": {"look": "golden"}, "characters": CH, "shots": shots}
 json.dump(story, open(os.path.join(HERE, "nine_hundred.json"), "w"), indent=1, ensure_ascii=False)
 print(len(shots), "shots")
